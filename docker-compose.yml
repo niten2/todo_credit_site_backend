@@ -7,4 +7,3 @@ services:
       - 27017:27017
     volumes:
       - ./etc/mongo:/data/db
-
