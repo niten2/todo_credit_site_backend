@@ -1,14 +1,11 @@
-// import app from './config/app'
+import app from "./config/app"
+import settings from "./config/settings"
 
-// // const port = process.env.PORT || 3000
-// const port =  3000
+app.listen(settings.port, (err: string) => {
+  if (err) {
+    return console.log(err)
+  }
 
-// app.listen(port, (err) => {
-//   if (err) {
-//     return console.log(err)
-//   }
+  return console.log(`server is listening on ${settings.port}`)
+})
 
-//   return console.log(`server is listening on ${port}`)
-// })
-
-console.log(222)
