@@ -1,14 +1,8 @@
-import * as dotenv from 'dotenv'
+import * as dotenv from "dotenv"
 
-const getPath = () => {
-  if (process.env.NODE_ENV == "test") {
-    return `.env.${process.env.NODE_ENV}`
-  } else {
-    return ".env"
-  }
-}
+const path = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : ".env"
 
-dotenv.config({ path: getPath() })
+dotenv.config({ path })
 
 export default {
   env: process.env.NODE_ENV,
@@ -21,7 +15,6 @@ export default {
   isEnvDev: process.env.NODE_ENV == "development",
   isEnvTest: process.env.NODE_ENV == "test",
   isEnvProd: process.env.NODE_ENV == "production",
-
 
   salt_password: process.env.SALT_PASSWORD,
 

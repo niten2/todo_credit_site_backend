@@ -2,17 +2,17 @@
     "rules": {
         "class-name": true,
         "comment-format": [
-            true,
-            "check-space"
+          true,
+          "check-space"
         ],
         "indent": [
-            true,
-            "spaces"
+          true,
+          "spaces"
         ],
         "one-line": [
-            true,
-            "check-open-brace",
-            "check-whitespace"
+          true,
+          "check-open-brace",
+          "check-whitespace"
         ],
         "no-var-keyword": true,
         "quotemark": [

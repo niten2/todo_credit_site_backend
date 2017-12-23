@@ -1,11 +1,4 @@
-import app from "./config/app"
-import settings from "./config/settings"
+import * as express from "express"
+import { listen } from "./config/app"
 
-app.listen(settings.port, (err: string) => {
-  if (err) {
-    return console.log(err)
-  }
-
-  return console.log(`server is listening on ${settings.port}`)
-})
-
+listen(express())

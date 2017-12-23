@@ -1,30 +1,24 @@
-import * as express from "express"
-import initRoutes from "./routes"
+import initRoutes from "config/routes"
+import settings from "config/settings"
+import { connectDb } from "config/initialize/mongoose"
 import { Express } from "express"
-// import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
-// import { buildOptions } from '../app/graphql/config'
 
-console.log(process.env.NODE_PATH)
+export const initApp = async (app: Express) => {
+  initRoutes(app)
 
-class App {
-  public express: Express
+  // if (!settings.isEnvTest) {
+  //   logger.info(`App ${settings.name}, running on port ${settings.port}, NODE_ENV ${settings.env}`)
+  // }
+}
 
-  constructor () {
-    this.express = express()
-    this.mountRoutes()
-  }
-
-  private mountRoutes (): void {
-    const router = express.Router()
-
-
-    // this.express.use('/v1', graphqlExpress(buildOptions))
-    // this.express.use('/v1', graphiqlExpress({ endpointURL: '/graphql' }))
-    // initRoutes(router)
-
-
-    // this.express.use("/", router)
+export const listen = async (app: Express) => {
+  try {
+    await connectDb()
+    await initApp(app)
+    await app.listen(settings.port)
+  } catch (err) {
+    // logger.error(err.message)
+    console.log(err.message)
   }
 }
 
-export default new App().express

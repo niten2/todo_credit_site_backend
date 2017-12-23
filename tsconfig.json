@@ -10,11 +10,13 @@
     "paths": {
       "*": [
         "node_modules/*",
-        "src/types/*"
+        "src/types/*",
+        "src/*",
+        "spec*"
       ]
     }
   },
   "include": [
-      "src/**/*"
+    "src/**/*"
   ]
 }
