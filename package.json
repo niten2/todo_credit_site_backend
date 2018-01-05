@@ -1,45 +1,22 @@
 {
   "name": "credit-site",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "description",
-  "author": "",
-  "license": "*",
+  "author": "niten2",
+  "license": "MIT",
   "scripts": {
     "start": "npm run build && npm run watch",
     "build": "npm run build-ts && npm run lint",
     "dev": "npm run build && npm run watch-debug",
     "serve": "NODE_PATH=dist/ nodemon dist/index.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve\"",
-    "tests": "jest --forceExit",
-    "test": "jest",
+    "tests": "jest --forceExit --config=.jest.js",
+    "test": "jest --watch --config=.jest.js",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "serve-debug": "NODE_PATH=dist/ nodemon --inspect dist/index.js",
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""
-  },
-  "jest": {
-    "globals": {
-      "ts-jest": {
-        "tsConfigFile": "tsconfig.json"
-      }
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "spec",
-      "src"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
-    },
-    "testMatch": [
-      "**/spec/**/*.spec.(ts|js)"
-    ],
-    "testEnvironment": "node"
   },
   "dependencies": {
     "apollo-server-express": "^1.3.2",
@@ -98,7 +75,6 @@
     "ts-jest": "^22.0.0",
     "ts-loader": "^3.2.0",
     "tslint": "^5.8.0",
-    "typescript": "^2.7.0-dev.20171223",
-    "webpack": "^3.10.0"
+    "typescript": "^2.7.0-dev.20171223"
   }
 }
