@@ -11,16 +11,11 @@ export default {
   port: process.env.PORT || 3000,
   dbUrl: process.env.DB_URL,
   jwt_secret_key: process.env.JWT_SECRET_KEY,
+  salt_password: process.env.SALT_PASSWORD,
 
   isEnvDev: process.env.NODE_ENV == "development",
   isEnvTest: process.env.NODE_ENV == "test",
   isEnvProd: process.env.NODE_ENV == "production",
 
-  salt_password: process.env.SALT_PASSWORD,
-
-  google: {
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  },
 
 }

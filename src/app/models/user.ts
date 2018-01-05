@@ -8,9 +8,6 @@ export type UserModel = mongoose.Document & {
   passwordResetToken: string,
   passwordResetExpires: Date,
 
-  facebook: string,
-  tokens: AuthToken[],
-
   profile: {
     name: string,
     gender: string,
@@ -20,15 +17,14 @@ export type UserModel = mongoose.Document & {
   },
 
   comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void,
-  gravatar: (size: number) => string
-};
+}
 
 export type AuthToken = {
   accessToken: string,
   kind: string
-};
+}
 
-const userSchema = new mongoose.Schema({
+const schema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
   passwordResetToken: String,
@@ -49,7 +45,7 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 
-userSchema.pre("save", function save(next) {
+schema.pre("save", function save(next) {
   const user = this
 
   if (!user.isModified("password")) { return next(); }
@@ -64,24 +60,12 @@ userSchema.pre("save", function save(next) {
   })
 })
 
-userSchema.methods.comparePassword = function (candidatePassword: string, cb: (err: any, isMatch: any) => {}) {
+schema.methods.comparePassword = function (candidatePassword: string, cb: (err: any, isMatch: any) => {}) {
   bcrypt.compare(candidatePassword, this.password, (err: mongoose.Error, isMatch: boolean) => {
     cb(err, isMatch)
   })
 }
 
-userSchema.methods.gravatar = function (size: number) {
-  if (!size) {
-    size = 200;
-  }
-  if (!this.email) {
-    return `https://gravatar.com/avatar/?s=${size}&d=retro`
-  }
-  const md5 = crypto.createHash("md5").update(this.email).digest("hex")
-  return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`
-}
-
-// const User: UserType = mongoose.model<UserType>('User', userSchema);
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", schema)
 
 export default User
