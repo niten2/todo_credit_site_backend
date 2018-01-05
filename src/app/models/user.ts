@@ -2,33 +2,41 @@ import * as mongoose from "mongoose"
 import * as bcrypt from "bcrypt-nodejs"
 import * as crypto from "crypto"
 
-export type UserModel = mongoose.Document & {
-  email: string,
-  password: string,
-  passwordResetToken: string,
-  passwordResetExpires: Date,
+// export type UserModel = mongoose.Document & {
 
-  profile: {
-    name: string,
-    gender: string,
-    location: string,
-    website: string,
-    picture: string
-  },
+//   name: string,
+//   email: string,
+//   password: string,
+//   // passwordResetToken: string,
+//   // passwordResetExpires: Date,
 
-  comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void,
-}
+//   // profile: {
+//   //   name: string,
+//   //   gender: string,
+//   //   location: string,
+//   //   website: string,
+//   //   picture: string
+//   // },
 
-export type AuthToken = {
-  accessToken: string,
-  kind: string
-}
+//   // comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void,
+// }
+
+// export type AuthToken = {
+//   accessToken: string,
+//   kind: string
+// }
 
 const schema = new mongoose.Schema({
+
+  name: {
+    type: String,
+  },
+
   email: {
     type: String,
     unique: true
   },
+
   password: String,
   passwordResetToken: String,
 

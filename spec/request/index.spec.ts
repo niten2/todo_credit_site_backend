@@ -5,7 +5,7 @@ import request from 'support/request'
 describe("GET /", () => {
   it("should return 200", async () => {
 
-    console.log(app)
+    // console.log(app)
 
 
     // let res = await request("/", { unauth: true, app })
