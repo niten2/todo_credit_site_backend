@@ -17,5 +17,4 @@ export default {
   isEnvTest: process.env.NODE_ENV == "test",
   isEnvProd: process.env.NODE_ENV == "production",
 
-
 }

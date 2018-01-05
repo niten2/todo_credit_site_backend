@@ -1,19 +1,16 @@
 import settings from "config/settings"
-
 // import * as intel from "intel"
 
-let logger
+const createLogger = () => {
 
-if (!settings.isEnvTest) {
-  const intel = require("intel")
-  logger = intel
-}
-
-if (settings.isEnvTest) {
-  logger = {
-    info: () => {},
-    error: () => {},
+  if (settings.isEnvTest) {
+    return {
+      info: () => {},
+      error: () => {},
+    }
   }
+
+  return require("intel")
 }
 
-export default logger
+export default createLogger()

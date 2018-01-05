@@ -1,7 +1,7 @@
-import { Status, Client } from "api/models"
+// import { Status, Client } from "api/models"
 
 const Query = {
-  users: async (root, args) => {
+  users: async (root: any, args: any) => {
     // const clients = await Client.findAll({
     //   include: {
     //     model: Status,
@@ -12,27 +12,27 @@ const Query = {
     // return clients
   },
 
-  user: async (root, args) => {
-    const client = await Client.findById(args.id)
-    return client
+  user: async (root: any, args: any) => {
+    // const client = await Client.findById(args.id)
+    // return client
   },
 
 }
 
 const Mutation = {
 
-  createUser: async (root, args) => {
+  createUser: async (root: any, args: any) => {
     // const client = await Client.create(args.input)
     // return client
   },
 
-  updateUser: async (root, args) => {
+  updateUser: async (root: any, args: any) => {
     // const client = await Client.findById(args.id)
     // await client.update(args.input)
     // return client
   },
 
-  deleteUser: async (_, args) => {
+  deleteUser: async (_: any, args: any) => {
     // await Client.destroy({
     //   where: {
     //     id: args.input.id
@@ -43,4 +43,4 @@ const Mutation = {
 
 }
 
-export const resolvers = { Query, Mutation }
+export default { Query, Mutation }

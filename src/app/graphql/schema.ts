@@ -1,5 +1,5 @@
 import { makeExecutableSchema } from 'graphql-tools'
-import { resolvers } from './resolvers'
+import resolvers from './resolvers'
 
 const query = `
   type Query {
@@ -10,9 +10,9 @@ const query = `
 
 const mutation = `
   type Mutation {
-    createUser(input: UserInput!): Client
-    updateUser(id: ID!, input: UserInput!): Client
-    deleteUser(input: IdInput!): Client
+    createUser(input: UserInput!): User
+    updateUser(id: ID!, input: UserInput!): User
+    deleteUser(input: IdInput!): User
   }
 `
 
@@ -43,4 +43,5 @@ const inputs = `
 `
 
 const typeDefs = query + mutation + models + inputs
+
 export default makeExecutableSchema({ typeDefs, resolvers })
