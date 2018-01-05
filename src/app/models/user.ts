@@ -25,30 +25,23 @@ export type AuthToken = {
 }
 
 const schema = new mongoose.Schema({
-  email: { type: String, unique: true },
+  email: {
+    type: String,
+    unique: true
+  },
   password: String,
   passwordResetToken: String,
-  passwordResetExpires: Date,
 
-  facebook: String,
-  twitter: String,
-  google: String,
-  tokens: Array,
-
-  profile: {
-    name: String,
-    gender: String,
-    location: String,
-    website: String,
-    picture: String
-  }
-}, { timestamps: true });
-
+}, {
+  timestamps: true
+})
 
 schema.pre("save", function save(next) {
   const user = this
 
-  if (!user.isModified("password")) { return next(); }
+  if (!user.isModified("password")) {
+    return next()
+  }
 
   bcrypt.genSalt(10, (err, salt) => {
     if (err) { return next(err); }
@@ -66,6 +59,4 @@ schema.methods.comparePassword = function (candidatePassword: string, cb: (err: 
   })
 }
 
-const User = mongoose.model("User", schema)
-
-export default User
+export default mongoose.model("User", schema)
