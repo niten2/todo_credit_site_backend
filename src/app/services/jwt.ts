@@ -18,12 +18,7 @@ export const createJwt = (user: any) => {
   )
 }
 
-export const verifyJwt = (token: any, cb?: any) => {
-  return jsonwebtoken.verify(
-    token,
-    settings.jwt_secret_key,
-    {},
-    cb
-  )
+export const verifyJwt = (token: any) => {
+  return jsonwebtoken.verify(token, settings.jwt_secret_key, {})
 }
 

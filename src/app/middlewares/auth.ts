@@ -19,7 +19,7 @@ export default (req: any, res: any, next: any) => {
     req.payload = payload
     // req.user_id = payload.user_id
     next()
-  } catch (err){
+  } catch (err) {
     return next(err)
   }
 
