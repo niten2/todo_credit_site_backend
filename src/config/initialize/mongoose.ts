@@ -8,9 +8,7 @@ import { ConnectionOptions } from "mongoose"
 settings.isEnvTest ? undefined : mongoose.set("debug", true)
 
 export const connectDb = async () => {
-  const options: ConnectionOptions = { useMongoClient: true }
-
-  await mongoose.connect(settings.dbUrl, options)
+  await mongoose.connect(settings.dbUrl)
 }
 
 export const dropDb = async () => {

@@ -1,21 +1,20 @@
 import * as request from "supertest"
-// import request from "supertest"
-// import { createJwt } from "app/services/jwt"
+import { createJwt } from "app/services/jwt"
 
 export default async (url, options) => {
-  let { app, params, method, unauth, user } = options || {}
+  let { params, method, unauth, user } = options || {}
   let authorization = ""
 
   method = method || "get"
 
-  // if (!unauth && !user) {
-  //   const user = await factory.create("user")
-  //   authorization = `Bearer ${createJwt(user)}`
-  // }
+  if (!unauth && !user) {
+    const user = await factory.create("user")
+    authorization = `Bearer ${createJwt(user)}`
+  }
 
-  // if (user) {
-  //   authorization = `Bearer ${createJwt(user)}`
-  // }
+  if (user) {
+    authorization = `Bearer ${createJwt(user)}`
+  }
 
   switch(method) {
     case "get":

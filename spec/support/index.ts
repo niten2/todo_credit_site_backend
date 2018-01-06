@@ -1,44 +1,19 @@
-import {} from "jest"
+import { } from "jest"
 import mongoose, { User, connectDb, dropDb, closeDb } from "config/initialize/mongoose"
 import * as express from 'express'
 import { initApp } from "config/app"
-// import request from './request'
+import factory from "factory"
+import request from "support/request"
+import customExpect from "./custom_expect"
 
-// export let app: any
+customExpect()
 
-// import * as request from "supertest"
+global.factory = factory
 
-// import sinon from 'sinon'
-// import settings from 'config/settings'
-// import { createJwt } from "app/services/jwt"
-
-// import factory from "spec/factory"
-// import nock from 'nock'
-
-// import timekeeper from 'timekeeper'
-
-// chai.use(chaiSubset)
-
-// global.mongoose = mongoose
-
-// global.User = User
-
-// global.expect = chai.expect
-// global.sinon = sinon
-// global.nock = nock
-// const app = express()
-
-// global.connectDb = connectDb
-// global.initApp = async () => await initApp(express())
-// global.dropDb = dropDb
-// global.closeDb = closeDb
-// global.factory = factory
-// global.timekeeper = timekeeper
-
-// let app
-
+global.app = express()
+global.request = request
 
 beforeAll(async () => { await connectDb() })
-beforeAll(async () => { await initApp(express()) })
+beforeAll(async () => { await initApp(app) })
 beforeEach(async () => { await dropDb() })
 afterAll(async () => { await closeDb() })
