@@ -4,12 +4,12 @@ import * as bodyParser from 'body-parser'
 import logger from "app/services/logger"
 import loggerMiddleware from './access_logger'
 
-export default (app) => {
+export default (app: any) => {
   app.use(cors())
 
   app.use(bodyParser.json())
 
-  app.use((req, res, next) => {
+  app.use((req: any, res: any, next: any) => {
     req.log = logger
     next()
   })

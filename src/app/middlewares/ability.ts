@@ -1,6 +1,7 @@
+import { User } from "config/initialize/mongoose"
 import { defineAbilitiesFor } from 'app/policy'
 
-export default async (req, res, next) => {
+export default async (req: any, res: any, next: any) => {
   if (!req.user_id) {
     req.ability = await defineAbilitiesFor()
     return next()

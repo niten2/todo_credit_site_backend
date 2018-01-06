@@ -1,6 +1,6 @@
 import settings from 'config/settings'
 
-const levelFn = (data) => {
+const levelFn = (data: any) => {
   if (data.err || data.status >= 500 || data.duration > 10000) {
     return 'error'
   } else if (data.status >= 400 || data.duration > 3000) {
@@ -9,54 +9,54 @@ const levelFn = (data) => {
   return 'info'
 }
 
-const logFinish = (data) => {
+const logFinish = (data: any) => {
   const time = (data.duration || 0).toFixed(3)
   const length = data.length || 0
   return `${data.method} ${data.url} ${data.status} ${time}ms ${length} b`
 }
 
-export default (params) => ([
-  (req, res, next) => {
-    if (!req.log || settings.isEnvTest) {
-      return next()
-    }
+export default (params?: any) => ([
+  (req: any, res: any, next: any) => {
+    // if (!req.log || settings.isEnvTest) {
+    //   return next()
+    // }
 
-    const data = {}
-    const log = req.log.child({
-      component: 'req',
-    })
+    // const data = {}
+    // const log = req.log.child({
+    //   component: 'req',
+    // })
 
-    data.reqId = req.reqId
+    // data.reqId = req.reqId
 
-    if (req.ws) {
-      data.method = 'WS'
-    } else {
-      data.method = req.method
-    }
+    // if (req.ws) {
+    //   data.method = 'WS'
+    // } else {
+    //   data.method = req.method
+    // }
 
-    data.url = (req.baseUrl || '') + (req.url || '-')
-    data.referer = req.header('referer') || req.header('referrer')
-    data.host = req.headers.host
-    data.ip = req.ip ||
-      req.connection.remoteAddress ||
-      (req.socket && req.socket.remoteAddress) ||
-      (req.socket.socket && req.socket.socket.remoteAddress) ||
-      '127.0.0.1'
+    // data.url = (req.baseUrl || '') + (req.url || '-')
+    // data.referer = req.header('referer') || req.header('referrer')
+    // data.host = req.headers.host
+    // data.ip = req.ip ||
+    //   req.connection.remoteAddress ||
+    //   (req.socket && req.socket.remoteAddress) ||
+    //   (req.socket.socket && req.socket.socket.remoteAddress) ||
+    //   '127.0.0.1'
 
-    const hrtime = process.hrtime()
+    // const hrtime = process.hrtime()
 
-    function logging() {
-      data.status = res.statusCode
-      data.length = res.getHeader('Content-Length')
+    // function logging() {
+    //   data.status = res.statusCode
+    //   data.length = res.getHeader('Content-Length')
 
-      const diff = process.hrtime(hrtime)
-      data.duration = diff[0] * 1e3 + diff[1] * 1e-6
+    //   const diff = process.hrtime(hrtime)
+    //   data.duration = diff[0] * 1e3 + diff[1] * 1e-6
 
-      log[levelFn(data)](logFinish(data))
-      log.debug("REQ BODY", req.body)
-    }
+    //   log[levelFn(data)](logFinish(data))
+    //   log.debug("REQ BODY", req.body)
+    // }
 
-    res.on('finish', logging)
-    next()
+    // res.on('finish', logging)
+    // next()
   }
 ])

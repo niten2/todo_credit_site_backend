@@ -1,6 +1,6 @@
 import { verifyJwt } from 'app/services/jwt'
 
-export default (req, res, next) => {
+export default (req: any, res: any, next: any) => {
 
   if (!req.header('Authorization') || !req.header('authorization')) {
     return next(new Error("token not found"))
@@ -14,10 +14,10 @@ export default (req, res, next) => {
   }
 
   try {
-    const payload = verifyJwt(token)
+    const payload: any = verifyJwt(token)
 
     req.payload = payload
-    req.user_id = payload.user_id
+    // req.user_id = payload.user_id
     next()
   } catch (err){
     return next(err)

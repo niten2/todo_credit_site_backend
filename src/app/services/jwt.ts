@@ -1,7 +1,7 @@
 import * as jsonwebtoken from 'jsonwebtoken'
 import settings from 'config/settings'
 
-export const createJwt = (user) => {
+export const createJwt = (user: any) => {
   if (!settings.jwt_secret_key) {
     throw new Error('Jwt Secret Key should be present')
   }
@@ -18,7 +18,7 @@ export const createJwt = (user) => {
   )
 }
 
-export const verifyJwt = (token, cb) => {
+export const verifyJwt = (token: any, cb?: any) => {
   return jsonwebtoken.verify(
     token,
     settings.jwt_secret_key,
@@ -26,3 +26,4 @@ export const verifyJwt = (token, cb) => {
     cb
   )
 }
+
