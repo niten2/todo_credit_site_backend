@@ -24,6 +24,4 @@ module.exports = {
   "notify": false,
   "clearMocks": false,
   "verbose": false,
-  // "watch": true,
-  // "globalSetup": "./spec/support/index.ts",
 }

@@ -1,5 +1,4 @@
 import { User } from "config/initialize/mongoose"
-import factory from "factory"
 
 describe("attributes", () => {
   it("should have attributes", async () => {

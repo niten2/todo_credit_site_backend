@@ -1,9 +1,8 @@
 import settings from 'config/settings'
-import cors from 'cors'
-import bodyParser from 'body-parser'
+import * as cors from 'cors'
+import * as bodyParser from 'body-parser'
 import logger from "app/services/logger"
 import loggerMiddleware from './access_logger'
-import passport from './passport'
 
 export default (app) => {
   app.use(cors())
@@ -16,5 +15,4 @@ export default (app) => {
   })
 
   app.use(loggerMiddleware())
-  app.use(passport.initialize())
 }
