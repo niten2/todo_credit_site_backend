@@ -1,4 +1,3 @@
-import settings from 'config/settings'
 import * as cors from 'cors'
 import * as bodyParser from 'body-parser'
 import logger from "app/services/logger"
@@ -14,5 +13,5 @@ export default (app: any) => {
     next()
   })
 
-  app.use(loggerMiddleware())
+  app.use(loggerMiddleware)
 }

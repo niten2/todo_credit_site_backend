@@ -20,10 +20,7 @@ const models = `
   type User {
     id: ID
     name: String
-    territory: String
-    phone: String
-    login: String
-    password: String
+    email: String
   }
 `
 

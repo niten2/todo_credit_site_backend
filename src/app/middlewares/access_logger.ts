@@ -1,5 +1,17 @@
 import settings from 'config/settings'
 
+// interface Data {
+//   reqId: string
+//   method: string
+//   url: string
+//   referer: string
+//   host: string
+//   ip: string
+//   status: string
+//   length: string
+//   duration: number
+// }
+
 const levelFn = (data: any) => {
   if (data.err || data.status >= 500 || data.duration > 10000) {
     return 'error'
@@ -9,19 +21,23 @@ const levelFn = (data: any) => {
   return 'info'
 }
 
-const logFinish = (data: any) => {
+const logFinish = (data: Data) => {
   const time = (data.duration || 0).toFixed(3)
   const length = data.length || 0
   return `${data.method} ${data.url} ${data.status} ${time}ms ${length} b`
 }
 
-export default (params?: any) => ([
-  (req: any, res: any, next: any) => {
-    // if (!req.log || settings.isEnvTest) {
-    //   return next()
+export default (req: any, res: any, next: any) => {
+
+    if (!req.log || settings.isEnvTest) {
+      return next()
+    }
+
+    // let data Data
+    // let data = {
+    //   reqId: "",
     // }
 
-    // const data = {}
     // const log = req.log.child({
     //   component: 'req',
     // })
@@ -52,11 +68,10 @@ export default (params?: any) => ([
     //   const diff = process.hrtime(hrtime)
     //   data.duration = diff[0] * 1e3 + diff[1] * 1e-6
 
-    //   log[levelFn(data)](logFinish(data))
+    //   // log[levelFn(data)](logFinish(data))
     //   log.debug("REQ BODY", req.body)
     // }
 
     // res.on('finish', logging)
-    // next()
-  }
-])
+    return next()
+}

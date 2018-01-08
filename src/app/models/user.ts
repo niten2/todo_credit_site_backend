@@ -3,7 +3,6 @@ import * as bcrypt from "bcrypt-nodejs"
 import * as crypto from "crypto"
 
 // export type UserModel = mongoose.Document & {
-
 //   name: string,
 //   email: string,
 //   password: string,
@@ -17,7 +16,6 @@ import * as crypto from "crypto"
 //   //   website: string,
 //   //   picture: string
 //   // },
-
 //   // comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void,
 // }
 
