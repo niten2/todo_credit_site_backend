@@ -1,15 +1,17 @@
-// import { Status, Client } from "api/models"
+import { User } from "app/models"
 
 const Query = {
   users: async (root: any, args: any) => {
-    // const clients = await Client.findAll({
+    const users = await User.find()
+
     //   include: {
     //     model: Status,
     //   },
     //   offset: args.pagination && args.pagination.offset,
     //   limit: args.pagination && args.pagination.limit,
     // })
-    // return clients
+
+    return users
   },
 
   user: async (root: any, args: any) => {
