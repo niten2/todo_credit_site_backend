@@ -2,6 +2,7 @@ import { User } from "app/models"
 
 const Query = {
   users: async (root: any, args: any) => {
+    console.log(1111)
     const users = await User.find()
 
     //   include: {
