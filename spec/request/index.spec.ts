@@ -7,7 +7,7 @@ describe("GET /", () => {
 
     expect(res.body).toEqual({
       name: 'credit_site',
-      current_version: '/v2'
+      current_version: '/v1'
     })
 
   })
