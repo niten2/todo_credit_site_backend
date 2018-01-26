@@ -5,7 +5,14 @@ describe("attributes", () => {
     let user = await factory.create('user')
     let currentUser = await User.findById(user.id)
 
-    // expect(currentUser.name).toBe(user.name)
-    expect(currentUser.email).toBe(user.email)
+    expect(currentUser).toEqual(
+      expect.objectContaining({
+        _id: expect.any(Object),
+        name: user.name,
+        email: user.email,
+        createdAt: expect.any(Date),
+        updatedAt: expect.any(Date),
+      }),
+    )
   })
 })

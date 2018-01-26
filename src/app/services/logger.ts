@@ -3,13 +3,6 @@ import settings from "config/settings"
 
 const createLogger = () => {
 
-  if (settings.isEnvTest) {
-    return {
-      info: () => {},
-      error: () => {},
-    }
-  }
-
   return require("intel")
 }
 

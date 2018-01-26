@@ -6,7 +6,7 @@ export default (req: any, res: any, next: any) => {
     return next(new Error("token not found"))
   }
 
-  const parts = req.header('Authorization').split(' ');
+  const parts = req.header('Authorization').split(' ')
   const token = parts[1]
 
   if (!token) {

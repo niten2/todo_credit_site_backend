@@ -2,22 +2,13 @@ import { User } from "app/models"
 
 const Query = {
   users: async (root: any, args: any) => {
-    console.log(1111)
     const users = await User.find()
-
-    //   include: {
-    //     model: Status,
-    //   },
-    //   offset: args.pagination && args.pagination.offset,
-    //   limit: args.pagination && args.pagination.limit,
-    // })
-
     return users
   },
 
   user: async (root: any, args: any) => {
-    // const client = await Client.findById(args.id)
-    // return client
+    const user = await User.findById(args.id)
+    return user
   },
 
 }
@@ -25,8 +16,10 @@ const Query = {
 const Mutation = {
 
   createUser: async (root: any, args: any) => {
-    // const client = await Client.create(args.input)
-    // return client
+    // console.log(111111, args.input)
+    // return {}
+    const client = await User.create(args.input)
+    return client
   },
 
   updateUser: async (root: any, args: any) => {

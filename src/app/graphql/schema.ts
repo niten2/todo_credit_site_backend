@@ -4,7 +4,7 @@ import resolvers from './resolvers'
 const query = `
   type Query {
     users: [User]
-    user: User
+    user(id: String): User
   }
 `
 
@@ -26,11 +26,9 @@ const models = `
 
 const inputs = `
   input UserInput {
-    name: String
-    territory: String
-    phone: String
-    login: String
-    password: String
+    name: String!
+    email: String!
+    password: String!
   }
 
   input IdInput {
