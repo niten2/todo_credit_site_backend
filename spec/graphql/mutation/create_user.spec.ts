@@ -9,7 +9,7 @@ describe("valid params given", () => {
     user = await factory.build('user', { password })
 
     const query = `
-      mutation createUser($input: UserInput!) {
+      mutation createUser($input: UserCreateInput!) {
         createUser(input: $input) {
           name
           email
@@ -53,7 +53,7 @@ describe("wrong params given", () => {
 
   it('should return error', async () => {
     const query = `
-      mutation createUser($input: UserInput!) {
+      mutation createUser($input: UserCreateInput!) {
         createUser(input: $input) {
           name
           email

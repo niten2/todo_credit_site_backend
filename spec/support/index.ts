@@ -11,8 +11,8 @@ import matchers from "support/matchers"
 customExpect()
 
 global.factory = factory
-
 global.app = express()
+
 global.request = request
 global.execGraphql = execGraphql
 global.matchers = matchers
