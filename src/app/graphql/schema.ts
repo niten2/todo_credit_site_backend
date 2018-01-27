@@ -10,8 +10,8 @@ const query = `
 
 const mutation = `
   type Mutation {
-    createUser(input: UserInput!): User
-    updateUser(id: ID!, input: UserInput!): User
+    createUser(input: UserCreateInput!): User
+    updateUser(input: UserUpdateInput!): User
     deleteUser(input: IdInput!): User
   }
 `
@@ -25,10 +25,17 @@ const models = `
 `
 
 const inputs = `
-  input UserInput {
+  input UserCreateInput {
     name: String!
     email: String!
     password: String!
+  }
+
+  input UserUpdateInput {
+    id: ID
+    name: String
+    email: String
+    password: String
   }
 
   input IdInput {

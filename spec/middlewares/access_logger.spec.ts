@@ -2,9 +2,10 @@
 // import logger from "app/services/logger"
 // import loggerMiddleware from "app/middlewares/access_logger"
 
-// describe(__filename, () => {
+describe("", () => {
 
-//   it("should not throw", async () => {
+  it("should not throw", async () => {
+
 //     let req = {
 //       log: logger,
 //     }
@@ -13,6 +14,6 @@
 
 //     loggerMiddleware(req, res, next)
 
-//   })
+  })
 
-// })
+})
