@@ -8,7 +8,7 @@ export type UserType = mongoose.Document & {
   password: string,
   passwordResetToken: string,
 
-  comparePassword: (candidatePassword: string) => boolean,
+  comparePassword: (candidatePassword: string) => Promise<boolean>,
 
   createdAt: string,
   updatedAt: string,
@@ -38,7 +38,7 @@ schema.pre('save', async function(next) {
   return next()
 })
 
-schema.methods.comparePassword = async function(candidatePassword: string): boolean {
+schema.methods.comparePassword = async function(candidatePassword: string): Promise<boolean> {
   return await bcrypt.compare(candidatePassword, this.password)
 }
 

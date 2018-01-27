@@ -1,18 +1,18 @@
 import settings from 'config/settings'
 
-// interface Data {
-//   reqId: string
-//   method: string
-//   url: string
-//   referer: string
-//   host: string
-//   ip: string
-//   status: string
-//   length: string
-//   duration: number
-// }
+interface Data {
+  reqId: string
+  method: string
+  url: string
+  referer: string
+  host: string
+  ip: string
+  status: string
+  length: string
+  duration: number
+}
 
-const levelFn = (data: any) => {
+const levelFn = (data: any): string => {
   if (data.err || data.status >= 500 || data.duration > 10000) {
     return 'error'
   } else if (data.status >= 400 || data.duration > 3000) {
