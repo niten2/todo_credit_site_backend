@@ -1,16 +1,17 @@
 import settings from "config/settings"
-// import * as intel from "intel"
+import * as intel from "intel"
 
-const createLogger = () => {
-
+const buildLogger = (): any => {
   if (settings.isEnvTest) {
     return {
-      info: () => {},
-      error: () => {},
+      info: (context: string): void => {},
+      error: (context: string): void => {},
     }
   }
 
-  return require("intel")
+  return intel
 }
 
-export default createLogger()
+const logger = buildLogger()
+
+export default logger

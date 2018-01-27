@@ -1,5 +1,4 @@
 export default () => {
-
   expect.extend({
     toBeType(received, argument) {
       const initialType = typeof received
@@ -13,5 +12,4 @@ export default () => {
       }
     }
   })
-
 }

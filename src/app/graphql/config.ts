@@ -8,9 +8,9 @@ export default (req: Request, res: Response) => {
       message: err.message,
       status: err.status
     }),
-    context: {
+    // context: {
       // payload: req.payload,
-      body: req.body,
-    },
+      // body: req.body,
+    // },
   }
 }

@@ -4,14 +4,14 @@ import resolvers from './resolvers'
 const query = `
   type Query {
     users: [User]
-    user: User
+    user(id: String): User
   }
 `
 
 const mutation = `
   type Mutation {
-    createUser(input: UserInput!): User
-    updateUser(id: ID!, input: UserInput!): User
+    createUser(input: UserCreateInput!): User
+    updateUser(input: UserUpdateInput!): User
     deleteUser(input: IdInput!): User
   }
 `
@@ -20,19 +20,21 @@ const models = `
   type User {
     id: ID
     name: String
-    territory: String
-    phone: String
-    login: String
-    password: String
+    email: String
   }
 `
 
 const inputs = `
-  input UserInput {
+  input UserCreateInput {
+    name: String!
+    email: String!
+    password: String!
+  }
+
+  input UserUpdateInput {
+    id: ID
     name: String
-    territory: String
-    phone: String
-    login: String
+    email: String
     password: String
   }
 

@@ -1,20 +1,14 @@
-// import { Status, Client } from "api/models"
+import { User } from "app/models"
 
 const Query = {
   users: async (root: any, args: any) => {
-    // const clients = await Client.findAll({
-    //   include: {
-    //     model: Status,
-    //   },
-    //   offset: args.pagination && args.pagination.offset,
-    //   limit: args.pagination && args.pagination.limit,
-    // })
-    // return clients
+    const users = await User.find()
+    return users
   },
 
   user: async (root: any, args: any) => {
-    // const client = await Client.findById(args.id)
-    // return client
+    const user = await User.findById(args.id)
+    return user
   },
 
 }
@@ -22,24 +16,26 @@ const Query = {
 const Mutation = {
 
   createUser: async (root: any, args: any) => {
-    // const client = await Client.create(args.input)
-    // return client
+    const client = await User.create(args.input)
+
+    return client
   },
 
   updateUser: async (root: any, args: any) => {
-    // const client = await Client.findById(args.id)
-    // await client.update(args.input)
-    // return client
+    const user = await User.findById(args.input.id)
+    await user.set(args.input)
+    await user.save()
+
+    return user
   },
 
   deleteUser: async (_: any, args: any) => {
-    // await Client.destroy({
-    //   where: {
-    //     id: args.input.id
-    //   }
-    // })
-  },
+    const user = await User.findById(args.input.id)
+    await user.remove()
+    return user
 
+    // const user = await User.findByIdAndRemove(args.input.id)
+  },
 
 }
 

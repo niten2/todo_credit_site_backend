@@ -1,30 +1,18 @@
 import * as mongoose from "mongoose"
-import * as bcrypt from "bcrypt-nodejs"
+import * as bcrypt from "bcrypt"
 import * as crypto from "crypto"
 
-// export type UserModel = mongoose.Document & {
+export type UserType = mongoose.Document & {
+  name: string,
+  email: string,
+  password: string,
+  passwordResetToken: string,
 
-//   name: string,
-//   email: string,
-//   password: string,
-//   // passwordResetToken: string,
-//   // passwordResetExpires: Date,
+  comparePassword: (candidatePassword: string) => Promise<boolean>,
 
-//   // profile: {
-//   //   name: string,
-//   //   gender: string,
-//   //   location: string,
-//   //   website: string,
-//   //   picture: string
-//   // },
-
-//   // comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void,
-// }
-
-// export type AuthToken = {
-//   accessToken: string,
-//   kind: string
-// }
+  createdAt: string,
+  updatedAt: string,
+}
 
 const schema = new mongoose.Schema({
 
@@ -44,27 +32,14 @@ const schema = new mongoose.Schema({
   timestamps: true
 })
 
-schema.pre("save", function save(next) {
-  const user = this
-
-  if (!user.isModified("password")) {
-    return next()
-  }
-
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) { return next(err); }
-    bcrypt.hash(user.password, salt, undefined, (err: mongoose.Error, hash) => {
-      if (err) { return next(err); }
-      user.password = hash;
-      next()
-    })
-  })
+schema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next()
+  this.password = await bcrypt.hash(this.password, 10)
+  return next()
 })
 
-schema.methods.comparePassword = function (candidatePassword: string, cb: (err: any, isMatch: any) => {}) {
-  bcrypt.compare(candidatePassword, this.password, (err: mongoose.Error, isMatch: boolean) => {
-    cb(err, isMatch)
-  })
+schema.methods.comparePassword = async function(candidatePassword: string): Promise<boolean> {
+  return await bcrypt.compare(candidatePassword, this.password)
 }
 
-export default mongoose.model("User", schema)
+export default mongoose.model<UserType>('User', schema)
