@@ -5,10 +5,10 @@ import { initApp } from "config/app"
 import factory from "factory"
 import request from "support/request"
 import execGraphql from "support/exec_grapql"
-import customExpect from "support/custom_expect"
+import addCustomExpect from "support/custom_expect"
 import matchers from "support/matchers"
 
-customExpect()
+addCustomExpect()
 
 global.factory = factory
 global.app = express()

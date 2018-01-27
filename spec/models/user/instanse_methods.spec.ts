@@ -15,5 +15,4 @@ describe("comparePassword", () => {
 
     expect(await user.comparePassword(other_string)).toBeFalsy()
   })
-
 })

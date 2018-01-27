@@ -7,6 +7,16 @@ export default {
     })
   },
 
+  user_db: (user: any): any => {
+    return expect.objectContaining({
+      _id: expect.any(Object),
+      name: user.name,
+      email: user.email,
+      createdAt: expect.any(Date),
+      updatedAt: expect.any(Date),
+    })
+  },
+
   errors_json: (): any => {
     return expect.objectContaining({
       message: expect.any(String),
