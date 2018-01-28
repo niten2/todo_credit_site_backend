@@ -5,7 +5,9 @@ import { ConnectionOptions } from "mongoose"
 
 (<any>mongoose).Promise = Promise
 
-settings.isEnvTest ? undefined : mongoose.set("debug", true)
+if (!settings.isEnvTest) {
+  mongoose.set("debug", true)
+}
 
 export const connectDb = async () => {
   await mongoose.connect(settings.dbUrl)

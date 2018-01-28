@@ -1,4 +1,5 @@
 import { User } from "app/models"
+import { createJwt } from "app/services/jwt"
 
 const Query = {
   users: async (root: any, args: any) => {
@@ -30,11 +31,34 @@ const Mutation = {
   },
 
   deleteUser: async (_: any, args: any) => {
+    // const user = await User.findByIdAndRemove(args.input.id)
+
     const user = await User.findById(args.input.id)
     await user.remove()
-    return user
 
-    // const user = await User.findByIdAndRemove(args.input.id)
+    return user
+  },
+
+  createToken: async (_: any, args: any) => {
+    const { email, password } = args.input
+
+    const user = await User.findOne({ email: email })
+
+    if (!user) {
+      throw new Error("user not found"))
+    }
+
+    if (!await user.comparePassword(password)) {
+      throw new Error("wrong password"))
+    }
+
+    const value = await createJwt(user)
+
+    return {
+      id: user.id,
+      email: user.email,
+      value,
+    }
   },
 
 }
