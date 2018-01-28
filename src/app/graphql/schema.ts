@@ -13,6 +13,8 @@ const mutation = `
     createUser(input: UserCreateInput!): User
     updateUser(input: UserUpdateInput!): User
     deleteUser(input: IdInput!): User
+
+    createToken(input: TokenInput!): Token
   }
 `
 
@@ -21,6 +23,12 @@ const models = `
     id: ID
     name: String
     email: String
+  }
+
+  type Token {
+    id: ID!
+    email: String!
+    value: String!
   }
 `
 
@@ -42,6 +50,10 @@ const inputs = `
     id: ID!
   }
 
+  input TokenInput {
+    email: String!
+    password: String!
+  }
 `
 
 const typeDefs = query + mutation + models + inputs
