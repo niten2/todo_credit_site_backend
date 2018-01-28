@@ -12,6 +12,7 @@ export default {
       _id: expect.any(Object),
       name: user.name,
       email: user.email,
+      role: user.role,
       createdAt: expect.any(Date),
       updatedAt: expect.any(Date),
     })

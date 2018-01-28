@@ -7,6 +7,7 @@ export type UserType = mongoose.Document & {
   email: string,
   password: string,
   passwordResetToken: string,
+  role: string
 
   comparePassword: (candidatePassword: string) => Promise<boolean>,
 
@@ -20,6 +21,7 @@ const schema = new mongoose.Schema({
     type: String,
   },
 
+
   email: {
     type: String,
     unique: true
@@ -27,6 +29,12 @@ const schema = new mongoose.Schema({
 
   password: String,
   passwordResetToken: String,
+
+  role: {
+    type: String,
+    default: "manager",
+    enum: ["admin", "manager"],
+  },
 
 }, {
   timestamps: true

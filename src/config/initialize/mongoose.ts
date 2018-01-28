@@ -20,6 +20,7 @@ export const closeDb = async () => {
 }
 
 export const User = mongoose.model("User")
+export const Client = mongoose.model("Client")
 
 export default mongoose
 
