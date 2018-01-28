@@ -26,6 +26,8 @@ const schema = new mongoose.Schema({
 
   territory: {
     type: String,
+    default: "one",
+    enum: ["one", "two", "three"],
   },
 
 }, {

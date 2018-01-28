@@ -1,4 +1,4 @@
-import { User } from "config/initialize/mongoose"
+import { User, Client } from "config/initialize/mongoose"
 import Policy from 'app/policy'
 
 describe("admin", () => {
@@ -10,25 +10,33 @@ describe("admin", () => {
     ability = await Policy(user)
   })
 
-  it("should can create users", async () => {
-    const res = ability.can("create", User)
-    expect(res).toBeTruthy()
-  })
+  describe("User", () => {
+    it("should can create users", async () => {
+      const res = ability.can("create", User)
+      expect(res).toBeTruthy()
+    })
 
-  it("should can update users", async () => {
-    const res = ability.can("update", User)
-    expect(res).toBeTruthy()
-  })
+    it("should can update users", async () => {
+      const res = ability.can("update", User)
+      expect(res).toBeTruthy()
+    })
 
-  it("should can delete users", async () => {
-    const res = ability.can("delete", User)
-    expect(res).toBeTruthy()
-  })
+    it("should can delete users", async () => {
+      const res = ability.can("delete", User)
+      expect(res).toBeTruthy()
+    })
+  }
+
+  describe("Client", () => {
+    it("should cannot create client", async () => {
+      const res = ability.can("create", Client)
+      expect(res).toBeFalsy()
+    })
+
+    it("should can delete client", async () => {
+      const res = ability.can("delete", Client)
+      expect(res).toBeTruthy()
+    })
+  }
 
 })
-
-
-
-
-
-// expect(await user.comparePassword(other_string)).toBeFalsy()

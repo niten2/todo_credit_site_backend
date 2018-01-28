@@ -24,10 +24,10 @@ factory.define('userManager', User, {
 })
 
 factory.define('client', Client, {
-  name: faker.name.findName,
-  email: faker.internet.email,
-  password: faker.internet.password,
-  role: "admin",
+  full_name: faker.name.findName,
+  passport: faker.phone.phoneNumber,
+  phone: faker.phone.phoneNumber,
+  territory: "one",
 })
 
 export default factory

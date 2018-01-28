@@ -18,6 +18,20 @@ export default {
     })
   },
 
+  client_db: (client: any): any => {
+    return expect.objectContaining({
+      _id: expect.any(Object),
+
+      full_name: client.full_name,
+      passport: client.passport,
+      phone: client.phone,
+      territory: client.territory,
+
+      createdAt: expect.any(Date),
+      updatedAt: expect.any(Date),
+    })
+  },
+
   errors_json: (): any => {
     return expect.objectContaining({
       message: expect.any(String),

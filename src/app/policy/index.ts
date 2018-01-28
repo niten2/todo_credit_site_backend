@@ -1,4 +1,4 @@
-import { User } from "config/initialize/mongoose"
+import { User, Client } from "config/initialize/mongoose"
 import { AbilityBuilder, Ability } from "casl"
 
 export default async (user?: any) => {
@@ -7,15 +7,11 @@ export default async (user?: any) => {
   const role = user.role
 
   if (role == "manager") {
-    // can('read', "icoes", { approve: true, visibleUser: true,  visibleAdmin: true })
-    // can('read', "icoes", { user: user.id })
+    can('create', "Client")
+    can('update', "Client")
 
-
-    // can('delete', 'icoes', { user: user._id })
-
-    // can('read', "users", { _id: user.id })
-    // can('update', 'users', { _id: user.id, role: "user" })
-    // can('delete', 'users', { _id: user.id })
+    // TODO can update only created client
+    // can('update', 'Client', { _id: user.id, role: "user" })
   }
 
 
@@ -25,18 +21,7 @@ export default async (user?: any) => {
     can('update', 'User')
     can('delete', 'User')
 
-
-    // can('read', "icoes")
-    // can('create', 'icoes')
-    // can('update', 'icoes')
-    // can('delete', 'icoes')
-
-    // can('access', "icoVisibleAdmin")
-    // can('access', "updateOtherUsers")
-
-    // can('read', "users", { role: "user" })
-    // can('update', 'users', { _id: user.id })
-    // can('delete', 'users', { _id: user.id })
+    can('delete', 'Client')
   }
 
   return await new Ability(rules)

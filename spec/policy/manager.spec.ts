@@ -1,34 +1,25 @@
-// import { User } from "config/initialize/mongoose"
-// import { defineAbilitiesFor } from 'app/policy'
+import { User, Client } from "config/initialize/mongoose"
+import Policy from 'app/policy'
 
-// describe("admin", () => {
-//   let user
-//   let ability
+describe("manager", () => {
+  let user
+  let ability
 
-//   beforeAll(async () => {
-//     user = await factory.create('userAdmin')
-//     ability = await defineAbilitiesFor(user)
-//   })
+  beforeAll(async () => {
+    user = await factory.create('userManager')
+    ability = await Policy(user)
+  })
 
-//   it("should can create users", async () => {
+  it("should can create client", async () => {
+    const res = ability.can("create", Client)
 
-//     const res = ability.can("create", User)
+    expect(res).toBeTruthy()
+  })
 
-//     expect(res).toBeTruthy()
+  it("should can update client", async () => {
+    const res = ability.can("update", Client)
 
+    expect(res).toBeTruthy()
+  })
 
-//   })
-
-
-
-
-// })
-
-
-
-
-// // describe("manager", () => {
-
-// // })
-
-// // expect(await user.comparePassword(other_string)).toBeFalsy()
+})
