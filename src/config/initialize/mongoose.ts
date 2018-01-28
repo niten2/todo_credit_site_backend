@@ -9,18 +9,20 @@ if (!settings.isEnvTest) {
   mongoose.set("debug", true)
 }
 
-export const connectDb = async (): void => {
-  await mongoose.connect(settings.dbUrl)
+export const connectDb = async (): Promise<any> => {
+  return await mongoose.connect(settings.dbUrl)
 }
 
-export const dropDb = async (): void => {
-  if (mongoose.connection.db) {
-    await mongoose.connection.db.dropDatabase()
+export const dropDb = async (): Promise<any> => {
+  try {
+    return await mongoose.connection.db.dropDatabase()
+  } catch (err) {
+    console.log(err)
   }
 }
 
-export const closeDb = async (): void => {
-  await mongoose.connection.close
+export const closeDb = async (): Promise<any> => {
+  return await mongoose.connection.close
 }
 
 export const User = mongoose.model("User")
