@@ -12,7 +12,11 @@ export default {
       _id: expect.any(Object),
       name: user.name,
       email: user.email,
+      password: expect.any(String),
+
       role: user.role,
+      clients: expect.any(Array),
+
       createdAt: expect.any(Date),
       updatedAt: expect.any(Date),
     })
@@ -26,6 +30,8 @@ export default {
       passport: client.passport,
       phone: client.phone,
       territory: client.territory,
+      email: client.email,
+      user: client.user,
 
       createdAt: expect.any(Date),
       updatedAt: expect.any(Date),

@@ -1,7 +1,7 @@
 import { User, Client } from "config/initialize/mongoose"
 import { AbilityBuilder, Ability } from "casl"
 
-export default async (user?: any) => {
+export default async (user?: any): Promise<any> => {
   const { rules, can, cannot } = await AbilityBuilder.extract()
 
   const role = user.role

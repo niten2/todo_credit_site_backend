@@ -19,5 +19,5 @@ global.matchers = matchers
 
 beforeAll(async () => { await connectDb() })
 beforeAll(async () => { await initApp(app) })
-beforeEach(async () => { await dropDb() })
+beforeEach(async (done) => { await dropDb() })
 afterAll(async () => { await closeDb() })

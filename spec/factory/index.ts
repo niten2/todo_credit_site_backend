@@ -27,6 +27,8 @@ factory.define('client', Client, {
   full_name: faker.name.findName,
   passport: faker.phone.phoneNumber,
   phone: faker.phone.phoneNumber,
+  email: faker.internet.email,
+  user: factory.assoc('user', '_id'),
   territory: "one",
 })
 
