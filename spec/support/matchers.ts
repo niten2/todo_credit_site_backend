@@ -38,6 +38,13 @@ export default {
     })
   },
 
+  client_json: (client: any): any => {
+    return expect.objectContaining({
+      full_name: client.full_name,
+      email: client.email,
+    })
+  },
+
   errors_json: (): any => {
     return expect.objectContaining({
       message: expect.any(String),

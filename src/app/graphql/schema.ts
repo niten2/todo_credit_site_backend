@@ -64,7 +64,6 @@ const inputs = `
   }
 
   input ClientCreateInput {
-    id: ID
     full_name: String
     email: String
     passport: String

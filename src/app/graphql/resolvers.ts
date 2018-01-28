@@ -1,4 +1,4 @@
-import { User } from "app/models"
+import { User, Client } from "app/models"
 import { createJwt } from "app/services/jwt"
 
 const Query = {
@@ -10,6 +10,16 @@ const Query = {
   user: async (root: any, args: any) => {
     const user = await User.findById(args.id)
     return user
+  },
+
+  clients: async (root: any, args: any) => {
+    const clients = await Client.find()
+    return clients
+  },
+
+  client: async (root: any, args: any) => {
+    const client = await Client.findById(args.id)
+    return client
   },
 
 }
@@ -59,6 +69,26 @@ const Mutation = {
       email: user.email,
       value,
     }
+  },
+
+  createClient: async (root: any, args: any) => {
+    const client = await Client.create(args.input)
+
+    return client
+  },
+
+  updateClient: async (root: any, args: any) => {
+    const client = await Client.findById(args.input.id)
+    await client.set(args.input)
+    await client.save()
+
+    return client
+  },
+
+  deleteClient: async (_: any, args: any) => {
+    const client = await Client.findByIdAndRemove(args.input.id)
+
+    return client
   },
 
 }
