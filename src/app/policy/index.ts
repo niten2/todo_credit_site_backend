@@ -1,7 +1,28 @@
+import { User, Client } from "config/initialize/mongoose"
 import { AbilityBuilder, Ability } from "casl"
 
-export const defineAbilitiesFor = async (user?: any) => {
+export default async (user?: any): Promise<any> => {
   const { rules, can, cannot } = await AbilityBuilder.extract()
+
+  const role = user.role
+
+  if (role == "manager") {
+    can('create', "Client")
+    can('update', "Client")
+
+    // TODO can update only created client
+    // can('update', 'Client', { _id: user.id, role: "user" })
+  }
+
+
+  if (role == "admin") {
+
+    can('create', "User")
+    can('update', 'User')
+    can('delete', 'User')
+
+    can('delete', 'Client')
+  }
 
   return await new Ability(rules)
 }

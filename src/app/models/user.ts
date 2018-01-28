@@ -1,12 +1,14 @@
 import * as mongoose from "mongoose"
 import * as bcrypt from "bcrypt"
 import * as crypto from "crypto"
+import * as utils from "app/services/utils"
 
 export type UserType = mongoose.Document & {
   name: string,
   email: string,
   password: string,
   passwordResetToken: string,
+  role: string
 
   comparePassword: (candidatePassword: string) => Promise<boolean>,
 
@@ -22,11 +24,26 @@ const schema = new mongoose.Schema({
 
   email: {
     type: String,
-    unique: true
+    trim: true,
+    lowercase: true,
+    unique: true,
+    required: [true, 'Email address is required'],
+    validate: [utils.validateEmail, 'Please fill a valid email address'],
   },
 
   password: String,
   passwordResetToken: String,
+
+  role: {
+    type: String,
+    default: "manager",
+    enum: ["admin", "manager"],
+  },
+
+  clients: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Client'
+  }],
 
 }, {
   timestamps: true
