@@ -10,7 +10,7 @@
     "noImplicitAny": true,
     "noEmitOnError": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": false,
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",

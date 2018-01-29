@@ -8,7 +8,7 @@ export type UserType = mongoose.Document & {
   email: string,
   password: string,
   passwordResetToken: string,
-  role: string
+  role: string,
 
   comparePassword: (candidatePassword: string) => Promise<boolean>,
 
