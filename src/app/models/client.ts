@@ -19,14 +19,6 @@ const schema = new mongoose.Schema({
     type: String,
   },
 
-  passport: {
-    type: String,
-  },
-
-  phone: {
-    type: String,
-  },
-
   email: {
     type: String,
     trim: true,
@@ -34,6 +26,14 @@ const schema = new mongoose.Schema({
     unique: true,
     required: [true, 'Email address is required'],
     validate: [utils.validateEmail, 'Please fill a valid email address'],
+  },
+
+  passport: {
+    type: String,
+  },
+
+  phone: {
+    type: String,
   },
 
   territory: {
