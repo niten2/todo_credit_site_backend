@@ -17,6 +17,8 @@ global.request = request
 global.execGraphql = execGraphql
 global.matchers = matchers
 
+jest.setTimeout(10000)
+
 beforeAll(async () => { await connectDb() })
 beforeAll(async () => { await initApp(app) })
 beforeEach(async () => { await dropDb() })

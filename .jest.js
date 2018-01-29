@@ -24,4 +24,5 @@ module.exports = {
   "notify": false,
   "clearMocks": false,
   "verbose": false,
+  "timers": "fake",
 }
