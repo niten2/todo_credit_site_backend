@@ -1,5 +1,14 @@
 import { User } from "config/initialize/mongoose"
 
+const query = `
+  mutation createUser($input: UserCreateInput!) {
+    createUser(input: $input) {
+      name
+      email
+    }
+  }
+`
+
 describe("valid params given", () => {
   let res
   let user
@@ -8,14 +17,6 @@ describe("valid params given", () => {
   beforeEach(async () => {
     user = await factory.build('user', { password })
 
-    const query = `
-      mutation createUser($input: UserCreateInput!) {
-        createUser(input: $input) {
-          name
-          email
-        }
-      }
-    `
     const variableValues = {
       input: {
         name: user.name,
@@ -28,51 +29,25 @@ describe("valid params given", () => {
   })
 
   it('should return valid response', async () => {
-    expect(res.data.createUser).toEqual(
-      expect.objectContaining({
-        name: user.name,
-        email: user.email,
-      }),
-    )
+    expect(res.data.createUser).toEqual(matchers.user_json(user))
   })
 
   it('should create user', async () => {
     user = await User.findOne({ name: user.name })
 
-    expect(user).toEqual(
-      expect.objectContaining({
-        name: user.name,
-        email: user.email,
-      }),
-    )
+    expect(user).toEqual(matchers.user_db(user))
   })
 
 })
 
 describe("wrong params given", () => {
-
   it('should return error', async () => {
-    const query = `
-      mutation createUser($input: UserCreateInput!) {
-        createUser(input: $input) {
-          name
-          email
-        }
-      }
-    `
     const variableValues = {
       input: {}
     }
 
     const res = await execGraphql({ query, variableValues })
 
-    expect(res.errors[0]).toEqual(
-      expect.objectContaining({
-        message: expect.any(String),
-        locations: expect.any(Array),
-        path: undefined,
-      }),
-    )
+    expect(res.errors).toContainEqual(matchers.errors_json())
   })
-
 })

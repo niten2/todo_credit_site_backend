@@ -4,7 +4,10 @@ import resolvers from './resolvers'
 const query = `
   type Query {
     users: [User]
-    user(id: String): User
+    user(id: ID): User
+
+    clients(id: ID): [Client]
+    client(id: ID): Client
   }
 `
 
@@ -13,6 +16,10 @@ const mutation = `
     createUser(input: UserCreateInput!): User
     updateUser(input: UserUpdateInput!): User
     deleteUser(input: IdInput!): User
+
+    createClient(input: ClientCreateInput!): Client
+    updateClient(input: ClientUpdateInput!): Client
+    deleteClient(input: IdInput!): Client
 
     createToken(input: TokenInput!): Token
   }
@@ -23,6 +30,16 @@ const models = `
     id: ID
     name: String
     email: String
+  }
+
+  type Client {
+    id: ID
+    full_name: String
+    email: String
+    passport: String
+    phone: String
+    territory: String
+    user: String
   }
 
   type Token {
@@ -44,6 +61,25 @@ const inputs = `
     name: String
     email: String
     password: String
+  }
+
+  input ClientCreateInput {
+    full_name: String
+    email: String
+    passport: String
+    phone: String
+    territory: String
+    user: String
+  }
+
+  input ClientUpdateInput {
+    id: ID
+    full_name: String
+    email: String
+    passport: String
+    phone: String
+    territory: String
+    user: String
   }
 
   input IdInput {
