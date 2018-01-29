@@ -4,7 +4,21 @@ const path = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : ".env"
 
 dotenv.config({ path })
 
-export default {
+interface Settings {
+  readonly env: string
+  readonly name: string
+  readonly host: string
+  readonly port: string
+  readonly dbUrl: string
+  readonly jwt_secret_key: string
+  readonly salt_password: string
+
+  readonly isEnvDev: boolean
+  readonly isEnvTest: boolean
+  readonly isEnvProd: boolean
+}
+
+const settings: Settings = {
   env: process.env.NODE_ENV,
   name: process.env.APP_NAME,
   host: process.env.APP_HOST,
@@ -18,3 +32,5 @@ export default {
   isEnvTest: process.env.NODE_ENV == "test",
   isEnvProd: process.env.NODE_ENV == "production",
 }
+
+export default settings
