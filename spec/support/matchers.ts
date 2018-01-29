@@ -22,6 +22,13 @@ export default {
     })
   },
 
+  client_json: (client: any): any => {
+    return expect.objectContaining({
+      full_name: client.full_name,
+      email: client.email,
+    })
+  },
+
   client_db: (client: any): any => {
     return expect.objectContaining({
       _id: expect.any(Object),
@@ -35,13 +42,6 @@ export default {
 
       createdAt: expect.any(Date),
       updatedAt: expect.any(Date),
-    })
-  },
-
-  client_json: (client: any): any => {
-    return expect.objectContaining({
-      full_name: client.full_name,
-      email: client.email,
     })
   },
 
