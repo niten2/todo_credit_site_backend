@@ -1,6 +1,4 @@
 import * as mongoose from "mongoose"
-import * as bcrypt from "bcrypt"
-import * as crypto from "crypto"
 
 export type TerritoryType = mongoose.Document & {
   name: string,
