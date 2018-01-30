@@ -8,9 +8,12 @@ export type ClientType = mongoose.Document & {
   territory: string
   email: string
   mark_as_deleted: boolean
+  loans: [string]
 
   createdAt: string
   updatedAt: string
+
+  addLoan: (loan: any) => Promise<any>
 }
 
 const schema = new mongoose.Schema({
@@ -44,8 +47,25 @@ const schema = new mongoose.Schema({
     type: Boolean,
   },
 
+  loans: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Loan'
+  }],
+
 }, {
   timestamps: true
 })
+
+schema.methods.addLoan = async function(loan: any): Promise<any> {
+  if (!loan) throw new Error("loan not found")
+
+  await this.loans.addToSet(loan)
+  await this.save()
+
+  await loan.set({ client: this.id })
+  await loan.save()
+
+  return this
+}
 
 export default mongoose.model<ClientType>('Client', schema)

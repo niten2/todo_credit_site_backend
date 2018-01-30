@@ -93,7 +93,12 @@ const Mutation = {
   createLoan: async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('create', Loan)
 
-    return await Loan.create(args.input)
+    const client = await Client.findById(args.input.client)
+    const loan =  await Loan.create(args.input)
+
+    await client.addLoan(loan)
+
+    return loan
   },
 }
 

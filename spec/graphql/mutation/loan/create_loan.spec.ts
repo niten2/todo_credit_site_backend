@@ -1,4 +1,4 @@
-import { Loan } from "config/initialize/mongoose"
+import { Loan, Client } from "config/initialize/mongoose"
 
 const query = `
   mutation createLoan($input: LoanCreateInput!) {
@@ -17,7 +17,7 @@ describe("valid params given", () => {
 
     beforeEach(async () => {
       let user = await factory.create('userManager')
-      client = await factory.build('client')
+      client = await factory.create('client')
 
       const variableValues = {
         input: {
@@ -34,7 +34,7 @@ describe("valid params given", () => {
       expect(res.data.createLoan).toEqual(matchers.loan_json())
     })
 
-    it('should create user', async () => {
+    it('should create loan', async () => {
       loan = await Loan.findOne({ client: client.id })
 
       expect(loan).toEqual(expect.objectContaining({
@@ -45,6 +45,13 @@ describe("valid params given", () => {
         client: client._id,
       })
     })
+
+    it('client should add relation loan', async () => {
+      client = await Client.findById(client.id)
+
+      expect(client.loans[0]).toBeType("object")
+    })
+
   })
 })
 
