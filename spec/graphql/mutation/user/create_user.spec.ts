@@ -3,7 +3,7 @@ import { User } from "config/initialize/mongoose"
 const query = `
   mutation createUser($input: UserCreateInput!) {
     createUser(input: $input) {
-      name
+      full_name
       email
     }
   }
@@ -19,7 +19,7 @@ describe("valid params given", () => {
 
     const variableValues = {
       input: {
-        name: user.name,
+        full_name: user.full_name,
         email: user.email,
         password: password,
       }
@@ -33,7 +33,7 @@ describe("valid params given", () => {
   })
 
   it('should create user', async () => {
-    user = await User.findOne({ name: user.name })
+    user = await User.findOne({ full_name: user.full_name })
 
     expect(user).toEqual(matchers.user_db(user))
   })

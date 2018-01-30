@@ -1,20 +1,20 @@
 export default {
 
-  user_json: (user: any): any => {
+  user_json: (): any => {
     return expect.objectContaining({
-      name: user.name,
-      email: user.email,
+      full_name: expect.any(String),
+      email: expect.any(String),
     })
   },
 
-  user_db: (user: any): any => {
+  user_db: (): any => {
     return expect.objectContaining({
       _id: expect.any(Object),
-      name: user.name,
-      email: user.email,
+      full_name: expect.any(String),
+      email: expect.any(String),
       password: expect.any(String),
 
-      role: user.role,
+      role: expect.any(String),
       clients: expect.any(Array),
 
       createdAt: expect.any(Date),
@@ -24,21 +24,22 @@ export default {
 
   client_json: (client: any): any => {
     return expect.objectContaining({
-      full_name: client.full_name,
-      email: client.email,
+      full_name: expect.any(String),
+      email: expect.any(String),
     })
   },
 
-  client_db: (client: any): any => {
+  client_db: (): any => {
     return expect.objectContaining({
       _id: expect.any(Object),
 
-      full_name: client.full_name,
-      passport: client.passport,
-      phone: client.phone,
-      territory: client.territory,
-      email: client.email,
-      user: client.user,
+      full_name: expect.any(String),
+      email: expect.any(String),
+
+      passport: expect.any(String),
+      phone: expect.any(String),
+      territory: expect.any(String),
+      user: expect.any(Object),
 
       createdAt: expect.any(Date),
       updatedAt: expect.any(Date),
@@ -49,6 +50,15 @@ export default {
     return expect.objectContaining({
       message: expect.any(String),
       locations: expect.any(Array),
+    })
+  },
+
+  payload_json: (): any => {
+    return expect.objectContaining({
+      user_id: expect.any(String),
+      email: expect.any(String),
+      iat: expect.any(Number),
+      exp: expect.any(Number),
     })
   },
 

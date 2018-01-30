@@ -8,6 +8,10 @@ const create = async (): Promise<void> => {
     await factory.create('userAdmin', { password: "12345" })
     await factory.create('userManager', { password: "12345" })
 
+    await factory.create('territory', { rate: 0.5 })
+    await factory.create('territory', { rate: 1 })
+    await factory.create('territory', { rate: 1.5 })
+
     await closeDb()
 
     console.log("models created")

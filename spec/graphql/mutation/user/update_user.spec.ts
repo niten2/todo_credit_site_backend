@@ -1,25 +1,26 @@
 import { User } from "config/initialize/mongoose"
 
+const query = `
+  mutation updateUser($input: UserUpdateInput!) {
+    updateUser(input: $input) {
+      full_name
+      email
+    }
+  }
+`
+
 describe("valid params given", () => {
   let res
   let user
-  const new_name = "new_name"
+  const new_full_name = "new_full_name"
 
   beforeEach(async () => {
     user = await factory.create('user')
 
-    const query = `
-      mutation updateUser($input: UserUpdateInput!) {
-        updateUser(input: $input) {
-          name
-          email
-        }
-      }
-    `
     const variableValues = {
       input: {
         id: user.id,
-        name: new_name,
+        full_name: new_full_name,
       }
     }
 
@@ -29,7 +30,7 @@ describe("valid params given", () => {
   it('should return valid response', async () => {
     expect(res.data.updateUser).toEqual(
       expect.objectContaining({
-        name: new_name,
+        full_name: new_full_name,
         email: user.email,
       })
     )
@@ -40,7 +41,7 @@ describe("valid params given", () => {
 
     expect(res.data.updateUser).toEqual(
       expect.objectContaining({
-        name: new_name,
+        full_name: new_full_name,
         email: user.email,
       })
     )
@@ -49,18 +50,10 @@ describe("valid params given", () => {
 
 describe("wrong params given", () => {
   it('should return error', async () => {
-    const query = `
-      mutation updateUser($input: UserUpdateInput!) {
-        updateUser(input: $input) {
-          name
-          email
-        }
-      }
-    `
     const variableValues = {
       input: {
         id: "1234567"
-        name: "test"
+        full_name: "test"
       }
     }
 

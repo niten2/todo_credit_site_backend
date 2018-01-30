@@ -15,6 +15,7 @@ describe("valid params given", () => {
   const password = "password"
 
   beforeEach(async () => {
+    let user = await factory.create('userManager')
     client = await factory.build('client')
 
     const variableValues = {
@@ -24,7 +25,7 @@ describe("valid params given", () => {
       }
     }
 
-    res = await execGraphql({ query, variableValues })
+    res = await execGraphql({ query, variableValues, user })
   })
 
   it('should return valid response', async () => {
@@ -33,12 +34,35 @@ describe("valid params given", () => {
 
   it('should create user', async () => {
     client = await Client.findOne({ full_name: client.full_name })
-    expect(client).toEqual(matchers.client_db(client))
-  })
 
+    expect(client).toEqual(expect.objectContaining({
+      _id: expect.any(Object),
+
+      full_name: client.full_name,
+      email: client.email,
+    })
+  })
 })
 
 describe("wrong params given", () => {
+  it('manager should not create client', async () => {
+    let user = await factory.create('userAdmin')
+    let client = await factory.build('client')
+
+    const variableValues = {
+      input: {
+        full_name: client.full_name,
+        email: client.email,
+      }
+    }
+
+    let res = await execGraphql({ query, variableValues, user })
+
+    expect(res.errors).toContainEqual(expect.objectContaining({
+      message: 'Cannot execute "create" on "Client"',
+    })
+  })
+
   it('should return error', async () => {
     const variableValues = {
       input: {}

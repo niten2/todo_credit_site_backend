@@ -1,7 +1,7 @@
 const query = `
   query user($id: ID!) {
     user(id: $id) {
-      name
+      full_name
       email
     }
   }

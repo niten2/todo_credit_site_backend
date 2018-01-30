@@ -5,7 +5,7 @@ describe(__filename, () => {
   describe('createJwt', () => {
     it("should return string", async () => {
       let user = await factory.create('user')
-      let res = createJwt(user)
+      let res = await createJwt(user)
 
       expect(res).toBeType("string")
     })
@@ -15,20 +15,21 @@ describe(__filename, () => {
     it("should return payload", async () => {
       let user = await factory.create('user')
       let token = createJwt(user)
-      let res = verifyJwt(token)
+      let res = await verifyJwt(token)
 
-      expect(res).toEqual(
-        expect.objectContaining({
-          user_id: user.id,
-          email: user.email,
-          iat: expect.any(Number),
-          exp: expect.any(Number),
-        }),
-      )
+      expect(res).toEqual(matchers.payload_json())
     })
 
     it("should return error", async () => {
-      expect(() => verifyJwt("string")).toThrow("jwt malformed")
+      expect.assertions(1)
+      try {
+        await verifyJwt("string")
+      } catch (err) {
+        expect(err).toEqual({
+          name: "JsonWebTokenError",
+          message: "jwt malformed",
+        })
+      }
     })
   })
 
