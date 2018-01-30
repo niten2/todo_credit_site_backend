@@ -1,12 +1,6 @@
 import * as jsonwebtoken from 'jsonwebtoken'
 import settings from 'config/settings'
 
-// interface verifyJwtType {
-//   user_id: string
-//   email: string
-// }
-
-
 export const createJwt = (user: any): any => {
   if (!settings.jwt_secret_key) {
     throw new Error('Jwt Secret Key should be present')
@@ -24,11 +18,6 @@ export const createJwt = (user: any): any => {
   )
 }
 
-// export const verifyJwt = (token: string): verifyJwtType => {
-//   return jsonwebtoken.verify(token, settings.jwt_secret_key, {})
-// }
-
-
 export const verifyJwt = (token: string): Promise<any> => {
   return new Promise((resolve, reject) => {
     jsonwebtoken.verify(token, settings.jwt_secret_key, {}, (err, data) => {
@@ -39,12 +28,4 @@ export const verifyJwt = (token: string): Promise<any> => {
       resolve(data)
     })
   })
-
-   // getStuff(param,function(err,data){
-   //       });
-
-
-
-  // console.log()
-  // new Promise(jsonwebtoken.verify(token, settings.jwt_secret_key, {})
 }

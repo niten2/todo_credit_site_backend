@@ -32,10 +32,10 @@ factory.define('client', Client, {
   // territory: factory.assoc('territory', '_id'),
 })
 
-factory.define('territory', Territory, {
-  name: faker.address.country,
-  rate: faker.random.number,
-})
+// factory.define('territory', Territory, {
+//   name: faker.address.country,
+//   rate: faker.random.number,
+// })
 
 // factory.define('loan', Loan, {
 //   date_start: faker.date.soon,

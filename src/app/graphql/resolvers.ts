@@ -1,6 +1,5 @@
 import { User, Client } from "app/models"
 import { createJwt } from "app/services/jwt"
-import { Context } from "app/grapql/config"
 
 const Query = {
   users: async (root: any, args: any) => {
@@ -68,7 +67,7 @@ const Mutation = {
     }
   },
 
-  createClient: async (root: any, args: any, context: Context) => {
+  createClient: async (root: any, args: any, context: any) => {
     context.ability.throwUnlessCan('create', Client)
 
     return await Client.create(args.input)
