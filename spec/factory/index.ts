@@ -3,21 +3,21 @@ import { factory } from "factory-girl"
 import * as faker from "faker"
 
 factory.define('user', User, {
-  name: faker.name.findName,
+  full_name: faker.name.findName,
   email: faker.internet.email,
   password: faker.internet.password,
   role: "admin",
 })
 
 factory.define('userAdmin', User, {
-  name: faker.name.findName,
+  full_name: faker.name.findName,
   email: faker.internet.email,
   password: faker.internet.password,
   role: "admin",
 })
 
 factory.define('userManager', User, {
-  name: faker.name.findName,
+  full_name: faker.name.findName,
   email: faker.internet.email,
   password: faker.internet.password,
   role: "manager",

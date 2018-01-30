@@ -2,7 +2,7 @@ export default {
 
   user_json: (user: any): any => {
     return expect.objectContaining({
-      name: user.name,
+      full_name: user.full_name,
       email: user.email,
     })
   },
@@ -10,7 +10,7 @@ export default {
   user_db: (user: any): any => {
     return expect.objectContaining({
       _id: expect.any(Object),
-      name: user.name,
+      full_name: user.full_name,
       email: user.email,
       password: expect.any(String),
 

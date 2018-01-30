@@ -28,7 +28,7 @@ const mutation = `
 const models = `
   type User {
     id: ID
-    name: String
+    full_name: String
     email: String
   }
 
@@ -51,14 +51,14 @@ const models = `
 
 const inputs = `
   input UserCreateInput {
-    name: String!
+    full_name: String!
     email: String!
     password: String!
   }
 
   input UserUpdateInput {
     id: ID
-    name: String
+    full_name: String
     email: String
     password: String
   }

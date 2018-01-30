@@ -1,5 +1,14 @@
 import { User } from "config/initialize/mongoose"
 
+const query = `
+  mutation deleteUser($input: IdInput!) {
+    deleteUser(input: $input) {
+      full_name
+      email
+    }
+  }
+`
+
 describe("valid params given", () => {
   let res
   let user
@@ -8,14 +17,6 @@ describe("valid params given", () => {
   beforeEach(async () => {
     user = await factory.create('user', { password })
 
-    const query = `
-      mutation deleteUser($input: IdInput!) {
-        deleteUser(input: $input) {
-          name
-          email
-        }
-      }
-    `
     const variableValues = {
       input: {
         id: user.id,
@@ -38,14 +39,6 @@ describe("valid params given", () => {
 
 describe("wrong params given", () => {
   it('should return error', async () => {
-    const query = `
-      mutation deleteUser($input: IdInput!) {
-        deleteUser(input: $input) {
-          name
-          email
-        }
-      }
-    `
     const variableValues = {
       input: {
         id: "1234567"

@@ -1,7 +1,7 @@
 const query = `
   query {
     users {
-      name
+      full_name
       email
     }
   }

@@ -4,7 +4,7 @@ import * as crypto from "crypto"
 import { validateEmail } from "app/services/utils"
 
 export type UserType = mongoose.Document & {
-  name: string,
+  full_name: string,
   email: string,
   password: string,
   passwordResetToken: string,
@@ -18,7 +18,7 @@ export type UserType = mongoose.Document & {
 
 const schema = new mongoose.Schema({
 
-  name: {
+  full_name: {
     type: String,
   },
 
