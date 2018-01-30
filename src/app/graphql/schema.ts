@@ -21,15 +21,25 @@ const mutation = `
     updateClient(input: ClientUpdateInput!): Client
     deleteClient(input: IdInput!): Client
 
-    createToken(input: TokenInput!): Token
+    createToken(input: TokenCreateInput!): Token
+
+    createLoan(input: LoanCreateInput!): Loan
   }
 `
 
 const models = `
   type User {
     id: ID
-    full_name: String
+
+    full_name: String!
     email: String
+    login: String!
+    password: String!
+    role: String
+    phone: String!
+    territory: String!
+    createdAt: String
+    updatedAt: String
   }
 
   type Client {
@@ -40,6 +50,12 @@ const models = `
     phone: String
     territory: String
     user: String
+    mark_as_deleted: Boolean
+
+    loans: [Loan]
+
+    createdAt: String
+    updatedAt: String
   }
 
   type Token {
@@ -47,29 +63,54 @@ const models = `
     email: String!
     value: String!
   }
+
+  type Loan {
+    id: ID!
+    date_start: String!
+    date_end: String!
+    client: String!
+
+    createdAt: String
+    updatedAt: String
+  }
 `
 
 const inputs = `
+  input IdInput {
+    id: ID!
+  }
+
   input UserCreateInput {
     full_name: String!
-    email: String!
+    email: String
+    login: String!
     password: String!
+    role: String
+    phone: String!
+    territory: String!
+    createdAt: String
+    updatedAt: String
   }
 
   input UserUpdateInput {
     id: ID
     full_name: String
     email: String
+    login: String
     password: String
+    role: String
+    phone: String
+    territory: String
+    createdAt: String
+    updatedAt: String
   }
 
   input ClientCreateInput {
-    full_name: String
-    email: String
-    passport: String
-    phone: String
+    full_name: String!
+    passport: String!
+    phone: String!
     territory: String
-    user: String
+    email: String
   }
 
   input ClientUpdateInput {
@@ -82,13 +123,15 @@ const inputs = `
     user: String
   }
 
-  input IdInput {
-    id: ID!
-  }
-
-  input TokenInput {
+  input TokenCreateInput {
     email: String!
     password: String!
+  }
+
+  input LoanCreateInput {
+    date_start: String!
+    date_end: String!
+    client: String!
   }
 `
 

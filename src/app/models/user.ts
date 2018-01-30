@@ -4,16 +4,21 @@ import * as crypto from "crypto"
 import { validateEmail } from "app/services/utils"
 
 export type UserType = mongoose.Document & {
-  full_name: string,
-  email: string,
-  password: string,
-  passwordResetToken: string,
-  role: string,
+  full_name: string
+  email: string
 
-  comparePassword: (candidatePassword: string) => Promise<boolean>,
+  login: string
+  password: string
+  role: string
 
-  createdAt: string,
-  updatedAt: string,
+  phone: string
+
+  territory: string
+
+  createdAt: string
+  updatedAt: string
+
+  comparePassword: (candidatePassword: string) => Promise<boolean>
 }
 
 const schema = new mongoose.Schema({
@@ -27,7 +32,6 @@ const schema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true,
-    required: [true, 'Email address is required'],
     validate: [validateEmail, 'Please fill a valid email address'],
   },
 
@@ -40,19 +44,14 @@ const schema = new mongoose.Schema({
     enum: ["admin", "manager"],
   },
 
-  clients: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Client'
-  }],
-
   phone: {
     type: String,
   },
 
-  territory: [{
+  territory: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Territory'
-  }],
+  },
 
 }, {
   timestamps: true

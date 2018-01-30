@@ -1,4 +1,4 @@
-import { User, Client } from "app/models"
+import { User, Client, Loan } from "app/models"
 import { createJwt } from "app/services/jwt"
 
 const Query = {
@@ -19,6 +19,7 @@ const Query = {
 
   client: async (root: any, args: any) => {
     const client = await Client.findById(args.id)
+
     return client
   },
 
@@ -26,10 +27,11 @@ const Query = {
 
 const Mutation = {
 
-  createUser: async (root: any, args: any) => {
-    const client = await User.create(args.input)
+  createUser: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('create', User)
 
-    return client
+    const user = await User.create(args.input)
+    return user
   },
 
   updateUser: async (root: any, args: any) => {
@@ -67,13 +69,15 @@ const Mutation = {
     }
   },
 
-  createClient: async (root: any, args: any, context: any) => {
-    context.ability.throwUnlessCan('create', Client)
+  createClient: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('create', Client)
 
     return await Client.create(args.input)
   },
 
-  updateClient: async (root: any, args: any) => {
+  updateClient: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('update', Client)
+
     const client = await Client.findById(args.input.id)
     await client.set(args.input)
     await client.save()
@@ -87,6 +91,16 @@ const Mutation = {
     return client
   },
 
+  createLoan: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('create', Loan)
+
+    const client = await Client.findById(args.input.client)
+    const loan =  await Loan.create(args.input)
+
+    await client.addLoan(loan)
+
+    return loan
+  },
 }
 
 export default { Query, Mutation }

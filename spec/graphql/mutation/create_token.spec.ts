@@ -1,7 +1,7 @@
 import { User } from "config/initialize/mongoose"
 
 const query = `
-  mutation createToken($input: TokenInput!) {
+  mutation createToken($input: TokenCreateInput!) {
     createToken(input: $input) {
       id
       email

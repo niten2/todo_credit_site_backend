@@ -3,8 +3,7 @@ import { User } from "config/initialize/mongoose"
 const query = `
   mutation deleteUser($input: IdInput!) {
     deleteUser(input: $input) {
-      full_name
-      email
+      ${matchers.user_attr()}
     }
   }
 `

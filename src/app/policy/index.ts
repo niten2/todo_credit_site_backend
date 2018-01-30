@@ -1,4 +1,3 @@
-import { User, Client } from "config/initialize/mongoose"
 import { AbilityBuilder, Ability } from "casl"
 
 export default async (user?: any): Promise<any> => {
@@ -10,13 +9,11 @@ export default async (user?: any): Promise<any> => {
     can('create', "Client")
     can('update', "Client")
 
-    // TODO can update only created client
-    // can('update', 'Client', { _id: user.id, role: "user" })
+    can('create', "Loan")
   }
 
 
   if (role == "admin") {
-
     can('create', "User")
     can('update', 'User')
     can('delete', 'User')

@@ -5,21 +5,30 @@ import * as faker from "faker"
 factory.define('user', User, {
   full_name: faker.name.findName,
   email: faker.internet.email,
+  login: faker.name.findName,
   password: faker.internet.password,
-  role: "admin",
+  phone: faker.phone.phoneNumber,
+  territory: factory.assoc('territory', '_id'),
+  role: "manager",
 })
 
 factory.define('userAdmin', User, {
   full_name: faker.name.findName,
   email: faker.internet.email,
+  login: faker.name.findName,
   password: faker.internet.password,
+  phone: faker.phone.phoneNumber,
+  territory: factory.assoc('territory', '_id'),
   role: "admin",
 })
 
 factory.define('userManager', User, {
   full_name: faker.name.findName,
   email: faker.internet.email,
+  login: faker.name.findName,
   password: faker.internet.password,
+  phone: faker.phone.phoneNumber,
+  territory: factory.assoc('territory', '_id'),
   role: "manager",
 })
 
@@ -29,17 +38,18 @@ factory.define('client', Client, {
   phone: faker.phone.phoneNumber,
   email: faker.internet.email,
   user: factory.assoc('user', '_id'),
-  // territory: factory.assoc('territory', '_id'),
+  mark_as_deleted: false,
+  territory: factory.assoc('territory', '_id'),
 })
 
-// factory.define('territory', Territory, {
-//   name: faker.address.country,
-//   rate: faker.random.number,
-// })
+factory.define('territory', Territory, {
+  name: faker.address.country,
+  rate: faker.random.number,
+})
 
-// factory.define('loan', Loan, {
-//   date_start: faker.date.soon,
-//   date_start: faker.date.future,
-// })
+factory.define('loan', Loan, {
+  date_start: faker.date.past,
+  date_end: faker.date.future,
+})
 
 export default factory

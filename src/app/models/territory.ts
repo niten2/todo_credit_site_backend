@@ -1,8 +1,8 @@
 import * as mongoose from "mongoose"
 
 export type TerritoryType = mongoose.Document & {
-  name: string,
-  rate: string,
+  name: string
+  rate: string
 }
 
 const schema = new mongoose.Schema({
