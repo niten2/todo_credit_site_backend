@@ -1,5 +1,5 @@
 import * as faker from "faker"
-import factory from 'factory-girl'
+import { factory } from 'factory-girl'
 import { User, Client } from "config/initialize/mongoose"
 
 factory.define('userAdmin', User, {
