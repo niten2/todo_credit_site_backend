@@ -1,6 +1,12 @@
 import schema from './schema'
 import { Response, Request } from "express"
 
+export interface Context {
+  payload: any
+  user: any
+  ability: any
+}
+
 export default (req: any, res: Response) => {
   return {
     schema: schema,
@@ -8,10 +14,10 @@ export default (req: any, res: Response) => {
       message: err.message,
       status: err.status
     }),
-    context: {
+    context<Context>: {
       payload: req.payload,
-      user_id: req.user_id,
       user: req.user,
+      ability: req.ability,
     },
   }
 }

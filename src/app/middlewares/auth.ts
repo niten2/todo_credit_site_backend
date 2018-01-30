@@ -3,7 +3,6 @@ import { User } from "config/initialize/mongoose"
 import { verifyJwt } from 'app/services/jwt'
 
 export default async (req: any, res: any, next: any) => {
-
   if (!req.header('Authorization') || !req.header('authorization')) {
     return next()
   }
@@ -19,7 +18,6 @@ export default async (req: any, res: any, next: any) => {
     const payload = await verifyJwt(token)
 
     req.payload = payload
-    req.user_id = payload.user_id
 
     if (payload.user_id) {
       req.user = await User.findById(payload.user_id)

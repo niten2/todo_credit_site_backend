@@ -1,5 +1,6 @@
 import { User, Client } from "app/models"
 import { createJwt } from "app/services/jwt"
+import { Context } from "app/grapql/config"
 
 const Query = {
   users: async (root: any, args: any) => {
@@ -41,11 +42,7 @@ const Mutation = {
   },
 
   deleteUser: async (_: any, args: any) => {
-    // const user = await User.findByIdAndRemove(args.input.id)
-
-    const user = await User.findById(args.input.id)
-    await user.remove()
-
+    const user = await User.findByIdAndRemove(args.input.id)
     return user
   },
 
@@ -71,10 +68,10 @@ const Mutation = {
     }
   },
 
-  createClient: async (root: any, args: any) => {
-    const client = await Client.create(args.input)
+  createClient: async (root: any, args: any, context: Context) => {
+    context.ability.throwUnlessCan('create', Client)
 
-    return client
+    return await Client.create(args.input)
   },
 
   updateClient: async (root: any, args: any) => {

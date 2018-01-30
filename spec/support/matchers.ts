@@ -34,11 +34,11 @@ export default {
       _id: expect.any(Object),
 
       full_name: expect.any(String),
-      passport: expect.any(String),
-      phone: expect.any(String),
-      territory: expect.any(String),
       email: expect.any(String),
-      user: expect.any(Object),
+      // passport: expect.any(String),
+      // phone: expect.any(String),
+      // territory: expect.any(String),
+      // user: expect.any(Object),
 
       createdAt: expect.any(Date),
       updatedAt: expect.any(Date),
