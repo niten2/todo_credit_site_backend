@@ -9,7 +9,6 @@ export default {
       login
       password
       role
-      clients
       phone
       territory
       createdAt
@@ -27,9 +26,8 @@ export default {
       login: expect.any(String),
       password: expect.any(String),
       role: expect.any(String),
-      clients: expect.any(Array),
       phone: expect.any(String),
-      territory: expect.any(Array),
+      territory: expect.any(String),
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
     })
@@ -43,7 +41,6 @@ export default {
       password: expect.any(String),
 
       role: expect.any(String),
-      clients: expect.any(Array),
 
       createdAt: expect.any(Date),
       updatedAt: expect.any(Date),
@@ -59,7 +56,6 @@ export default {
       passport: expect.any(String),
       phone: expect.any(String),
       territory: expect.any(String),
-      user: expect.any(String),
       mark_as_deleted: expect.any(Boolean),
 
       createdAt: expect.any(String),
@@ -77,7 +73,6 @@ export default {
       passport: expect.any(String),
       phone: expect.any(String),
       territory: expect.any(String),
-      user: expect.any(Object),
       mark_as_deleted: expect.any(Boolean),
 
       createdAt: expect.any(Date),

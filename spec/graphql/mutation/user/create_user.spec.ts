@@ -23,8 +23,10 @@ describe("valid params given", () => {
       const variableValues = {
         input: {
           full_name: new_user.full_name,
-          email: new_user.email,
+          login: new_user.login,
           password: password,
+          phone: new_user.phone,
+          territory: new_user.territory,
         }
       }
 
@@ -61,8 +63,10 @@ describe("wrong params given", () => {
       const variableValues = {
         input: {
           full_name: new_user.full_name,
-          email: new_user.email,
+          login: new_user.login,
           password: password,
+          phone: new_user.phone,
+          territory: new_user.territory,
         }
       }
 

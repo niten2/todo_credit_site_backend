@@ -8,8 +8,9 @@ factory.define('user', User, {
   login: faker.name.findName,
   password: faker.internet.password,
   role: "manager",
-  clients: []
   phone: faker.phone.phoneNumber,
+
+  territory: factory.assoc('territory', '_id'),
 
   // territory: ___
 })
@@ -38,10 +39,10 @@ factory.define('client', Client, {
   // territory: factory.assoc('territory', '_id'),
 })
 
-// factory.define('territory', Territory, {
-//   name: faker.address.country,
-//   rate: faker.random.number,
-// })
+factory.define('territory', Territory, {
+  name: faker.address.country,
+  rate: faker.random.number,
+})
 
 // factory.define('loan', Loan, {
 //   date_start: faker.date.soon,

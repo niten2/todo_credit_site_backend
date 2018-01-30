@@ -29,18 +29,13 @@ const models = `
   type User {
     id: ID
 
-    full_name: String
+    full_name: String!
     email: String
-
-    login: String
-    password: String
+    login: String!
+    password: String!
     role: String
-
-    clients: [String]
-    phone: String
-
-    territory: [String]
-
+    phone: String!
+    territory: String!
     createdAt: String
     updatedAt: String
   }
@@ -69,24 +64,35 @@ const models = `
 const inputs = `
   input UserCreateInput {
     full_name: String!
-    email: String!
+    email: String
+    login: String!
     password: String!
+    role: String
+    phone: String!
+    territory: String!
+    createdAt: String
+    updatedAt: String
   }
 
   input UserUpdateInput {
     id: ID
     full_name: String
     email: String
+    login: String
     password: String
+    role: String
+    phone: String
+    territory: String
+    createdAt: String
+    updatedAt: String
   }
 
   input ClientCreateInput {
-    full_name: String
-    email: String
-    passport: String
-    phone: String
+    full_name: String!
+    passport: String!
+    phone: String!
     territory: String
-    user: String
+    email: String
   }
 
   input ClientUpdateInput {

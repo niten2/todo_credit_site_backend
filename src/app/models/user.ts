@@ -11,7 +11,6 @@ export type UserType = mongoose.Document & {
   password: string
   role: string
 
-  clients: [string]
   phone: string
 
   territory: string
@@ -33,7 +32,6 @@ const schema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true,
-    required: [true, 'Email address is required'],
     validate: [validateEmail, 'Please fill a valid email address'],
   },
 
@@ -46,19 +44,14 @@ const schema = new mongoose.Schema({
     enum: ["admin", "manager"],
   },
 
-  clients: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Client'
-  }],
-
   phone: {
     type: String,
   },
 
-  territory: [{
+  territory: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Territory'
-  }],
+  },
 
 }, {
   timestamps: true

@@ -7,7 +7,6 @@ export type ClientType = mongoose.Document & {
   phone: string
   territory: string
   email: string
-  user: string
   mark_as_deleted: boolean
 
   createdAt: string
@@ -25,7 +24,6 @@ const schema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true,
-    required: [true, 'Email address is required'],
     validate: [validateEmail, 'Please fill a valid email address'],
   },
 
@@ -41,11 +39,6 @@ const schema = new mongoose.Schema({
     type: String,
     default: "one",
     enum: ["one", "two", "three"],
-  },
-
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
   },
 
   mark_as_deleted: {
