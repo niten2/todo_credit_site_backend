@@ -113,4 +113,22 @@ export default {
     })
   },
 
+  loan_db: (): any => {
+    return expect.objectContaining({
+      _id: expect.any(Object),
+
+      date_start: expect.any(Date),
+      date_end: expect.any(Date),
+    })
+  },
+
+  territory_db: (): any => {
+    return expect.objectContaining({
+      _id: expect.any(Object),
+
+      name: expect.any(String),
+      rate: expect.any(Number),
+    })
+  },
+
 }

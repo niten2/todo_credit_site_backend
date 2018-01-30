@@ -7,25 +7,28 @@ factory.define('user', User, {
   email: faker.internet.email,
   login: faker.name.findName,
   password: faker.internet.password,
-  role: "manager",
   phone: faker.phone.phoneNumber,
-
   territory: factory.assoc('territory', '_id'),
-
-  // territory: ___
+  role: "manager",
 })
 
 factory.define('userAdmin', User, {
   full_name: faker.name.findName,
   email: faker.internet.email,
+  login: faker.name.findName,
   password: faker.internet.password,
+  phone: faker.phone.phoneNumber,
+  territory: factory.assoc('territory', '_id'),
   role: "admin",
 })
 
 factory.define('userManager', User, {
   full_name: faker.name.findName,
   email: faker.internet.email,
+  login: faker.name.findName,
   password: faker.internet.password,
+  phone: faker.phone.phoneNumber,
+  territory: factory.assoc('territory', '_id'),
   role: "manager",
 })
 
@@ -44,9 +47,9 @@ factory.define('territory', Territory, {
   rate: faker.random.number,
 })
 
-// factory.define('loan', Loan, {
-//   date_start: faker.date.soon,
-//   date_start: faker.date.future,
-// })
+factory.define('loan', Loan, {
+  date_start: faker.date.past,
+  date_end: faker.date.future,
+})
 
 export default factory
