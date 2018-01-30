@@ -31,8 +31,8 @@ const schema = new mongoose.Schema({
     validate: [validateEmail, 'Please fill a valid email address'],
   },
 
+  login: String,
   password: String,
-  passwordResetToken: String,
 
   role: {
     type: String,
@@ -43,6 +43,15 @@ const schema = new mongoose.Schema({
   clients: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Client'
+  }],
+
+  phone: {
+    type: String,
+  },
+
+  territory: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Territory'
   }],
 
 }, {

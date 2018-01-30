@@ -32,4 +32,9 @@ factory.define('client', Client, {
   territory: "one",
 })
 
+factory.define('territory', Territory, {
+  name: faker.address.country
+  rate: faker.random.number
+})
+
 export default factory

@@ -27,6 +27,7 @@ export const closeDb = async (): Promise<any> => {
 
 export const User = mongoose.model("User")
 export const Client = mongoose.model("Client")
+export const Territory = mongoose.model("Territory")
 
 export default mongoose
 
