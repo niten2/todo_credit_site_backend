@@ -1,17 +1,20 @@
 import * as cors from 'cors'
 import * as bodyParser from 'body-parser'
+import * as morgan from 'morgan'
+import settings from 'config/settings'
 import logger from "app/services/logger"
-import loggerMiddleware from './access_logger'
+import { Express, Response, Request, NextFunction } from "express"
 
-export default (app: any) => {
+export default (app: Express): void => {
   app.use(cors())
-
   app.use(bodyParser.json())
 
-  app.use((req: any, res: any, next: any) => {
-    req.log = logger
-    next()
-  })
+  if (!settings.isEnvTest) {
+    app.use((req: any, res: Response, next: NextFunction): void => {
+      req.log = logger
+      next()
+    })
 
-  app.use(loggerMiddleware)
+    app.use(morgan('combined'))
+  }
 }

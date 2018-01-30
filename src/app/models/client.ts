@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose"
-import * as utils from "app/services/utils"
+import { validateEmail } from "app/services/utils"
 
 export type ClientType = mongoose.Document & {
   full_name: string,
@@ -25,7 +25,7 @@ const schema = new mongoose.Schema({
     lowercase: true,
     unique: true,
     required: [true, 'Email address is required'],
-    validate: [utils.validateEmail, 'Please fill a valid email address'],
+    validate: [validateEmail, 'Please fill a valid email address'],
   },
 
   passport: {
