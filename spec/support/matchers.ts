@@ -131,4 +131,30 @@ export default {
     })
   },
 
+  loan_attr: (): string => {
+    return `
+      id
+
+      date_start
+      date_end
+      client
+
+      createdAt
+      updatedAt
+    `
+  }
+
+  loan_json: (): any => {
+    return expect.objectContaining({
+      id: expect.any(String),
+
+      date_start: expect.any(String),
+      date_end: expect.any(String),
+      client: expect.any(String),
+
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String),
+    })
+  },
+
 }

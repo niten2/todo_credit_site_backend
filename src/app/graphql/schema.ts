@@ -21,7 +21,9 @@ const mutation = `
     updateClient(input: ClientUpdateInput!): Client
     deleteClient(input: IdInput!): Client
 
-    createToken(input: TokenInput!): Token
+    createToken(input: TokenCreateInput!): Token
+
+    createLoan(input: LoanCreateInput!): Loan
   }
 `
 
@@ -59,9 +61,23 @@ const models = `
     email: String!
     value: String!
   }
+
+  type Loan {
+    id: ID!
+    date_start: String!
+    date_end: String!
+    client: String!
+
+    createdAt: String
+    updatedAt: String
+  }
 `
 
 const inputs = `
+  input IdInput {
+    id: ID!
+  }
+
   input UserCreateInput {
     full_name: String!
     email: String
@@ -105,13 +121,15 @@ const inputs = `
     user: String
   }
 
-  input IdInput {
-    id: ID!
-  }
-
-  input TokenInput {
+  input TokenCreateInput {
     email: String!
     password: String!
+  }
+
+  input LoanCreateInput {
+    date_start: String!
+    date_end: String!
+    client: String!
   }
 `
 

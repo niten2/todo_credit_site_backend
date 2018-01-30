@@ -1,4 +1,4 @@
-import { User, Client } from "app/models"
+import { User, Client, Loan } from "app/models"
 import { createJwt } from "app/services/jwt"
 
 const Query = {
@@ -90,6 +90,11 @@ const Mutation = {
     return client
   },
 
+  createLoan: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('create', Loan)
+
+    return await Loan.create(args.input)
+  },
 }
 
 export default { Query, Mutation }

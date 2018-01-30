@@ -39,7 +39,7 @@ factory.define('client', Client, {
   email: faker.internet.email,
   user: factory.assoc('user', '_id'),
   mark_as_deleted: false,
-  // territory: factory.assoc('territory', '_id'),
+  territory: factory.assoc('territory', '_id'),
 })
 
 factory.define('territory', Territory, {
@@ -50,6 +50,7 @@ factory.define('territory', Territory, {
 factory.define('loan', Loan, {
   date_start: faker.date.past,
   date_end: faker.date.future,
+  client: factory.assoc('client', '_id'),
 })
 
 export default factory
