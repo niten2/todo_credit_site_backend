@@ -28,8 +28,21 @@ const mutation = `
 const models = `
   type User {
     id: ID
+
     full_name: String
     email: String
+
+    login: String
+    password: String
+    role: String
+
+    clients: [String]
+    phone: String
+
+    territory: [String]
+
+    createdAt: String
+    updatedAt: String
   }
 
   type Client {
@@ -40,6 +53,10 @@ const models = `
     phone: String
     territory: String
     user: String
+    mark_as_deleted: Boolean
+
+    createdAt: String
+    updatedAt: String
   }
 
   type Token {

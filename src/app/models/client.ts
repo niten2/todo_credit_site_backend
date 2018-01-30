@@ -8,6 +8,7 @@ export type ClientType = mongoose.Document & {
   territory: string,
   email: string,
   user: string,
+  mark_as_deleted: boolean
 
   createdAt: string,
   updatedAt: string,
@@ -45,6 +46,10 @@ const schema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  },
+
+  mark_as_deleted: {
+    type: Boolean,
   },
 
 }, {

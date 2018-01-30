@@ -67,13 +67,15 @@ const Mutation = {
     }
   },
 
-  createClient: async (root: any, args: any, context: any) => {
-    context.ability.throwUnlessCan('create', Client)
+  createClient: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('create', Client)
 
     return await Client.create(args.input)
   },
 
-  updateClient: async (root: any, args: any) => {
+  updateClient: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('update', Client)
+
     const client = await Client.findById(args.input.id)
     await client.set(args.input)
     await client.save()

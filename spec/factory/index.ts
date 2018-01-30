@@ -5,8 +5,13 @@ import * as faker from "faker"
 factory.define('user', User, {
   full_name: faker.name.findName,
   email: faker.internet.email,
+  login: faker.name.findName,
   password: faker.internet.password,
-  role: "admin",
+  role: "manager",
+  clients: []
+  phone: faker.phone.phoneNumber,
+
+  // territory: ___
 })
 
 factory.define('userAdmin', User, {
@@ -29,6 +34,7 @@ factory.define('client', Client, {
   phone: faker.phone.phoneNumber,
   email: faker.internet.email,
   user: factory.assoc('user', '_id'),
+  mark_as_deleted: false,
   // territory: factory.assoc('territory', '_id'),
 })
 

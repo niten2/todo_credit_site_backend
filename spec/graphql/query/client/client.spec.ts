@@ -1,8 +1,17 @@
 const query = `
   query client($id: ID!) {
     client(id: $id) {
+      id
       full_name
       email
+      passport
+      phone
+      territory
+      user
+      mark_as_deleted
+
+      createdAt
+      updatedAt
     }
   }
 `
@@ -18,7 +27,7 @@ describe("valid params given", () => {
 
     const res = await execGraphql({ query, variableValues })
 
-    expect(res.data.client).toEqual(matchers.client_json(client))
+    expect(res.data.client).toEqual(matchers.client_json())
   })
 
 })

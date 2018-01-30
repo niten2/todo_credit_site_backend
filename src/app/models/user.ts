@@ -6,14 +6,20 @@ import { validateEmail } from "app/services/utils"
 export type UserType = mongoose.Document & {
   full_name: string,
   email: string,
+
+  login: string,
   password: string,
-  passwordResetToken: string,
   role: string,
 
-  comparePassword: (candidatePassword: string) => Promise<boolean>,
+  clients: []string
+  phone: string
+
+  territory: string
 
   createdAt: string,
   updatedAt: string,
+
+  comparePassword: (candidatePassword: string) => Promise<boolean>,
 }
 
 const schema = new mongoose.Schema({
