@@ -1,18 +1,7 @@
 const query = `
   query user($id: ID!) {
     user(id: $id) {
-      id
-
-      full_name
-      email
-      login
-      password
-      role
-      clients
-      phone
-      territory
-      createdAt
-      updatedAt
+      ${matchers.user_attr()}
     }
   }
 `

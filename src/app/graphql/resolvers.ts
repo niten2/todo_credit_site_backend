@@ -26,10 +26,11 @@ const Query = {
 
 const Mutation = {
 
-  createUser: async (root: any, args: any) => {
-    const client = await User.create(args.input)
+  createUser: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('create', User)
 
-    return client
+    const user = await User.create(args.input)
+    return user
   },
 
   updateUser: async (root: any, args: any) => {

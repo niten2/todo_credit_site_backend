@@ -1,8 +1,7 @@
 const query = `
   query {
     users {
-      full_name
-      email
+      ${matchers.user_attr()}
     }
   }
 `
@@ -11,10 +10,9 @@ describe("", () => {
 
   it('should return users', async () => {
     let user = await factory.create('user')
-
     const res = await execGraphql({ query })
 
-    expect(res.data.users).toContainEqual(matchers.user_json(user))
+    expect(res.data.users).toContainEqual(matchers.user_json())
   })
 
 })

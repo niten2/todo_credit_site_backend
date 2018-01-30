@@ -1,5 +1,22 @@
 export default {
 
+  user_attr: (): string => {
+    return `
+      id
+
+      full_name
+      email
+      login
+      password
+      role
+      clients
+      phone
+      territory
+      createdAt
+      updatedAt
+    `
+  }
+
   user_json: (): any => {
     return expect.objectContaining({
       id: expect.any(String),
@@ -67,6 +84,23 @@ export default {
       updatedAt: expect.any(Date),
     })
   },
+
+  client_attr: (): string => {
+    return `
+      id
+
+      full_name
+      email
+      passport
+      phone
+      territory
+      user
+      mark_as_deleted
+
+      createdAt
+      updatedAt
+    `
+  }
 
   errors_json: (): any => {
     return expect.objectContaining({

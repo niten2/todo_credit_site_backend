@@ -2,16 +2,16 @@ import * as mongoose from "mongoose"
 import { validateEmail } from "app/services/utils"
 
 export type ClientType = mongoose.Document & {
-  full_name: string,
-  passport: string,
-  phone: string,
-  territory: string,
-  email: string,
-  user: string,
+  full_name: string
+  passport: string
+  phone: string
+  territory: string
+  email: string
+  user: string
   mark_as_deleted: boolean
 
-  createdAt: string,
-  updatedAt: string,
+  createdAt: string
+  updatedAt: string
 }
 
 const schema = new mongoose.Schema({

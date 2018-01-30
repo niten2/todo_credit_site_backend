@@ -3,51 +3,94 @@ import { User } from "config/initialize/mongoose"
 const query = `
   mutation createUser($input: UserCreateInput!) {
     createUser(input: $input) {
-      full_name
-      email
+      ${matchers.user_attr()}
     }
   }
 `
 
 describe("valid params given", () => {
-  let res
-  let user
-  const password = "password"
 
-  beforeEach(async () => {
-    user = await factory.build('user', { password })
+  describe("user admin", () => {
+    let res
+    let user
+    let new_user
+    const password = "password"
 
-    const variableValues = {
-      input: {
-        full_name: user.full_name,
-        email: user.email,
-        password: password,
+    beforeEach(async () => {
+      user = await factory.create('userAdmin')
+      new_user = await factory.build('user', { password })
+
+      const variableValues = {
+        input: {
+          full_name: new_user.full_name,
+          email: new_user.email,
+          password: password,
+        }
       }
-    }
 
-    res = await execGraphql({ query, variableValues })
-  })
+      res = await execGraphql({ query, variableValues, user })
+    })
 
-  it('should return valid response', async () => {
-    expect(res.data.createUser).toEqual(matchers.user_json(user))
-  })
+    it('should return valid response', async () => {
+      expect(res.data.createUser.id).toBeType("string")
+    })
 
-  it('should create user', async () => {
-    user = await User.findOne({ full_name: user.full_name })
+    it('should create user', async () => {
+      new_user = await User.findOne({ full_name: user.full_name })
 
-    expect(user).toEqual(matchers.user_db(user))
+      expect(new_user).toEqual(expect.objectContaining({
+        full_name: new_user.full_name,
+        email: new_user.email,
+      })
+    })
   })
 
 })
 
 describe("wrong params given", () => {
-  it('should return error', async () => {
-    const variableValues = {
-      input: {}
-    }
+  describe("user manager", () => {
+    let res
+    let user
+    let new_user
+    const password = "password"
 
-    const res = await execGraphql({ query, variableValues })
+    beforeEach(async () => {
+      user = await factory.create('userManager')
+      new_user = await factory.build('user', { password })
 
-    expect(res.errors).toContainEqual(matchers.errors_json())
+      const variableValues = {
+        input: {
+          full_name: new_user.full_name,
+          email: new_user.email,
+          password: password,
+        }
+      }
+
+      res = await execGraphql({ query, variableValues, user })
+    })
+
+    it('should return valid response', async () => {
+      expect(res.errors).toContainEqual(expect.objectContaining({
+        message: 'Cannot execute "create" on "User"',
+      )
+    })
+
+    it('should create user', async () => {
+      new_user = await User.findOne({ full_name: new_user.full_name })
+
+      expect(new_user).toBeNull()
+    })
+  })
+
+  describe("wrong id", () => {
+    it('should return error', async () => {
+      const variableValues = {
+        input: {}
+      }
+
+      const res = await execGraphql({ query, variableValues })
+
+      expect(res.errors).toContainEqual(matchers.errors_json())
+    })
   })
 })

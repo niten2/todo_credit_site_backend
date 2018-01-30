@@ -4,22 +4,22 @@ import * as crypto from "crypto"
 import { validateEmail } from "app/services/utils"
 
 export type UserType = mongoose.Document & {
-  full_name: string,
-  email: string,
+  full_name: string
+  email: string
 
-  login: string,
-  password: string,
-  role: string,
+  login: string
+  password: string
+  role: string
 
-  clients: []string
+  clients: [string]
   phone: string
 
   territory: string
 
-  createdAt: string,
-  updatedAt: string,
+  createdAt: string
+  updatedAt: string
 
-  comparePassword: (candidatePassword: string) => Promise<boolean>,
+  comparePassword: (candidatePassword: string) => Promise<boolean>
 }
 
 const schema = new mongoose.Schema({

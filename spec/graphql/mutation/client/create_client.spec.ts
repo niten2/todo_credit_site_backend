@@ -3,8 +3,7 @@ import { Client } from "config/initialize/mongoose"
 const query = `
   mutation createClient($input: ClientCreateInput!) {
     createClient(input: $input) {
-      full_name
-      email
+      ${matchers.client_attr()}
     }
   }
 `
@@ -29,7 +28,7 @@ describe("valid params given", () => {
   })
 
   it('should return valid response', async () => {
-    expect(res.data.createClient).toEqual(matchers.client_json(client))
+    expect(res.data.createClient.id).toBeType("string")
   })
 
   it('should create user', async () => {

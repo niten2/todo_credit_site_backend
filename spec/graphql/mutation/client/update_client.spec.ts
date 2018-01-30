@@ -3,8 +3,7 @@ import { Client } from "config/initialize/mongoose"
 const query = `
   mutation updateClient($input: ClientUpdateInput!) {
     updateClient(input: $input) {
-      full_name
-      email
+      ${matchers.client_attr()}
     }
   }
 `

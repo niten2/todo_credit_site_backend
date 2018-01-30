@@ -1,17 +1,7 @@
 const query = `
   query client($id: ID!) {
     client(id: $id) {
-      id
-      full_name
-      email
-      passport
-      phone
-      territory
-      user
-      mark_as_deleted
-
-      createdAt
-      updatedAt
+      ${matchers.client_attr()}
     }
   }
 `
