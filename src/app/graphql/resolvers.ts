@@ -19,6 +19,7 @@ const Query = {
 
   client: async (root: any, args: any) => {
     const client = await Client.findById(args.id)
+
     return client
   },
 

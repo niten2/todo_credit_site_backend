@@ -92,6 +92,16 @@ export default {
       user
       mark_as_deleted
 
+      loans {
+        id
+
+        date_start
+        date_end
+        client
+        createdAt
+        updatedAt
+      }
+
       createdAt
       updatedAt
     `

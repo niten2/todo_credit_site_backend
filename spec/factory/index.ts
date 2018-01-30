@@ -50,7 +50,6 @@ factory.define('territory', Territory, {
 factory.define('loan', Loan, {
   date_start: faker.date.past,
   date_end: faker.date.future,
-  client: factory.assoc('client', '_id'),
 })
 
 export default factory

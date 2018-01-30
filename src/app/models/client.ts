@@ -68,4 +68,13 @@ schema.methods.addLoan = async function(loan: any): Promise<any> {
   return this
 }
 
+const autoPopulateLoans = function(next: any) {
+  this.populate('loans')
+  next()
+}
+
+schema.
+  pre('findOne', autoPopulateLoans).
+  pre('find', autoPopulateLoans)
+
 export default mongoose.model<ClientType>('Client', schema)

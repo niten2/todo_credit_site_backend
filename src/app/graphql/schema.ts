@@ -52,6 +52,8 @@ const models = `
     user: String
     mark_as_deleted: Boolean
 
+    loans: [Loan]
+
     createdAt: String
     updatedAt: String
   }
