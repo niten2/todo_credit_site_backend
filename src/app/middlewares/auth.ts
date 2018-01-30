@@ -16,7 +16,7 @@ export default async (req: any, res: any, next: any) => {
   }
 
   try {
-    const payload = verifyJwt(token)
+    const payload = await verifyJwt(token)
 
     req.payload = payload
     req.user_id = payload.user_id

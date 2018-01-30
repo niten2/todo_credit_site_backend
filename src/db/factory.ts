@@ -16,9 +16,9 @@ factory.define('userManager', User, {
   role: "manager",
 })
 
-factory.define('territory', Territory, {
-  name: faker.address.country
-  rate: faker.random.number
-})
+// factory.define('territory', Territory, {
+//   name: faker.address.country,
+//   rate: faker.random.number,
+// })
 
 export default factory
