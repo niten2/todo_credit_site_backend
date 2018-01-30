@@ -9,43 +9,49 @@ const query = `
   }
 `
 
-describe("valid params given", () => {
-  let res
-  let client
-  const password = "password"
+// describe("valid params given", () => {
+//   let res
+//   let client
+//   const password = "password"
 
-  beforeEach(async () => {
-    client = await factory.build('client')
+//   beforeEach(async () => {
+//     client = await factory.build('client')
 
-    const variableValues = {
-      input: {
-        full_name: client.full_name,
-        email: client.email,
-      }
-    }
+//     const variableValues = {
+//       input: {
+//         full_name: client.full_name,
+//         email: client.email,
+//       }
+//     }
 
-    res = await execGraphql({ query, variableValues })
-  })
+//     res = await execGraphql({ query, variableValues })
+//   })
 
-  it('should return valid response', async () => {
-    expect(res.data.createClient).toEqual(matchers.client_json(client))
-  })
+//   it('should return valid response', async () => {
+//     expect(res.data.createClient).toEqual(matchers.client_json(client))
+//   })
 
-  it('should create user', async () => {
-    client = await Client.findOne({ full_name: client.full_name })
-    expect(client).toEqual(matchers.client_db(client))
-  })
+//   it('should create user', async () => {
+//     client = await Client.findOne({ full_name: client.full_name })
+//     expect(client).toEqual(matchers.client_db(client))
+//   })
 
-})
+// })
 
 describe("wrong params given", () => {
-  it('should return error', async () => {
-    const variableValues = {
-      input: {}
-    }
+  it('manager should not create client', async () => {
 
-    const res = await execGraphql({ query, variableValues })
 
-    expect(res.errors).toContainEqual(matchers.errors_json())
+
   })
+
+  // it('should return error', async () => {
+  //   const variableValues = {
+  //     input: {}
+  //   }
+
+  //   const res = await execGraphql({ query, variableValues })
+
+  //   expect(res.errors).toContainEqual(matchers.errors_json())
+  // })
 })

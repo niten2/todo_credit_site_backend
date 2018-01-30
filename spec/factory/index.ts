@@ -29,17 +29,17 @@ factory.define('client', Client, {
   phone: faker.phone.phoneNumber,
   email: faker.internet.email,
   user: factory.assoc('user', '_id'),
-  territory: "one",
+  // territory: factory.assoc('territory', '_id'),
 })
 
 factory.define('territory', Territory, {
-  name: faker.address.country
-  rate: faker.random.number
+  name: faker.address.country,
+  rate: faker.random.number,
 })
 
-factory.define('loan', Loan, {
-  date_start: faker.date.soon
-  date_start: faker.date.future
-})
+// factory.define('loan', Loan, {
+//   date_start: faker.date.soon,
+//   date_start: faker.date.future,
+// })
 
 export default factory
