@@ -15,7 +15,6 @@ describe(__filename, () => {
       await Auth(req, res, next)
 
       expect(req.payload).toEqual(matchers.payload_json())
-      expect(req.user_id).toEqual(expect.any(String))
       expect(req.user).toEqual(matchers.user_db())
     })
   })
