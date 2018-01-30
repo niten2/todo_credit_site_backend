@@ -28,7 +28,6 @@ describe("valid params given", () => {
       }
 
       res = await execGraphql({ query, variableValues, user })
-      console.log(res)
     })
 
     it('should return valid response', async () => {
@@ -64,7 +63,6 @@ describe("wrong params given", () => {
       }
 
       let res = await execGraphql({ query, variableValues, user })
-      console.log(res)
 
       expect(res.errors).toContainEqual(expect.objectContaining({
         message: 'Cannot execute "create" on "Loan"',

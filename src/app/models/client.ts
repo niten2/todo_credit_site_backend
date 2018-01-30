@@ -36,9 +36,8 @@ const schema = new mongoose.Schema({
   },
 
   territory: {
-    type: String,
-    default: "one",
-    enum: ["one", "two", "three"],
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Territory'
   },
 
   mark_as_deleted: {

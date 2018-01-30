@@ -72,7 +72,7 @@ export default {
 
       passport: expect.any(String),
       phone: expect.any(String),
-      territory: expect.any(String),
+      territory: expect.any(Object),
       mark_as_deleted: expect.any(Boolean),
 
       createdAt: expect.any(Date),
