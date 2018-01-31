@@ -1,5 +1,6 @@
 import { User, Client, Loan } from "app/models"
 import { createJwt } from "app/services/jwt"
+import { calculatePersentLoan } from "app/services/utils"
 
 const Query = {
   users: async (root: any, args: any) => {
@@ -19,6 +20,8 @@ const Query = {
 
   client: async (root: any, args: any) => {
     const client = await Client.findById(args.id)
+
+    await Loan.populate(client, { path: "loans" })
 
     return client
   },
@@ -101,6 +104,22 @@ const Mutation = {
 
     return loan
   },
+
+  caclulateLoan: async (root: any, args: any, ctx: any) => {
+    const { sum, territory, date_start, date_end, client } = args.input
+
+    let client_object = await Client.findById(client).populate({ path: "territory" })
+
+    let total = calculatePersentLoan({
+      sum: sum,
+      territory: client_object.territory.rate,
+      date_start: new Date(date_start),
+      date_end: new Date(date_end),
+    })
+
+    return { total }
+  },
+
 }
 
 export default { Query, Mutation }

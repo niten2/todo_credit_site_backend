@@ -57,6 +57,7 @@ export default {
       phone: expect.any(String),
       territory: expect.any(String),
       mark_as_deleted: expect.any(Boolean),
+      total_sum_loans: expect.any(Number),
 
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
@@ -91,6 +92,7 @@ export default {
       territory
       user
       mark_as_deleted
+      total_sum_loans
 
       loans {
         id
