@@ -28,7 +28,7 @@ export const calculatePersentLoan = (options: CalculateLoan): number => {
   return koeff + additional
 }
 
-export const days_between = (date1: Date, date2: Date): number {
+export const days_between = (date1: Date, date2: Date): number => {
   const one_day = 1000 * 60 * 60 * 24
   const date1_ms = date1.getTime()
   const date2_ms = date2.getTime()
@@ -37,7 +37,7 @@ export const days_between = (date1: Date, date2: Date): number {
   return Math.round(difference_ms/one_day)
 }
 
-export const addDays = (date: Date, days: number): Date {
+export const addDays = (date: Date, days: number): Date => {
   date.setDate(date.getDate() + days)
   return date
 }

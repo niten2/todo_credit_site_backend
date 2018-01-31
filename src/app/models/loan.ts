@@ -32,17 +32,17 @@ const schema = new mongoose.Schema({
 })
 
 schema.virtual('total').get(function (): number {
-  if !(this.client && this.client.territory && this.client.territory.rate) {
+  if (!(this.client && this.client.territory && this.client.territory.rate)) {
     throw new Error("need this.client.territory.rate")
   }
 
   const current_date = new Date()
 
   let values =  {
-    sum: this.sum
-    territory: this.client.territory.rate
-    date_start: this.date_start
-    date_end: this.date_end
+    sum: this.sum,
+    territory: this.client.territory.rate,
+    date_start: this.date_start,
+    date_end: this.date_end,
   }
 
   let persent = calculatePersentLoan(values)
@@ -54,7 +54,7 @@ schema.virtual('total').get(function (): number {
   const overdue_rate = 15
 
   const overdue_values =  {
-    sum: this.sum
+    sum: this.sum,
     territory: overdue_rate,
     date_start: this.date_end,
     date_end: current_date,

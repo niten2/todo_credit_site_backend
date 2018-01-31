@@ -24,6 +24,8 @@ const mutation = `
     createToken(input: TokenCreateInput!): Token
 
     createLoan(input: LoanCreateInput!): Loan
+
+    # caclulateLoan(input: LoanCreateInput!): Loan
   }
 `
 
