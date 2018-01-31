@@ -24,8 +24,7 @@ const mutation = `
     createToken(input: TokenCreateInput!): Token
 
     createLoan(input: LoanCreateInput!): Loan
-
-    # caclulateLoan(input: LoanCreateInput!): Loan
+    caclulateLoan(input: LoanCreateInput!): Total
   }
 `
 
@@ -76,6 +75,10 @@ const models = `
 
     createdAt: String
     updatedAt: String
+  }
+
+  type Total {
+    total: Int!
   }
 `
 
@@ -133,6 +136,7 @@ const inputs = `
   }
 
   input LoanCreateInput {
+    sum: Int!
     date_start: String!
     date_end: String!
     client: String!

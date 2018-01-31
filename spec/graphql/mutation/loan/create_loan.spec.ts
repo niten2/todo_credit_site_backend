@@ -21,6 +21,7 @@ describe("valid params given", () => {
 
       const variableValues = {
         input: {
+          sum: 10000,
           date_start: new Date(),
           date_end: new Date(),
           client: client.id,
@@ -63,6 +64,7 @@ describe("wrong params given", () => {
 
       const variableValues = {
         input: {
+          sum: 10000,
           date_start: new Date(),
           date_end: new Date(),
           client: client.id,
