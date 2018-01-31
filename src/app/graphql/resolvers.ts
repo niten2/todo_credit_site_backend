@@ -108,7 +108,7 @@ const Mutation = {
   caclulateLoan: async (root: any, args: any, ctx: any) => {
     const { sum, territory, date_start, date_end, client } = args.input
 
-    let client_object = await Client.findById(client).populate({ path: "territory"})
+    let client_object = await Client.findById(client).populate({ path: "territory" })
 
     let total = calculatePersentLoan({
       sum: sum,

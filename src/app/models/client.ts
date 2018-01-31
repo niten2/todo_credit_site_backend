@@ -5,7 +5,8 @@ export type ClientType = mongoose.Document & {
   full_name: string
   passport: string
   phone: string
-  territory: string
+  territory: any | string // NOTE should be TerritoryType || string
+
   email: string
   mark_as_deleted: boolean
   total_sum_loans: number
