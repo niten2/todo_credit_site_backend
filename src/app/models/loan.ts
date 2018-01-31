@@ -4,6 +4,7 @@ export type LoanType = mongoose.Document & {
   date_start: string
   date_end: string
   client: string
+  sum: number
 }
 
 const schema = new mongoose.Schema({
@@ -13,6 +14,10 @@ const schema = new mongoose.Schema({
 
   date_end: {
     type: Date,
+  },
+
+  sum: {
+    type: Number,
   },
 
   client: {

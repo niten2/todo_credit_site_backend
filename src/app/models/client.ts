@@ -8,11 +8,13 @@ export type ClientType = mongoose.Document & {
   territory: string
   email: string
   mark_as_deleted: boolean
+  total_sum_loans: number
   loans: [string]
 
   createdAt: string
   updatedAt: string
 
+  total_sum_loans: () => number
   addLoan: (loan: any) => Promise<any>
 }
 
@@ -76,5 +78,11 @@ const autoPopulateLoans = function(next: any) {
 schema.
   pre('findOne', autoPopulateLoans).
   pre('find', autoPopulateLoans)
+
+schema.virtual('total_sum_loans').get(function (): number {
+  return this.loans.reduce((acc, loan) => {
+    return acc += loan.sum
+  }, 0)
+})
 
 export default mongoose.model<ClientType>('Client', schema)

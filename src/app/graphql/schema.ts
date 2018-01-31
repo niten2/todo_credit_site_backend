@@ -51,6 +51,7 @@ const models = `
     territory: String
     user: String
     mark_as_deleted: Boolean
+    total_sum_loans: Int
 
     loans: [Loan]
 
@@ -69,6 +70,7 @@ const models = `
     date_start: String!
     date_end: String!
     client: String!
+    sum: Int!
 
     createdAt: String
     updatedAt: String
