@@ -51,6 +51,7 @@ factory.define('loan', Loan, {
   date_start: faker.date.past,
   date_end: faker.date.future,
   sum: faker.random.number,
+  territory: faker.random.number,
 })
 
 export default factory

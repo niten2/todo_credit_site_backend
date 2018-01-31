@@ -69,15 +69,6 @@ schema.methods.addLoan = async function(loan: any): Promise<any> {
   return this
 }
 
-const autoPopulateLoans = function(next: any) {
-  this.populate('loans')
-  next()
-}
-
-schema.
-  pre('findOne', autoPopulateLoans).
-  pre('find', autoPopulateLoans)
-
 schema.virtual('total_sum_loans').get(function (): number {
   return this.loans.reduce((acc: number, loan: { sum: number }) => {
     return acc += loan.sum

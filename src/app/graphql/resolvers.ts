@@ -20,6 +20,13 @@ const Query = {
   client: async (root: any, args: any) => {
     const client = await Client.findById(args.id)
 
+    await Loan.populate(client, "loans")
+
+    // await Loan.populate(loan, {
+    //   path: 'client',
+    //   populate: { path: 'territory' }
+    // })
+
     return client
   },
 
