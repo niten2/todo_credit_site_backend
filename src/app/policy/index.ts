@@ -18,6 +18,8 @@ export default async (user?: any): Promise<any> => {
     can('update', 'User')
     can('delete', 'User')
 
+    can('update.territory', "Client")
+
     can('delete', 'Client')
   }
 

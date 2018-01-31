@@ -37,6 +37,11 @@ describe("admin", () => {
       const res = ability.can("delete", Client)
       expect(res).toBeTruthy()
     })
+
+    it("should can update.territory Client", async () => {
+      const res = ability.can("update.territory", Client)
+      expect(res).toBeTruthy()
+    })
   }
 
 })

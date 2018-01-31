@@ -75,13 +75,31 @@ const Mutation = {
   createClient: async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('create', Client)
 
-    return await Client.create(args.input)
+    let client = await Client.create(args.input)
+
+    client.set({ territory: ctx.user.territory })
+    await client.save()
+
+    return client
   },
 
   updateClient: async (root: any, args: any, ctx: any) => {
+    const client = await Client.findById(args.input.id)
+
+    let isTerritoryOrId = Object.keys(args.input).map((input) => {
+      return (input === "territory" || input === "id")
+    })
+
+    if (!isTerritoryOrId.includes(false)) {
+      ctx.ability.throwUnlessCan('update.territory', Client)
+
+      await client.set({ territory: args.input.territory })
+      await client.save()
+      return client
+    }
+
     ctx.ability.throwUnlessCan('update', Client)
 
-    const client = await Client.findById(args.input.id)
     await client.set(args.input)
     await client.save()
 

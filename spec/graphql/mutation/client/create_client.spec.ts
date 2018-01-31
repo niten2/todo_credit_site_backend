@@ -11,10 +11,11 @@ const query = `
 describe("valid params given", () => {
   let res
   let client
+  let user
   const password = "password"
 
   beforeEach(async () => {
-    let user = await factory.create('userManager')
+    user = await factory.create('userManager')
     client = await factory.build('client')
 
     const variableValues = {
@@ -32,7 +33,7 @@ describe("valid params given", () => {
     expect(res.data.createClient.id).toBeType("string")
   })
 
-  it('should create user', async () => {
+  it('should create client', async () => {
     client = await Client.findOne({ full_name: client.full_name })
 
     expect(client).toEqual(expect.objectContaining({
@@ -42,6 +43,13 @@ describe("valid params given", () => {
       email: client.email,
     })
   })
+
+  it('should have territory user', async () => {
+    client = await Client.findOne({ full_name: client.full_name })
+
+    expect(client.territory).toEqual(user.territory)
+  })
+
 })
 
 describe("wrong params given", () => {
