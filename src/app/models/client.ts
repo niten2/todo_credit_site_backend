@@ -1,7 +1,10 @@
 import * as mongoose from "mongoose"
 import { validateEmail } from "app/services/utils"
 
-export type ClientType = mongoose.Document & {
+// export type ClientType = mongoose.Document & {
+interface ClientType extends mongoose.Document {
+
+
   full_name: string
   passport: string
   phone: string
@@ -16,9 +19,6 @@ export type ClientType = mongoose.Document & {
   updatedAt: string
 
   addLoan: (loan: any) => Promise<any>
-
-  // set: (options: any) => Promise<any>
-  // save: (options: any) => Promise<any>
 }
 
 const schema = new mongoose.Schema({

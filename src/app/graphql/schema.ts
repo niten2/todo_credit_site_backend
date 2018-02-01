@@ -119,7 +119,6 @@ const inputs = `
     full_name: String!
     passport: String!
     phone: String!
-    territory: String
     email: String
   }
 
