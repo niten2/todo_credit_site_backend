@@ -70,7 +70,7 @@ const Mutation = {
     return user
   },
 
-  createToken: async (_: any, args: any): Promise<object> | never => {
+  createToken: async (_: any, args: any): Promise<any> => {
     const { email, password } = args.input
 
     const user = await User.findOne({ email: email })
@@ -80,10 +80,13 @@ const Mutation = {
     }
 
     if (!await user.comparePassword(password)) {
+      await user.addAttempt()
       throw new Error("wrong password")
     }
 
     const value = await createJwt(user)
+
+    await user.resetAttempt()
 
     return {
       id: user.id,

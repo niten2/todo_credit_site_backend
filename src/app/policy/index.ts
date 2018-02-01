@@ -3,7 +3,7 @@ import { AbilityBuilder, Ability } from "casl"
 export default async (user: any): Promise<any> => {
   const { rules, can } = await AbilityBuilder.extract()
 
-  if (user.role == "manager") {
+  if (user.role == "manager" && !user.blocked) {
     can('read', 'User', { _id: user.id })
     can('update', 'User', { _id: user.id })
 

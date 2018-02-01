@@ -1,7 +1,7 @@
-import { User, Client } from "config/initialize/mongoose"
+import { User, Client, Loan } from "config/initialize/mongoose"
 import Policy from 'app/policy'
 
-describe("admin", () => {
+describe("user admin", () => {
   let user
   let ability
 
@@ -10,38 +10,19 @@ describe("admin", () => {
     ability = await Policy(user)
   })
 
-  describe("User", () => {
-    it("should can create users", async () => {
-      const res = ability.can("create", User)
-      expect(res).toBeTruthy()
-    })
+  it("should can", async () => {
+    expect(ability.can('read', "User")).toBeTruthy()
 
-    it("should can update users", async () => {
-      const res = ability.can("update", User)
-      expect(res).toBeTruthy()
-    })
+    expect(ability.can("create", "User")).toBeTruthy()
+    expect(ability.can('update', "User")).toBeTruthy()
+    expect(ability.can('delete', "User")).toBeTruthy()
 
-    it("should can delete users", async () => {
-      const res = ability.can("delete", User)
-      expect(res).toBeTruthy()
-    })
-  }
+    expect(ability.can('read', "Client")).toBeTruthy()
+    expect(ability.can('update', "Client")).toBeTruthy()
+    expect(ability.can('update.territory', "Client")).toBeTruthy()
+    expect(ability.can('delete', "Client")).toBeTruthy()
 
-  describe("Client", () => {
-    it("should cannot create client", async () => {
-      const res = ability.can("create", Client)
-      expect(res).toBeFalsy()
-    })
-
-    it("should can delete client", async () => {
-      const res = ability.can("delete", Client)
-      expect(res).toBeTruthy()
-    })
-
-    it("should can update.territory Client", async () => {
-      const res = ability.can("update.territory", Client)
-      expect(res).toBeTruthy()
-    })
-  }
+    expect(ability.can('update', "Loan")).toBeTruthy()
+  })
 
 })
