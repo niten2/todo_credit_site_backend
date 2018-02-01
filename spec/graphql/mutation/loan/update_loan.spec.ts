@@ -32,8 +32,6 @@ describe("valid params given", () => {
       }
 
       res = await execGraphql({ query, variableValues, user })
-
-
     })
 
     it('should change loan', async () => {

@@ -2,7 +2,7 @@ import * as mongoose from "mongoose"
 import { Client } from "config/initialize/mongoose"
 import { calculatePersentLoan, days_between } from "app/services/utils"
 
-export type LoanType = mongoose.Document & {
+export interface LoanType extends mongoose.Document {
   sum: number
   date_start: string
   date_end: string

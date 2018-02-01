@@ -1,10 +1,7 @@
 import * as mongoose from "mongoose"
 import { validateEmail } from "app/services/utils"
 
-// export type ClientType = mongoose.Document & {
-interface ClientType extends mongoose.Document {
-
-
+export interface ClientType extends mongoose.Document {
   full_name: string
   passport: string
   phone: string
@@ -22,7 +19,6 @@ interface ClientType extends mongoose.Document {
 }
 
 const schema = new mongoose.Schema({
-
   full_name: {
     type: String,
   },
@@ -56,7 +52,6 @@ const schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Loan'
   }],
-
 }, {
   timestamps: true
 })
@@ -73,7 +68,7 @@ schema.methods.addLoan = async function(loan: any): Promise<any> {
   return this
 }
 
-schema.virtual('total_sum_loans').get(function (): number {
+schema.virtual('total_sum_loans').get(function(): number {
   return this.loans.reduce((acc: number, loan: { sum: number }) => {
     return acc += loan.sum
   }, 0)

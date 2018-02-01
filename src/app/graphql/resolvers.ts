@@ -95,16 +95,7 @@ const Mutation = {
   createClient: async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('create', Client)
 
-    // console.log(args.input)
-
     let client = await Client.create(args.input)
-    // let client = await Client.findById("sdfsdfsdf")
-
-    // console.log(client)
-
-    // console.log(111)
-
-    // console.log(ctx.user.territory)
 
     await client.set({ territory: ctx.user.territory })
     await client.save()

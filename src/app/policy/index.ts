@@ -1,6 +1,6 @@
 import { AbilityBuilder, Ability } from "casl"
 
-export default async (user?: any): Promise<any> => {
+export default async (user: any): Promise<any> => {
   const { rules, can } = await AbilityBuilder.extract()
 
   if (user.role == "manager") {
