@@ -5,6 +5,7 @@ const query = `
   type Query {
     users: [User]
     user(id: ID): User
+    me: User
 
     clients(id: ID): [Client]
     client(id: ID): Client
@@ -24,6 +25,7 @@ const mutation = `
     createToken(input: TokenCreateInput!): Token
 
     createLoan(input: LoanCreateInput!): Loan
+    updateLoan(input: LoanUpdateInput!): Loan
     caclulateLoan(input: LoanCreateInput!): Total
   }
 `
@@ -39,6 +41,7 @@ const models = `
     role: String
     phone: String!
     territory: String!
+
     createdAt: String
     updatedAt: String
   }
@@ -70,7 +73,7 @@ const models = `
     id: ID!
     date_start: String!
     date_end: String!
-    client: String!
+    client: String
     sum: Int!
 
     createdAt: String
@@ -100,7 +103,7 @@ const inputs = `
   }
 
   input UserUpdateInput {
-    id: ID
+    id: ID!
     full_name: String
     email: String
     login: String
@@ -121,7 +124,7 @@ const inputs = `
   }
 
   input ClientUpdateInput {
-    id: ID
+    id: ID!
     full_name: String
     email: String
     passport: String
@@ -140,6 +143,14 @@ const inputs = `
     date_start: String!
     date_end: String!
     client: String!
+  }
+
+  input LoanUpdateInput {
+    id: ID!
+    sum: Int
+    date_start: String
+    date_end: String
+    client: String
   }
 `
 

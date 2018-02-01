@@ -1,26 +1,31 @@
 import { AbilityBuilder, Ability } from "casl"
 
 export default async (user?: any): Promise<any> => {
-  const { rules, can, cannot } = await AbilityBuilder.extract()
+  const { rules, can } = await AbilityBuilder.extract()
 
-  const role = user.role
+  if (user.role == "manager") {
+    can('read', 'User', { _id: user.id })
+    can('update', 'User', { _id: user.id })
 
-  if (role == "manager") {
+    can('read', "Client")
     can('create', "Client")
     can('update', "Client")
 
     can('create', "Loan")
   }
 
-
-  if (role == "admin") {
+  if (user.role == "admin") {
+    can('read', "User")
     can('create', "User")
     can('update', 'User')
     can('delete', 'User')
 
+    can('read', "Client")
+    can('update', "Client")
     can('update.territory', "Client")
-
     can('delete', 'Client')
+
+    can('update', "Loan")
   }
 
   return await new Ability(rules)

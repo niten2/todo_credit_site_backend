@@ -9,7 +9,8 @@ const query = `
 `
 
 describe("valid params given", () => {
-  describe("userManager", () => {
+
+  describe("user manager", () => {
     let res
     let client
     let user
@@ -75,20 +76,23 @@ describe("valid params given", () => {
 
 describe("wrong params given", () => {
 
-  describe("user admin", () => {
+  describe("userManager", () => {
+    const full_name = "new_name"
     let res
     let client
     let user
-    const full_name = "new_name"
+    let territory
 
     beforeEach(async () => {
-      user = await factory.create('userAdmin')
+      user = await factory.create('userManager')
       client = await factory.create('client')
+      territory = await factory.create('territory')
 
       const variableValues = {
         input: {
           id: client.id,
           full_name: full_name,
+          territory: territory.id
         }
       }
 
@@ -96,12 +100,12 @@ describe("wrong params given", () => {
       client = await Client.findById(client.id)
     })
 
-    it('should return valid response', async () => {
+    it('should not change territory, should return error response', async () => {
       expect(res.errors).toContainEqual(matchers.errors_json())
     })
 
-    it('should update client', async () => {
-      expect(client.full_name).not.toEqual(full_name)
+    it('should not change territory, should not update client', async () => {
+      expect(client.territory).not.toEqual(territory.id)
     })
   })
 
@@ -119,4 +123,5 @@ describe("wrong params given", () => {
       expect(res.errors).toContainEqual(matchers.errors_json())
     })
   })
+
 })

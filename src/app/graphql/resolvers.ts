@@ -3,22 +3,37 @@ import { createJwt } from "app/services/jwt"
 import { calculatePersentLoan } from "app/services/utils"
 
 const Query = {
-  users: async (root: any, args: any) => {
+  users: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('read', User)
+
     const users = await User.find()
     return users
   },
 
-  user: async (root: any, args: any) => {
+  user: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('read', User)
+
     const user = await User.findById(args.id)
     return user
   },
 
-  clients: async (root: any, args: any) => {
+  me: async (root: any, args: any, ctx: any) => {
+    if (!ctx.user) throw new Error("user not found")
+
+    const user = await User.findById(ctx.user.id)
+    return user
+  },
+
+  clients: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('read', Client)
+
     const clients = await Client.find()
     return clients
   },
 
-  client: async (root: any, args: any) => {
+  client: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('read', Client)
+
     const client = await Client.findById(args.id)
 
     await Loan.populate(client, { path: "loans" })
@@ -37,8 +52,11 @@ const Mutation = {
     return user
   },
 
-  updateUser: async (root: any, args: any) => {
+  updateUser: async (root: any, args: any, ctx: any) => {
     const user = await User.findById(args.input.id)
+
+    ctx.ability.throwUnlessCan('update', user)
+
     await user.set(args.input)
     await user.save()
 
@@ -46,6 +64,8 @@ const Mutation = {
   },
 
   deleteUser: async (_: any, args: any) => {
+    ctx.ability.throwUnlessCan('delete', User)
+
     const user = await User.findByIdAndRemove(args.input.id)
     return user
   },
@@ -86,16 +106,8 @@ const Mutation = {
   updateClient: async (root: any, args: any, ctx: any) => {
     const client = await Client.findById(args.input.id)
 
-    let isTerritoryOrId = Object.keys(args.input).map((input) => {
-      return (input === "territory" || input === "id")
-    })
-
-    if (!isTerritoryOrId.includes(false)) {
+    if (args.input.territory) {
       ctx.ability.throwUnlessCan('update.territory', Client)
-
-      await client.set({ territory: args.input.territory })
-      await client.save()
-      return client
     }
 
     ctx.ability.throwUnlessCan('update', Client)
@@ -116,9 +128,20 @@ const Mutation = {
     ctx.ability.throwUnlessCan('create', Loan)
 
     const client = await Client.findById(args.input.client)
-    const loan =  await Loan.create(args.input)
+    const loan = await Loan.create(args.input)
 
     await client.addLoan(loan)
+
+    return loan
+  },
+
+  updateLoan: async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('update', Loan)
+
+    const loan = await Loan.findById(args.input.id)
+
+    await loan.set(args.input)
+    await loan.save()
 
     return loan
   },
