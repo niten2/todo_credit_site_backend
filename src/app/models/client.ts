@@ -16,6 +16,9 @@ export type ClientType = mongoose.Document & {
   updatedAt: string
 
   addLoan: (loan: any) => Promise<any>
+
+  // set: (options: any) => Promise<any>
+  // save: (options: any) => Promise<any>
 }
 
 const schema = new mongoose.Schema({

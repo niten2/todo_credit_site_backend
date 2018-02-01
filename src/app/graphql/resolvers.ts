@@ -11,7 +11,7 @@ const Query = {
   },
 
   user: async (root: any, args: any, ctx: any) => {
-    ctx.ability.throwUnlessCan('read', User)
+    ctx.ability.throwUnlessCan('read', ctx.user)
 
     const user = await User.findById(args.id)
     return user
@@ -63,7 +63,7 @@ const Mutation = {
     return user
   },
 
-  deleteUser: async (_: any, args: any) => {
+  deleteUser: async (_: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('delete', User)
 
     const user = await User.findByIdAndRemove(args.input.id)
@@ -97,7 +97,7 @@ const Mutation = {
 
     let client = await Client.create(args.input)
 
-    client.set({ territory: ctx.user.territory })
+    await client.set({ territory: ctx.user.territory })
     await client.save()
 
     return client

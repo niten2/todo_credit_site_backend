@@ -24,7 +24,6 @@ describe("wrong params given", () => {
   it('should return error', async () => {
     const res = await execGraphql({ query, unauth: true })
 
-    console.log(res)
     expect(res.errors).toContainEqual(matchers.errors_json())
   })
 
