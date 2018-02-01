@@ -1,25 +1,45 @@
-import { User, Client } from "config/initialize/mongoose"
+import { User, Client, Loan } from "config/initialize/mongoose"
 import Policy from 'app/policy'
 
-describe("manager", () => {
+describe("user manager", () => {
   let user
   let ability
 
-  beforeAll(async () => {
-    user = await factory.create('userManager')
-    ability = await Policy(user)
+  describe("user blocked", () => {
+    beforeAll(async () => {
+      user = await factory.create('userManager', { blocked: true })
+      ability = await Policy(user)
+    })
+
+    it("should cannot all", async () => {
+      expect(ability.can('read', 'User', { _id: user.id })).toBeFalsy()
+      expect(ability.can('update', 'User', { _id: user.id })).toBeFalsy()
+
+      expect(ability.can("read", Client)).toBeFalsy()
+      expect(ability.can("create", Client)).toBeFalsy()
+      expect(ability.can("update", Client)).toBeFalsy()
+
+      expect(ability.can("create", Loan)).toBeFalsy()
+    })
   })
 
-  it("should can create client", async () => {
-    const res = ability.can("create", Client)
+  describe("user not blocked", () => {
+    beforeAll(async () => {
+      user = await factory.create('userManager', { blocked: false })
+      ability = await Policy(user)
+    })
 
-    expect(res).toBeTruthy()
-  })
+    it("should can", async () => {
+      expect(ability.can('read', 'User', { _id: user.id })).toBeTruthy()
 
-  it("should can update client", async () => {
-    const res = ability.can("update", Client)
+      expect(ability.can('update', 'User', { _id: user.id })).toBeTruthy()
 
-    expect(res).toBeTruthy()
+      expect(ability.can("read", Client)).toBeTruthy()
+      expect(ability.can("create", Client)).toBeTruthy()
+      expect(ability.can("update", Client)).toBeTruthy()
+
+      expect(ability.can("create", Loan)).toBeTruthy()
+    })
   })
 
 })

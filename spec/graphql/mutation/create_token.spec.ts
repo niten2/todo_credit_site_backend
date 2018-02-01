@@ -1,5 +1,6 @@
 import { User } from "config/initialize/mongoose"
 
+const password = "password"
 const query = `
   mutation createToken($input: TokenCreateInput!) {
     createToken(input: $input) {
@@ -9,8 +10,6 @@ const query = `
     }
   }
 `
-
-const password = "password"
 
 describe("valid params given", () => {
   let res
@@ -42,45 +41,87 @@ describe("valid params given", () => {
 })
 
 describe("wrong params given", () => {
-  it('should return wrong password', async () => {
-    let user = await factory.create('user', { password })
 
-    const variableValues = {
-      input: {
-        email: user.email,
-        password: "other_password",
+  describe("attempt more", () => {
+    let res
+    let user
+
+    beforeEach(async () => {
+      user = await factory.create('user', { password, blocked: false })
+
+      const variableValues = {
+        input: {
+          email: user.email,
+          password: "wrong_password",
+        }
       }
-    }
 
-    const res = await execGraphql({ query, variableValues })
+      res = await execGraphql({ query, variableValues })
+      res = await execGraphql({ query, variableValues })
+      res = await execGraphql({ query, variableValues })
+      res = await execGraphql({ query, variableValues })
+    })
 
-    expect(res.errors[0]).toEqual(
-      expect.objectContaining({
-        message: 'wrong password',
-        locations: expect.any(Array),
-        path: expect.any(Array),
-      }),
-    )
+    it('should return wrong password', async () => {
+      expect(res.errors[0]).toEqual(
+        expect.objectContaining({
+          message: 'wrong password',
+          locations: expect.any(Array),
+          path: expect.any(Array),
+        }),
+      )
+    })
+
+    it('should blocker user', async () => {
+      user = await User.findById(user.id)
+      expect(user.blocked).toEqual(true)
+    })
   })
 
-  it('should return user not found', async () => {
-    let user = await factory.create('user', { password })
+  describe("password not valid", () => {
+    it('should return wrong password', async () => {
+      let user = await factory.create('user', { password })
 
-    const variableValues = {
-      input: {
-        email: "otherUser@email.com",
-        password: "password",
+      const variableValues = {
+        input: {
+          email: user.email,
+          password: "other_password",
+        }
       }
-    }
 
-    const res = await execGraphql({ query, variableValues })
+      const res = await execGraphql({ query, variableValues })
 
-    expect(res.errors[0]).toEqual(
-      expect.objectContaining({
-        message: 'user not found',
-        locations: expect.any(Array),
-        path: expect.any(Array),
-      }),
-    )
+      expect(res.errors[0]).toEqual(
+        expect.objectContaining({
+          message: 'wrong password',
+          locations: expect.any(Array),
+          path: expect.any(Array),
+        }),
+      )
+    })
   })
+
+  describe("user not found", () => {
+    it('should error', async () => {
+      let user = await factory.create('user', { password })
+
+      const variableValues = {
+        input: {
+          email: "otherUser@email.com",
+          password: "password",
+        }
+      }
+
+      const res = await execGraphql({ query, variableValues })
+
+      expect(res.errors[0]).toEqual(
+        expect.objectContaining({
+          message: 'user not found',
+          locations: expect.any(Array),
+          path: expect.any(Array),
+        }),
+      )
+    })
+  })
+
 })

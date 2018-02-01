@@ -14,6 +14,8 @@ export interface UserType extends mongoose.Document {
   phone: string
 
   territory: string
+  blocked: boolean
+  attempt_login: number
 
   createdAt: string
   updatedAt: string
@@ -51,9 +53,37 @@ const schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Territory'
   },
+
+  blocked: {
+    default: false,
+    type: Boolean,
+  },
+
+  attempt_login: {
+    default: 0,
+    type: Number,
+  },
+
 }, {
   timestamps: true
 })
+
+schema.methods.addAttempt = async function(): Promise<any> {
+  const count_attempt = 4
+
+  await this.set({ attempt_login: this.attempt_login + 1 })
+
+  if (this.attempt_login === count_attempt) {
+    await this.set({ blocked: true })
+  }
+
+  await this.save()
+}
+
+schema.methods.resetAttempt = async function(): Promise<any> {
+  await this.set({ attempt_login: 0 })
+  await this.save()
+}
 
 schema.pre('save', async function(next: any): Promise<any> {
   if (!this.isModified('password')) return next()
