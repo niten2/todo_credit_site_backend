@@ -9,31 +9,35 @@ const query = `
 `
 
 describe("valid params given", () => {
-  let res
-  let user
-  const password = "password"
 
-  beforeEach(async () => {
-    user = await factory.create('user', { password })
+  describe("user admin", () => {
+    let res
+    let user
+    const password = "password"
 
-    const variableValues = {
-      input: {
-        id: user.id,
+    beforeEach(async () => {
+      user = await factory.create('userAdmin', { password })
+
+      const variableValues = {
+        input: {
+          id: user.id,
+        }
       }
-    }
 
-    res = await execGraphql({ query, variableValues })
+      res = await execGraphql({ query, variableValues, user })
+    })
+
+    it('should return valid response', async () => {
+      expect(res.data.deleteUser).toEqual(matchers.user_json(user))
+    })
+
+    it('should destroy user', async () => {
+      user = await User.findById(user.id)
+
+      expect(user).toEqual(null)
+    })
   })
 
-  it('should return valid response', async () => {
-    expect(res.data.deleteUser).toEqual(matchers.user_json(user))
-  })
-
-  it('should destroy user', async () => {
-    user = await User.findById(user.id)
-
-    expect(user).toEqual(null)
-  })
 })
 
 describe("wrong params given", () => {

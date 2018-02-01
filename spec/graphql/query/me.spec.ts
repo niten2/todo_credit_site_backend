@@ -1,6 +1,6 @@
 const query = `
   query {
-    users {
+    me {
       ${matchers.user_attr()}
     }
   }
@@ -8,19 +8,23 @@ const query = `
 
 describe("valid params given", () => {
 
-  it('should return users', async () => {
-    let user = await factory.create('userAdmin')
+  it('should return user', async () => {
+    let user = await factory.create('user')
+
     const res = await execGraphql({ query, user })
 
-    expect(res.data.users).toContainEqual(matchers.user_json())
+    expect(res.data.me).toEqual(matchers.user_json())
+    expect(res.data.me.id).toEqual(user.id)
   })
 
 })
 
 describe("wrong params given", () => {
+
   it('should return error', async () => {
-    const res = await execGraphql({ query })
+    const res = await execGraphql({ query, unauth: true })
 
     expect(res.errors).toContainEqual(matchers.errors_json())
   })
+
 })

@@ -3,7 +3,7 @@ import * as bcrypt from "bcrypt"
 import * as crypto from "crypto"
 import { validateEmail } from "app/services/utils"
 
-export type UserType = mongoose.Document & {
+export interface UserType extends mongoose.Document {
   full_name: string
   email: string
 
@@ -22,7 +22,6 @@ export type UserType = mongoose.Document & {
 }
 
 const schema = new mongoose.Schema({
-
   full_name: {
     type: String,
   },
@@ -52,12 +51,11 @@ const schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Territory'
   },
-
 }, {
   timestamps: true
 })
 
-schema.pre('save', async function(next) {
+schema.pre('save', async function(next: any): Promise<any> {
   if (!this.isModified('password')) return next()
   this.password = await bcrypt.hash(this.password, 10)
   return next()

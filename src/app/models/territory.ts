@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose"
 
-export type TerritoryType = mongoose.Document & {
+export interface TerritoryType extends mongoose.Document {
   name: string
   rate: number
 }

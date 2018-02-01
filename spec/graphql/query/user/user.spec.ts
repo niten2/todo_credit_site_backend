@@ -9,13 +9,13 @@ const query = `
 describe("valid params given", () => {
 
   it('should return user', async () => {
-    let user = await factory.create('user')
+    let user = await factory.create('userManager')
 
     const variableValues = {
       id: user.id
     }
 
-    const res = await execGraphql({ query, variableValues })
+    const res = await execGraphql({ query, variableValues, user })
 
     expect(res.data.user).toEqual(matchers.user_json())
   })
