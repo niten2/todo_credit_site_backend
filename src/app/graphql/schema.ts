@@ -65,7 +65,8 @@ const models = `
 
   type Token {
     id: ID!
-    email: String!
+    login: String
+    email: String
     value: String!
   }
 
@@ -133,7 +134,7 @@ const inputs = `
   }
 
   input TokenCreateInput {
-    email: String!
+    login: String!
     password: String!
   }
 

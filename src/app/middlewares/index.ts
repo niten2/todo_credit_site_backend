@@ -3,6 +3,7 @@ import * as bodyParser from 'body-parser'
 import * as morgan from 'morgan'
 import settings from 'config/settings'
 import logger from "app/services/logger"
+import *as morganBody from 'morgan-body'
 import { Express, Response, Request, NextFunction } from "express"
 
 export default (app: Express): void => {
@@ -16,5 +17,7 @@ export default (app: Express): void => {
     })
 
     app.use(morgan('combined'))
+
+    morganBody(app)
   }
 }

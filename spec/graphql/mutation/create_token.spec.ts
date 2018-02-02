@@ -5,6 +5,7 @@ const query = `
   mutation createToken($input: TokenCreateInput!) {
     createToken(input: $input) {
       id
+      login
       email
       value
     }
@@ -21,7 +22,7 @@ describe("valid params given", () => {
 
     const variableValues = {
       input: {
-        email: user.email,
+        login: user.login,
         password: password,
       }
     }
@@ -33,6 +34,7 @@ describe("valid params given", () => {
     expect(res.data.createToken).toEqual(
       expect.objectContaining({
         id: user.id,
+        login: user.login,
         email: user.email,
         value: expect.any(String),
       }),
@@ -51,7 +53,7 @@ describe("wrong params given", () => {
 
       const variableValues = {
         input: {
-          email: user.email,
+          login: user.login,
           password: "wrong_password",
         }
       }
@@ -84,7 +86,7 @@ describe("wrong params given", () => {
 
       const variableValues = {
         input: {
-          email: user.email,
+          login: user.login,
           password: "other_password",
         }
       }
@@ -107,7 +109,7 @@ describe("wrong params given", () => {
 
       const variableValues = {
         input: {
-          email: "otherUser@email.com",
+          login: "otherUserLogin",
           password: "password",
         }
       }

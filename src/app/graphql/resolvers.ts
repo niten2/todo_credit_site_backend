@@ -71,12 +71,19 @@ const Mutation = {
   },
 
   createToken: async (_: any, args: any): Promise<any> => {
-    const { email, password } = args.input
+    console.log(111111)
 
-    const user = await User.findOne({ email: email })
+
+    const { login, password } = args.input
+
+    const user = await User.findOne({ login })
 
     if (!user) {
       throw new Error("user not found")
+    }
+
+    if (user.blocked) {
+      throw new Error("user blocked, connect with admin")
     }
 
     if (!await user.comparePassword(password)) {
@@ -91,6 +98,7 @@ const Mutation = {
     return {
       id: user.id,
       email: user.email,
+      login: user.login,
       value,
     }
   },

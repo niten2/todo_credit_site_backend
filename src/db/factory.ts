@@ -1,24 +1,19 @@
 import * as faker from "faker"
 import { factory } from 'factory-girl'
-import { User, Client, Territory } from "config/initialize/mongoose"
+import { User, Territory } from "config/initialize/mongoose"
 
-factory.define('userAdmin', User, {
+factory.define('user', User, {
   full_name: faker.name.findName,
   email: faker.internet.email,
+  login: faker.name.findName,
   password: faker.internet.password,
-  role: "admin",
-})
-
-factory.define('userManager', User, {
-  full_name: faker.name.findName,
-  email: faker.internet.email,
-  password: faker.internet.password,
+  phone: faker.phone.phoneNumber,
   role: "manager",
 })
 
-// factory.define('territory', Territory, {
-//   name: faker.address.country,
-//   rate: faker.random.number,
-// })
+factory.define('territory', Territory, {
+  name: faker.address.country,
+  rate: faker.random.number,
+})
 
 export default factory
