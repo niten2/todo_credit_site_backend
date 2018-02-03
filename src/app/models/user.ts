@@ -93,8 +93,10 @@ schema.methods.addAttempt = async function(): Promise<any> {
 }
 
 schema.methods.resetAttempt = async function(): Promise<any> {
-  await this.set({ attempt_login: 0 })
-  await this.save()
+  if (this.attempt_login != 0) {
+    await this.set({ attempt_login: 0 })
+    await this.save()
+  }
 }
 
 export default mongoose.model<UserType>('User', schema)
