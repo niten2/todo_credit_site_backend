@@ -70,6 +70,15 @@ const Mutation = {
     return user
   },
 
+  updateMe: async (root: any, args: any, ctx: any) => {
+    const user = ctx.user
+
+    await user.set(args.input)
+    await user.save()
+
+    return user
+  },
+
   createToken: async (_: any, args: any): Promise<any> => {
     const { login, password } = args.input
 

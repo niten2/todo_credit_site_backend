@@ -18,6 +18,8 @@ const mutation = `
     updateUser(input: UserUpdateInput!): User
     deleteUser(input: IdInput!): User
 
+    updateMe(input: MeUpdateInput!): User
+
     createClient(input: ClientCreateInput!): Client
     updateClient(input: ClientUpdateInput!): Client
     deleteClient(input: IdInput!): Client
@@ -38,9 +40,9 @@ const models = `
     email: String
     login: String!
     password: String!
-    role: String
-    phone: String!
-    territory: String!
+    role: String!
+    phone: String
+    territory: String
 
     createdAt: String
     updatedAt: String
@@ -110,8 +112,16 @@ const inputs = `
     role: String
     phone: String
     territory: String
-    createdAt: String
-    updatedAt: String
+  }
+
+  input MeUpdateInput {
+    full_name: String
+    email: String
+    login: String
+    password: String
+    role: String
+    phone: String
+    territory: String
   }
 
   input ClientCreateInput {
