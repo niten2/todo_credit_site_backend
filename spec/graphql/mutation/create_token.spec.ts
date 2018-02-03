@@ -4,10 +4,10 @@ const password = "password"
 const query = `
   mutation createToken($input: TokenCreateInput!) {
     createToken(input: $input) {
-      id
-      login
-      email
-      value
+      token
+      user {
+        ${matchers.user_attr()}
+      }
     }
   }
 `
@@ -30,15 +30,12 @@ describe("valid params given", () => {
     res = await execGraphql({ query, variableValues })
   })
 
-  it('should return valid response', async () => {
-    expect(res.data.createToken).toEqual(
-      expect.objectContaining({
-        id: user.id,
-        login: user.login,
-        email: user.email,
-        value: expect.any(String),
-      }),
-    )
+  it('should return token', async () => {
+    expect(res.data.createToken.token).toEqual(expect.any(String))
+  })
+
+  it('should return user', async () => {
+    expect(res.data.createToken.user).toEqual(matchers.user_json())
   })
 })
 

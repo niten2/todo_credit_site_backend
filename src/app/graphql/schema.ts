@@ -64,10 +64,8 @@ const models = `
   }
 
   type Token {
-    id: ID!
-    login: String
-    email: String
-    value: String!
+    token: String!
+    user: User
   }
 
   type Loan {

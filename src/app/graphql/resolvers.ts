@@ -71,14 +71,9 @@ const Mutation = {
   },
 
   createToken: async (_: any, args: any): Promise<any> => {
-    console.log(111111)
-
-
     const { login, password } = args.input
 
     const user = await User.findOne({ login })
-    console.log(111111)
-
 
     if (!user) {
       throw new Error("user not found")
@@ -88,26 +83,18 @@ const Mutation = {
       throw new Error("user blocked, connect with admin")
     }
 
-    console.log(111111)
-
     if (!await user.comparePassword(password)) {
       await user.addAttempt()
       throw new Error("wrong password")
     }
 
-    console.log(user)
-
-    const value = await createJwt(user)
+    const token = await createJwt(user)
 
     await user.resetAttempt()
 
-    console.log(111111)
-
     return {
-      id: user.id,
-      email: user.email,
-      login: user.login,
-      value,
+      user,
+      token,
     }
   },
 
