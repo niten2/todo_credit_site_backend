@@ -6,7 +6,7 @@ const Query = {
   users: async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('read', User)
 
-    const users = await User.find()
+    const users = await User.find({ _id: { $ne: ctx.user.id } })
     return users
   },
 
