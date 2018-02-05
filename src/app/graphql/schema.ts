@@ -36,11 +36,11 @@ const models = `
   type User {
     id: ID
 
-    full_name: String!
+    full_name: String
     email: String
-    login: String!
-    password: String!
-    role: String!
+    login: String
+    password: String
+    role: String
     phone: String
     territory: String
 
@@ -93,12 +93,12 @@ const inputs = `
 
   input UserCreateInput {
     full_name: String!
-    email: String
+    email: String!
     login: String!
     password: String!
     role: String
     phone: String!
-    territory: String!
+    territory: String
     createdAt: String
     updatedAt: String
   }
