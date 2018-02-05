@@ -12,6 +12,10 @@ const create = async (): Promise<void> => {
     await factory.create('territory', { rate: 1 })
     await factory.create('territory', { rate: 1.5 })
 
+    await factory.create('client', {})
+    await factory.create('client', {})
+    await factory.create('client', {})
+
     await closeDb()
 
     console.log("models created")
