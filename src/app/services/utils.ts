@@ -1,4 +1,3 @@
-// import { User } from "config/initialize/mongoose"
 import { User } from "app/models"
 import { verifyJwt } from 'app/services/jwt'
 import settings from 'config/settings'
