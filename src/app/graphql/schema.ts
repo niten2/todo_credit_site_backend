@@ -56,7 +56,7 @@ const models = `
     email: String
     passport: String
     phone: String
-    territory: String
+    territory: Territory
     user: String
     mark_as_deleted: Boolean
     total_sum_loans: Int
@@ -86,7 +86,7 @@ const models = `
   type Territory {
     id: ID!
     name: String!
-    rate: Int!
+    rate: Float!
 
     createdAt: String
     updatedAt: String

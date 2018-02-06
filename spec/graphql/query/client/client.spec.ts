@@ -32,6 +32,10 @@ describe("valid params given", () => {
   it('should have loan_json', async () => {
     expect(res.data.client.loans).toContainEqual(matchers.loan_json())
   })
+
+  it('should have territory_json', async () => {
+    expect(res.data.client.territory).toEqual(matchers.territory_json())
+  })
 })
 
 describe("wrong params given", () => {

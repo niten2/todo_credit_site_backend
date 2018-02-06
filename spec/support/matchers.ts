@@ -89,7 +89,15 @@ export default {
       email
       passport
       phone
-      territory
+      territory {
+        id
+
+        name
+        rate
+
+        createdAt
+        updatedAt
+      }
       user
       mark_as_deleted
       total_sum_loans
