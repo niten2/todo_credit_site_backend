@@ -3,9 +3,6 @@ import { graphqlExpress, graphiqlExpress } from "apollo-server-express"
 import graphqOptions from 'app/graphql/config'
 import settings from "config/settings"
 
-import AuthMiddleware from "app/middlewares/auth"
-import AbilityMiddleware from "app/middlewares/ability"
-
 export default (app: Express) => {
   app.get("/", (req: Request, res: Response, next: NextFunction): void => {
     res.json({
@@ -14,7 +11,6 @@ export default (app: Express) => {
     })
   })
 
-  // app.use("/v1", AuthMiddleware, AbilityMiddleware, graphqlExpress(graphqOptions))
   app.use("/v1", graphqlExpress(graphqOptions))
   app.use("/v1", graphiqlExpress({ endpointURL: "/graphql" }))
 }

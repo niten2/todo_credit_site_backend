@@ -34,14 +34,11 @@
     "faker": "^4.1.0",
     "graphql": "^0.12.3",
     "graphql-tools": "^2.19.0",
-    "install": "^0.10.4",
     "intel": "^1.2.0",
     "jsonwebtoken": "^8.1.1",
     "mongodb": "^3.0.2",
     "mongoose": "^5.0.3",
-    "morgan": "^1.9.0",
-    "morgan-body": "^2.0.2",
-    "npm": "^5.6.0"
+    "morgan-body": "^2.0.2"
   },
   "devDependencies": {
     "@types/async": "^2.0.47",
