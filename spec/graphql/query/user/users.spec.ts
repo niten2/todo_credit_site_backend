@@ -31,3 +31,15 @@ describe("wrong params given", () => {
     expect(res.errors).toContainEqual(matchers.errors_json())
   })
 })
+
+describe("unauthorized", () => {
+  let res
+
+  beforeEach(async () => {
+    res = await execGraphql({ query, unauth: true })
+  })
+
+  it('should return valid response', async () => {
+    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json())
+  })
+})
