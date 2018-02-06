@@ -1,7 +1,6 @@
 import * as cors from 'cors'
 import * as bodyParser from 'body-parser'
 import * as morganBody from 'morgan-body'
-// import * as morgan from 'morgan'
 import settings from 'config/settings'
 import logger from "app/services/logger"
 import { Express, Response, Request, NextFunction } from "express"

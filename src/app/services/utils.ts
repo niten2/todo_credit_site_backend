@@ -48,10 +48,6 @@ export const addDays = (date: Date, days: number): Date => {
 }
 
 export const authenticated = (fn: any) => async (parent: any, args: any, ctx: any, info: any) => {
-  console.log(1111)
-  console.log(3333)
-
-
   let { token } = ctx
 
   if (!token) {

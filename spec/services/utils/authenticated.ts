@@ -4,68 +4,100 @@ import { authenticated } from "app/services/utils"
 describe("authenticated", () => {
 
   describe('valid token', () => {
-    it("should verifyJwt", async () => {
-      const user = await factory.create("user")
-      const token = createJwt(user)
+    let user
+    let token
+    let ctx
+    let res
+    let fn = () => { return true }
 
-      let ctx = { token }
-      let fn = ({}, {}, ctx, {}) => { return true }
+    beforeEach(async () => {
+      user = await factory.create("user")
+      token = createJwt(user)
+      ctx = { token }
 
-      let res = await authenticated(fn)
+      res = await authenticated(fn)({}, {}, ctx, {})
+    })
 
-      console.log(res)
-      // console.log(fn)
-      // console.log(res)
-      // console.log(ctx)
+    it("should return res", async () => {
+      expect(res).toEqual(true)
+    })
 
-      // let req = { header: () => { return `Authorization ${token}` } }
-      // let res = { status: () => {} }
-      // let next = () => {}
+    it("ctx should have token", async () => {
+      expect(ctx.token).toEqual(token)
+    })
 
-      // await Auth(req, res, next)
+    it("ctx should have user", async () => {
+      expect(ctx.user.id).toEqual(user.id)
+    })
 
-      // expect(req.payload).toEqual(matchers.payload_json())
-      // expect(req.user).toEqual(matchers.user_db())
+    it("ctx should have ability", async () => {
+      expect(ctx.ability).toEqual(expect.any(Object))
     })
   })
 
-  // describe('wrong token', async () => {
-  //   it("user not exist", async () => {
-  //     const user = await factory.build("user")
-  //     const token = createJwt(user)
+  describe('user not found', async () => {
+    let user
+    let token
+    let ctx
+    let res
+    let fn = () => { return true }
 
-  //     let req = { header: () => { return `Authorization ${token}` } }
-  //     let res = { status: () => {} }
-  //     let next = jest.fn()
+    beforeEach(async () => {
+      user = await factory.build("user")
+      token = createJwt(user)
+      ctx = { token }
+    })
 
-  //     await Auth(req, res, next)
+    it("user not exist", async () => {
+      expect.assertions(1)
+      try {
+        await authenticated(fn)({}, {}, ctx, {})
+      } catch (err) {
+        expect(err.message).toEqual("user not found")
+      }
+    })
+  })
 
-  //     const error = next.mock.calls[0][0].message
+  describe('wrong token', async () => {
+    let user
+    let token
+    let ctx
+    let res
+    let fn = () => { return true }
 
-  //     expect(error).toEqual("user not found")
-  //   })
+    beforeEach(async () => {
+      token = "string"
+      ctx = { token }
+    })
 
-  //   it("should verifyJwt", async () => {
-  //     let req = { header: () => { return "Authorization test" } }
-  //     let res = { status: () => {} }
-  //     let next = jest.fn()
+    it("user not exist", async () => {
+      expect.assertions(1)
+      try {
+        await authenticated(fn)({}, {}, ctx, {})
+      } catch (err) {
+        expect(err.message).toEqual("token not valid")
+      }
+    })
+  })
 
-  //     await Auth(req, res, next)
+  describe('empty token', async () => {
+    let user
+    let ctx
+    let res
+    let fn = () => { return true }
 
-  //     expect(next.mock.calls[0]).toEqual([])
-  //   })
-  // })
+    beforeEach(async () => {
+      ctx = {}
+    })
 
-  // describe('empty token', () => {
-  //   it("should return error", async () => {
-  //     let req = { header: () => { return "" } }
-  //     let res = { status: () => {} }
-  //     let next = jest.fn()
-
-  //     await Auth(req, res, next)
-
-  //     expect(next.mock.calls[0]).toEqual([])
-  //   })
-  // })
+    it("user not exist", async () => {
+      expect.assertions(1)
+      try {
+        await authenticated(fn)({}, {}, ctx, {})
+      } catch (err) {
+        expect(err.message).toEqual("token not found")
+      }
+    })
+  })
 
 })
