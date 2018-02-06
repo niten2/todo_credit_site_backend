@@ -27,7 +27,7 @@ describe("valid params given", () => {
       }
     }
 
-    res = await execGraphql({ query, variableValues })
+    res = await execGraphql({ query, variableValues, unauth: true })
   })
 
   it('should return token', async () => {
@@ -55,10 +55,10 @@ describe("wrong params given", () => {
         }
       }
 
-      res = await execGraphql({ query, variableValues })
-      res = await execGraphql({ query, variableValues })
-      res = await execGraphql({ query, variableValues })
-      res = await execGraphql({ query, variableValues })
+      res = await execGraphql({ query, variableValues, unauth: true  })
+      res = await execGraphql({ query, variableValues, unauth: true  })
+      res = await execGraphql({ query, variableValues, unauth: true  })
+      res = await execGraphql({ query, variableValues, unauth: true  })
     })
 
     it('should return wrong password', async () => {
@@ -88,7 +88,7 @@ describe("wrong params given", () => {
         }
       }
 
-      const res = await execGraphql({ query, variableValues })
+      const res = await execGraphql({ query, variableValues, unauth: true  })
 
       expect(res.errors[0]).toEqual(
         expect.objectContaining({
@@ -111,7 +111,7 @@ describe("wrong params given", () => {
         }
       }
 
-      const res = await execGraphql({ query, variableValues })
+      const res = await execGraphql({ query, variableValues, unauth: true })
 
       expect(res.errors[0]).toEqual(
         expect.objectContaining({

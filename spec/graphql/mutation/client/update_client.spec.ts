@@ -125,3 +125,28 @@ describe("wrong params given", () => {
   })
 
 })
+
+describe("unauthorized", () => {
+  let res
+  let client
+  let user
+  const full_name = "new_name"
+
+  beforeEach(async () => {
+    user = await factory.create('userManager')
+    client = await factory.create('client')
+
+    const variableValues = {
+      input: {
+        id: client.id,
+        full_name: full_name,
+      }
+    }
+
+    res = await execGraphql({ query, variableValues, unauth: true })
+  })
+
+  it('should return valid response', async () => {
+    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json())
+  })
+})

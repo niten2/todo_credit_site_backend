@@ -48,3 +48,29 @@ describe("wrong params given", () => {
     expect(res.errors).toContainEqual(matchers.errors_json())
   })
 })
+
+describe("unauthorized", () => {
+  let res
+  let loan
+  let client
+  const password = "password"
+
+  beforeEach(async () => {
+    client = await factory.create('client')
+
+    const variableValues = {
+      input: {
+        sum: 100,
+        date_start: new Date(),
+        date_end: new Date(),
+        client: client.id,
+      }
+    }
+
+    res = await execGraphql({ query, variableValues, unauth: true })
+  })
+
+  it('should return valid response', async () => {
+    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json())
+  })
+})
