@@ -176,4 +176,28 @@ export default {
     })
   },
 
+  territory_attr: (): string => {
+    return `
+      id
+
+      name
+      rate
+
+      createdAt
+      updatedAt
+    `
+  }
+
+  territory_json: (): any => {
+    return expect.objectContaining({
+      id: expect.any(String),
+
+      name: expect.any(String),
+      rate: expect.any(Number),
+
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String),
+    })
+  },
+
 }

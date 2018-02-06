@@ -1,4 +1,4 @@
-import { User, Client, Loan } from "app/models"
+import { User, Client, Loan, Territory } from "app/models"
 import { createJwt } from "app/services/jwt"
 import { authenticated, calculatePersentLoan } from "app/services/utils"
 
@@ -39,6 +39,11 @@ const Query = {
     await Loan.populate(client, { path: "loans" })
 
     return client
+  }),
+
+  territories: authenticated(async (root: any, args: any, ctx: any) => {
+    const territories = await Territory.find()
+    return territories
   }),
 
 }

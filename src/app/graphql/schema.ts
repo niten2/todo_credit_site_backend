@@ -9,6 +9,8 @@ const query = `
 
     clients(id: ID): [Client]
     client(id: ID): Client
+
+    territories: [Territory]
   }
 `
 
@@ -76,6 +78,15 @@ const models = `
     date_end: String!
     client: String!
     sum: Int!
+
+    createdAt: String
+    updatedAt: String
+  }
+
+  type Territory {
+    id: ID!
+    name: String!
+    rate: Int!
 
     createdAt: String
     updatedAt: String

@@ -1,18 +1,18 @@
 const query = `
   query {
-    clients {
-      ${matchers.client_attr()}
+    territories {
+      ${matchers.territory_attr()}
     }
   }
 `
 
 describe("", () => {
 
-  it('should return users', async () => {
-    let client = await factory.create('client')
+  it('should return territories', async () => {
+    let territory = await factory.create('territory')
     const res = await execGraphql({ query })
 
-    expect(res.data.clients).toContainEqual(matchers.client_json())
+    expect(res.data.territories).toContainEqual(matchers.territory_json())
   })
 
 })
@@ -21,6 +21,8 @@ describe("unauthorized", () => {
   let res
 
   beforeEach(async () => {
+    let territory = await factory.create('territory')
+
     res = await execGraphql({ query, unauth: true })
   })
 
