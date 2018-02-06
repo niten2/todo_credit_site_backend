@@ -1,4 +1,5 @@
 import schema from './schema'
+import { getTokenFromHeader } from 'app/services/utils'
 
 export default (req: any, res: any) => {
   return {
@@ -10,21 +11,10 @@ export default (req: any, res: any) => {
     }),
 
     context: {
-      token: getHeader(req),
+      token: getTokenFromHeader(req),
       payload: req.payload,
       user: req.user,
       ability: req.ability,
     },
   }
-}
-
-const getHeader = (req: any): string | null => {
-  if (!req.header('Authorization') || !req.header('authorization')) {
-    return null
-  }
-
-  const parts = req.header('Authorization').split(' ')
-  const token = parts[1]
-
-  return token
 }

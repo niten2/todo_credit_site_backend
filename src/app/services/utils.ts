@@ -73,3 +73,14 @@ export const authenticated = (fn: any) => async (parent: any, args: any, ctx: an
 
   return fn(parent, args, ctx, info)
 }
+
+export const getTokenFromHeader = (req: any): string | null => {
+  if (!req.header('Authorization') || !req.header('authorization')) {
+    return null
+  }
+
+  const parts = req.header('Authorization').split(' ')
+  const token = parts[1]
+
+  return token
+}
