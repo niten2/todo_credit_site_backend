@@ -1,4 +1,5 @@
 import { Loan } from "config/initialize/mongoose"
+import mongoose, { connectDb, dropDb, closeDb } from "config/initialize/mongoose"
 
 const query = `
   mutation updateLoan($input: LoanUpdateInput!) {
@@ -16,16 +17,19 @@ describe("valid params given", () => {
     let user
     let loan
     let new_loan
+    let client
 
     beforeEach(async () => {
       user = await factory.create('userAdmin')
       loan = await factory.create('loan')
+      client = await factory.create('client')
       new_loan = await factory.build('loan')
 
       const variableValues = {
         input: {
           id: loan.id,
           sum: new_loan.sum,
+          client: client.id,
           date_start: new_loan.date_start,
           date_end: new_loan.date_end,
         }

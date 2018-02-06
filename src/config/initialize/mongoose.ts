@@ -9,6 +9,11 @@ if (!settings.isEnvTest) {
   mongoose.set("debug", true)
 }
 
+export const User = mongoose.model("User")
+export const Client = mongoose.model("Client")
+export const Territory = mongoose.model("Territory")
+export const Loan = mongoose.model("Loan")
+
 export const connectDb = async (): Promise<any> => {
   return await mongoose.connect(settings.dbUrl)
 }
@@ -25,10 +30,6 @@ export const closeDb = async (): Promise<any> => {
   return await mongoose.connection.close
 }
 
-export const User = mongoose.model("User")
-export const Client = mongoose.model("Client")
-export const Territory = mongoose.model("Territory")
-export const Loan = mongoose.model("Loan")
 
 export default mongoose
 
