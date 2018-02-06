@@ -27,6 +27,8 @@ export interface UserType extends mongoose.Document {
 
 const schema = new mongoose.Schema({
   full_name: {
+    unique: true,
+    required: true,
     type: String,
   },
 
@@ -35,11 +37,21 @@ const schema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true,
+    required: true,
     validate: [validateEmail, 'Please fill a valid email address'],
   },
 
-  login: String,
-  password: String,
+  login: {
+    unique: true,
+    required: true,
+    type: String,
+  },
+
+  password: {
+    unique: true,
+    required: true,
+    type: String,
+  },
 
   role: {
     type: String,
@@ -48,6 +60,8 @@ const schema = new mongoose.Schema({
   },
 
   phone: {
+    unique: true,
+    required: true,
     type: String,
   },
 
@@ -93,8 +107,10 @@ schema.methods.addAttempt = async function(): Promise<any> {
 }
 
 schema.methods.resetAttempt = async function(): Promise<any> {
-  await this.set({ attempt_login: 0 })
-  await this.save()
+  if (this.attempt_login != 0) {
+    await this.set({ attempt_login: 0 })
+    await this.save()
+  }
 }
 
 export default mongoose.model<UserType>('User', schema)

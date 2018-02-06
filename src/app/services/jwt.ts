@@ -18,8 +18,8 @@ export const createJwt = (user: any): any => {
   )
 }
 
-export const verifyJwt = (token: string): Promise<any> => {
-  return new Promise((resolve, reject) => {
+export const verifyJwt = async (token: string): Promise<any> => {
+  return await new Promise((resolve, reject) => {
     jsonwebtoken.verify(token, settings.jwt_secret_key, {}, (err, data) => {
       if (err !== null) {
         return reject(err)

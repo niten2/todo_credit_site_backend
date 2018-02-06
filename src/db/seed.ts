@@ -5,12 +5,16 @@ const create = async (): Promise<void> => {
   try {
     await connectDb()
 
-    await factory.create('userAdmin', { password: "12345" })
-    await factory.create('userManager', { password: "12345" })
+    await factory.create('user', { login: "admin", password: "12345", role: "admin" })
+    await factory.create('user', { login: "manager", password: "12345", role: "manager" })
 
     await factory.create('territory', { rate: 0.5 })
     await factory.create('territory', { rate: 1 })
     await factory.create('territory', { rate: 1.5 })
+
+    await factory.create('client', {})
+    await factory.create('client', {})
+    await factory.create('client', {})
 
     await closeDb()
 

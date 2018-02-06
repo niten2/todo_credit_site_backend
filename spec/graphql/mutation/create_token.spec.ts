@@ -4,9 +4,10 @@ const password = "password"
 const query = `
   mutation createToken($input: TokenCreateInput!) {
     createToken(input: $input) {
-      id
-      email
-      value
+      token
+      user {
+        ${matchers.user_attr()}
+      }
     }
   }
 `
@@ -21,22 +22,20 @@ describe("valid params given", () => {
 
     const variableValues = {
       input: {
-        email: user.email,
+        login: user.login,
         password: password,
       }
     }
 
-    res = await execGraphql({ query, variableValues })
+    res = await execGraphql({ query, variableValues, unauth: true })
   })
 
-  it('should return valid response', async () => {
-    expect(res.data.createToken).toEqual(
-      expect.objectContaining({
-        id: user.id,
-        email: user.email,
-        value: expect.any(String),
-      }),
-    )
+  it('should return token', async () => {
+    expect(res.data.createToken.token).toEqual(expect.any(String))
+  })
+
+  it('should return user', async () => {
+    expect(res.data.createToken.user).toEqual(matchers.user_json())
   })
 })
 
@@ -51,15 +50,15 @@ describe("wrong params given", () => {
 
       const variableValues = {
         input: {
-          email: user.email,
+          login: user.login,
           password: "wrong_password",
         }
       }
 
-      res = await execGraphql({ query, variableValues })
-      res = await execGraphql({ query, variableValues })
-      res = await execGraphql({ query, variableValues })
-      res = await execGraphql({ query, variableValues })
+      res = await execGraphql({ query, variableValues, unauth: true  })
+      res = await execGraphql({ query, variableValues, unauth: true  })
+      res = await execGraphql({ query, variableValues, unauth: true  })
+      res = await execGraphql({ query, variableValues, unauth: true  })
     })
 
     it('should return wrong password', async () => {
@@ -84,12 +83,12 @@ describe("wrong params given", () => {
 
       const variableValues = {
         input: {
-          email: user.email,
+          login: user.login,
           password: "other_password",
         }
       }
 
-      const res = await execGraphql({ query, variableValues })
+      const res = await execGraphql({ query, variableValues, unauth: true  })
 
       expect(res.errors[0]).toEqual(
         expect.objectContaining({
@@ -107,12 +106,12 @@ describe("wrong params given", () => {
 
       const variableValues = {
         input: {
-          email: "otherUser@email.com",
+          login: "otherUserLogin",
           password: "password",
         }
       }
 
-      const res = await execGraphql({ query, variableValues })
+      const res = await execGraphql({ query, variableValues, unauth: true })
 
       expect(res.errors[0]).toEqual(
         expect.objectContaining({

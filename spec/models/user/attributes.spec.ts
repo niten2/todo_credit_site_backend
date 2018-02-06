@@ -12,5 +12,4 @@ describe("attributes", () => {
 
     expect(user).toEqual(matchers.user_db())
   })
-
 })

@@ -18,6 +18,8 @@ const mutation = `
     updateUser(input: UserUpdateInput!): User
     deleteUser(input: IdInput!): User
 
+    updateMe(input: MeUpdateInput!): User
+
     createClient(input: ClientCreateInput!): Client
     updateClient(input: ClientUpdateInput!): Client
     deleteClient(input: IdInput!): Client
@@ -34,13 +36,13 @@ const models = `
   type User {
     id: ID
 
-    full_name: String!
+    full_name: String
     email: String
-    login: String!
-    password: String!
+    login: String
+    password: String
     role: String
-    phone: String!
-    territory: String!
+    phone: String
+    territory: String
 
     createdAt: String
     updatedAt: String
@@ -64,16 +66,15 @@ const models = `
   }
 
   type Token {
-    id: ID!
-    email: String!
-    value: String!
+    token: String!
+    user: User
   }
 
   type Loan {
     id: ID!
     date_start: String!
     date_end: String!
-    client: String
+    client: String!
     sum: Int!
 
     createdAt: String
@@ -92,12 +93,12 @@ const inputs = `
 
   input UserCreateInput {
     full_name: String!
-    email: String
+    email: String!
     login: String!
     password: String!
     role: String
     phone: String!
-    territory: String!
+    territory: String
     createdAt: String
     updatedAt: String
   }
@@ -111,8 +112,16 @@ const inputs = `
     role: String
     phone: String
     territory: String
-    createdAt: String
-    updatedAt: String
+  }
+
+  input MeUpdateInput {
+    full_name: String
+    email: String
+    login: String
+    password: String
+    role: String
+    phone: String
+    territory: String
   }
 
   input ClientCreateInput {
@@ -133,7 +142,7 @@ const inputs = `
   }
 
   input TokenCreateInput {
-    email: String!
+    login: String!
     password: String!
   }
 

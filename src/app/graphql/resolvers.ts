@@ -1,37 +1,37 @@
 import { User, Client, Loan } from "app/models"
 import { createJwt } from "app/services/jwt"
-import { calculatePersentLoan } from "app/services/utils"
+import { authenticated, calculatePersentLoan } from "app/services/utils"
 
 const Query = {
-  users: async (root: any, args: any, ctx: any) => {
+  users: authenticated(async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('read', User)
 
-    const users = await User.find()
+    const users = await User.find({ _id: { $ne: ctx.user.id } })
     return users
-  },
+  }),
 
-  user: async (root: any, args: any, ctx: any) => {
+  user: authenticated(async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('read', ctx.user)
 
     const user = await User.findById(args.id)
     return user
-  },
+  }),
 
-  me: async (root: any, args: any, ctx: any) => {
+  me: authenticated(async (root: any, args: any, ctx: any) => {
     if (!ctx.user) throw new Error("user not found")
 
     const user = await User.findById(ctx.user.id)
     return user
-  },
+  }),
 
-  clients: async (root: any, args: any, ctx: any) => {
+  clients: authenticated(async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('read', Client)
 
     const clients = await Client.find()
     return clients
-  },
+  }),
 
-  client: async (root: any, args: any, ctx: any) => {
+  client: authenticated(async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('read', Client)
 
     const client = await Client.findById(args.id)
@@ -39,20 +39,20 @@ const Query = {
     await Loan.populate(client, { path: "loans" })
 
     return client
-  },
+  }),
 
 }
 
 const Mutation = {
 
-  createUser: async (root: any, args: any, ctx: any) => {
+  createUser: authenticated(async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('create', User)
 
     const user = await User.create(args.input)
     return user
-  },
+  }),
 
-  updateUser: async (root: any, args: any, ctx: any) => {
+  updateUser: authenticated(async (root: any, args: any, ctx: any) => {
     const user = await User.findById(args.input.id)
 
     ctx.ability.throwUnlessCan('update', user)
@@ -61,22 +61,35 @@ const Mutation = {
     await user.save()
 
     return user
-  },
+  }),
 
-  deleteUser: async (_: any, args: any, ctx: any) => {
+  deleteUser: authenticated(async (_: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('delete', User)
 
     const user = await User.findByIdAndRemove(args.input.id)
     return user
-  },
+  }),
+
+  updateMe: authenticated(async (root: any, args: any, ctx: any) => {
+    const user = ctx.user
+
+    await user.set(args.input)
+    await user.save()
+
+    return user
+  }),
 
   createToken: async (_: any, args: any): Promise<any> => {
-    const { email, password } = args.input
+    const { login, password } = args.input
 
-    const user = await User.findOne({ email: email })
+    const user = await User.findOne({ login })
 
     if (!user) {
       throw new Error("user not found")
+    }
+
+    if (user.blocked) {
+      throw new Error("user blocked, connect with admin")
     }
 
     if (!await user.comparePassword(password)) {
@@ -84,18 +97,17 @@ const Mutation = {
       throw new Error("wrong password")
     }
 
-    const value = await createJwt(user)
+    const token = await createJwt(user)
 
     await user.resetAttempt()
 
     return {
-      id: user.id,
-      email: user.email,
-      value,
+      user,
+      token,
     }
   },
 
-  createClient: async (root: any, args: any, ctx: any) => {
+  createClient: authenticated(async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('create', Client)
 
     let client = await Client.create(args.input)
@@ -104,9 +116,9 @@ const Mutation = {
     await client.save()
 
     return client
-  },
+  }),
 
-  updateClient: async (root: any, args: any, ctx: any) => {
+  updateClient: authenticated(async (root: any, args: any, ctx: any) => {
     const client = await Client.findById(args.input.id)
 
     if (args.input.territory) {
@@ -119,15 +131,15 @@ const Mutation = {
     await client.save()
 
     return client
-  },
+  }),
 
-  deleteClient: async (_: any, args: any) => {
+  deleteClient: authenticated(async (_: any, args: any) => {
     const client = await Client.findByIdAndRemove(args.input.id)
 
     return client
-  },
+  }),
 
-  createLoan: async (root: any, args: any, ctx: any) => {
+  createLoan: authenticated(async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('create', Loan)
 
     const client = await Client.findById(args.input.client)
@@ -136,9 +148,9 @@ const Mutation = {
     await client.addLoan(loan)
 
     return loan
-  },
+  }),
 
-  updateLoan: async (root: any, args: any, ctx: any) => {
+  updateLoan: authenticated(async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('update', Loan)
 
     const loan = await Loan.findById(args.input.id)
@@ -147,9 +159,9 @@ const Mutation = {
     await loan.save()
 
     return loan
-  },
+  }),
 
-  caclulateLoan: async (root: any, args: any, ctx: any) => {
+  caclulateLoan: authenticated(async (root: any, args: any, ctx: any) => {
     const { sum, territory, date_start, date_end, client } = args.input
 
     let client_object = await Client.findById(client).populate({ path: "territory" })
@@ -162,7 +174,7 @@ const Mutation = {
     })
 
     return { total }
-  },
+  }),
 
 }
 

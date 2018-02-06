@@ -116,6 +116,13 @@ export default {
     })
   },
 
+  errors_unauthorized_json: (): any => {
+    return expect.objectContaining({
+      message: "token not found",
+      locations: expect.any(Array),
+    })
+  },
+
   payload_json: (): any => {
     return expect.objectContaining({
       user_id: expect.any(String),

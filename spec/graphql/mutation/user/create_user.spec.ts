@@ -23,6 +23,7 @@ describe("valid params given", () => {
       const variableValues = {
         input: {
           full_name: new_user.full_name,
+          email: new_user.email,
           login: new_user.login,
           password: password,
           phone: new_user.phone,
@@ -63,6 +64,7 @@ describe("wrong params given", () => {
       const variableValues = {
         input: {
           full_name: new_user.full_name,
+          email: new_user.email,
           login: new_user.login,
           password: password,
           phone: new_user.phone,
@@ -96,5 +98,31 @@ describe("wrong params given", () => {
 
       expect(res.errors).toContainEqual(matchers.errors_json())
     })
+  })
+})
+
+describe("unauthorized", () => {
+  let res
+  let new_user
+
+  beforeEach(async () => {
+    new_user = await factory.build('user')
+
+    const variableValues = {
+      input: {
+        full_name: new_user.full_name,
+        email: new_user.email,
+        login: new_user.login,
+        password: "password",
+        phone: new_user.phone,
+        territory: new_user.territory,
+      }
+    }
+
+    res = await execGraphql({ query, variableValues, unauth: true })
+  })
+
+  it('should return valid response', async () => {
+    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json())
   })
 })
