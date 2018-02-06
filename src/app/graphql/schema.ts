@@ -74,7 +74,7 @@ const models = `
     id: ID!
     date_start: String!
     date_end: String!
-    client: String
+    client: String!
     sum: Int!
 
     createdAt: String

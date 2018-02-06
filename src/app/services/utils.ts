@@ -1,4 +1,8 @@
+// import { User } from "config/initialize/mongoose"
+import { User } from "app/models"
+import { verifyJwt } from 'app/services/jwt'
 import settings from 'config/settings'
+import Policy from 'app/policy'
 
 export const timeout = (ms: number): object => {
   if (settings.isEnvTest) return
@@ -40,4 +44,35 @@ export const days_between = (date1: Date, date2: Date): number => {
 export const addDays = (date: Date, days: number): Date => {
   date.setDate(date.getDate() + days)
   return date
+}
+
+export const authenticated = (fn: any) => async (parent: any, args: any, ctx: any, info: any) => {
+  console.log(1111)
+  console.log(3333)
+
+
+  let { token } = ctx
+
+  if (!token) {
+    throw new Error("token not found")
+  }
+
+  let payload
+
+  try {
+    payload = await verifyJwt(token)
+  } catch (err){
+    throw new Error("token not valid")
+  }
+
+  const user = await User.findById(payload.user_id)
+
+  if (!user) {
+    throw new Error("user not found")
+  }
+
+  ctx.user = user
+  ctx.ability = await Policy(user)
+
+  return fn(parent, args, ctx, info)
 }

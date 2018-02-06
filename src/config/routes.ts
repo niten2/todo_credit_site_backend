@@ -14,6 +14,7 @@ export default (app: Express) => {
     })
   })
 
-  app.use("/v1", AuthMiddleware, AbilityMiddleware, graphqlExpress(graphqOptions))
+  // app.use("/v1", AuthMiddleware, AbilityMiddleware, graphqlExpress(graphqOptions))
+  app.use("/v1", graphqlExpress(graphqOptions))
   app.use("/v1", graphiqlExpress({ endpointURL: "/graphql" }))
 }
