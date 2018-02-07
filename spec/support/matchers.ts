@@ -66,7 +66,6 @@ export default {
         updatedAt: expect.any(String),
       })
 
-
       mark_as_deleted: expect.any(Boolean),
       total_sum_loans: expect.any(Number),
 
