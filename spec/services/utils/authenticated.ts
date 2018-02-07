@@ -1,4 +1,4 @@
-import { createJwt } from "app/services/jwt"
+import { createJwt } from "app/services/jwt_token"
 import { authenticated } from "app/services/utils"
 
 describe("authenticated", () => {

@@ -1,4 +1,4 @@
-import { createJwt, verifyJwt } from "app/services/jwt"
+import { createJwt, verifyJwt } from "app/services/jwt_token"
 
 describe(__filename, () => {
 

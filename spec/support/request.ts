@@ -1,5 +1,5 @@
 import * as request from "supertest"
-import { createJwt } from "app/services/jwt"
+import { createJwt } from "app/services/jwt_token"
 
 export default async (url, options) => {
   let { params, method, unauth, user } = options || {}
