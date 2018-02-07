@@ -78,6 +78,7 @@ const models = `
     date_end: String!
     client: String!
     sum: Int!
+    total: Float
 
     createdAt: String
     updatedAt: String

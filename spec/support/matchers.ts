@@ -118,6 +118,8 @@ export default {
         date_start
         date_end
         client
+        total
+
         createdAt
         updatedAt
       }
@@ -188,7 +190,7 @@ export default {
       date_start: expect.any(String),
       date_end: expect.any(String),
       client: expect.any(String),
-
+      total: expect.any(Number),
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
     })

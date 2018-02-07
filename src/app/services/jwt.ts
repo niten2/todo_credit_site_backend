@@ -1,5 +1,7 @@
-import * as jsonwebtoken from 'jsonwebtoken'
 import settings from 'config/settings'
+
+// NOTE Because import sometimes not build it
+const jsonwebtoken = require("jsonwebtoken")
 
 export const createJwt = (user: any): any => {
   if (!settings.jwt_secret_key) {
@@ -19,13 +21,20 @@ export const createJwt = (user: any): any => {
 }
 
 export const verifyJwt = async (token: string): Promise<any> => {
-  return await new Promise((resolve, reject) => {
-    jsonwebtoken.verify(token, settings.jwt_secret_key, {}, (err, data) => {
-      if (err !== null) {
-        return reject(err)
-      }
+  const payload = await new Promise((resolve, reject) => {
+    jsonwebtoken.verify(
+      token,
+      settings.jwt_secret_key,
+      {},
+      (err: any, data: any) => {
+        if (err !== null) {
+          return reject(err)
+        }
 
-      resolve(data)
-    })
+        return resolve(data)
+      }
+    )
   })
+
+  return payload
 }

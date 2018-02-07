@@ -9,6 +9,10 @@ export const timeout = (ms: number): object => {
 }
 
 export const validateEmail = (email: string): boolean => {
+  if (email === "" || email === undefined) {
+    return true
+  }
+
   const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
   return emailRegexp.test(email)
