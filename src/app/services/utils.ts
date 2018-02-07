@@ -73,7 +73,7 @@ export const authenticated = (fn: any) => async (parent: any, args: any, ctx: an
   try {
     payload = await verifyJwt(token)
   } catch (err){
-    console.log(err)
+    console.log("ERORR verifyJwt", err)
     throw new Error("token not valid")
   }
 

@@ -1,58 +1,17 @@
-import { Loan } from "config/initialize/mongoose"
+import { Client } from "config/initialize/mongoose"
 import { calculateLoan, addDays } from "app/services/utils"
 
-describe("#total", () => {
+describe("#total_sum_loans", () => {
 
-  it('should calculate total', async () => {
-    let territory = await factory.create('territory', { rate: 0.5 })
+  it('should return valid values', async () => {
+    let client = await factory.create('client')
+    let loan1 = await factory.create('loan')
+    let loan2 = await factory.create('loan')
 
-    let client = await factory.create('client', {
-      territory: territory
-    })
+    await client.addLoan(loan1)
+    await client.addLoan(loan2)
 
-    let loan = await factory.create('loan', {
-      client: client.id,
-      sum: 10000,
-      date_start: new Date(),
-      date_end: addDays(new Date(), 30),
-    })
-
-    await client.addLoan(loan)
-
-    loan = await Loan.findById(loan.id)
-
-    await Loan.populate(loan, {
-      path: 'client',
-      populate: { path: 'territory' }
-    })
-
-    expect(loan.total).toEqual(11550)
-  })
-
-  it('should calculate total overdue', async () => {
-    let territory = await factory.create('territory', { rate: 0.5 })
-
-    let client = await factory.create('client', {
-      territory: territory
-    })
-
-    let loan = await factory.create('loan', {
-      client: client.id,
-      sum: 10000,
-      date_start: addDays(new Date(), -31),
-      date_end: addDays(new Date(), -1),
-    })
-
-    await client.addLoan(loan)
-
-    loan = await Loan.findById(loan.id)
-
-    await Loan.populate(loan, {
-      path: 'client',
-      populate: { path: 'territory' }
-    })
-
-    expect(loan.total).toEqual(14550)
+    expect(client.total_sum_loans).toEqual(loan1.sum + loan2.sum)
   })
 
 })

@@ -177,6 +177,7 @@ export default {
       date_start
       date_end
       client
+      total
 
       createdAt
       updatedAt

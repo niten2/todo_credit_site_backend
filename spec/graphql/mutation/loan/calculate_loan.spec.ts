@@ -1,7 +1,7 @@
 import { Loan, Client } from "config/initialize/mongoose"
 
 const query = `
-  mutation calculateLoan($input: LoanCreateInput!) {
+  mutation calculateLoan($input: LoanCalculateInput!) {
     calculateLoan(input: $input) {
       total
     }

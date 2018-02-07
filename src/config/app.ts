@@ -21,4 +21,3 @@ export const listen = async (app: Express) => {
     logger.error(err.message)
   }
 }
-
