@@ -45,6 +45,7 @@ const models = `
     role: String
     phone: String
     territory: String
+    blocked: Boolean
 
     createdAt: String
     updatedAt: String
@@ -124,6 +125,7 @@ const inputs = `
     role: String
     phone: String
     territory: String
+    blocked: Boolean
   }
 
   input MeUpdateInput {
