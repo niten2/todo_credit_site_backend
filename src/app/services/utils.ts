@@ -1,5 +1,5 @@
 import { User } from "app/models"
-import { verifyJwt } from 'app/services/jwt'
+import { verifyJwt } from 'app/services/jwt_token'
 import settings from 'config/settings'
 import Policy from 'app/policy'
 
@@ -50,6 +50,17 @@ export const addDays = (date: Date, days: number): Date => {
   return date
 }
 
+export const getTokenFromHeader = (req: any): string | null => {
+  if (!req.header('Authorization') || !req.header('authorization')) {
+    return null
+  }
+
+  const parts = req.header('Authorization').split(' ')
+  const token = parts[1]
+
+  return token
+}
+
 export const authenticated = (fn: any) => async (parent: any, args: any, ctx: any, info: any) => {
   let { token } = ctx
 
@@ -62,6 +73,7 @@ export const authenticated = (fn: any) => async (parent: any, args: any, ctx: an
   try {
     payload = await verifyJwt(token)
   } catch (err){
+    console.log(err)
     throw new Error("token not valid")
   }
 
@@ -75,15 +87,4 @@ export const authenticated = (fn: any) => async (parent: any, args: any, ctx: an
   ctx.ability = await Policy(user)
 
   return fn(parent, args, ctx, info)
-}
-
-export const getTokenFromHeader = (req: any): string | null => {
-  if (!req.header('Authorization') || !req.header('authorization')) {
-    return null
-  }
-
-  const parts = req.header('Authorization').split(' ')
-  const token = parts[1]
-
-  return token
 }

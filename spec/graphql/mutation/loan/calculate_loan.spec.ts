@@ -1,8 +1,8 @@
 import { Loan, Client } from "config/initialize/mongoose"
 
 const query = `
-  mutation caclulateLoan($input: LoanCreateInput!) {
-    caclulateLoan(input: $input) {
+  mutation calculateLoan($input: LoanCreateInput!) {
+    calculateLoan(input: $input) {
       total
     }
   }
@@ -31,7 +31,7 @@ describe("valid params given", () => {
     })
 
     it('should return valid response', async () => {
-      expect(res.data.caclulateLoan.total).toBeType("number")
+      expect(res.data.calculateLoan.total).toBeType("number")
     })
 
   })

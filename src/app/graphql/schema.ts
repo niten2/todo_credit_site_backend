@@ -30,7 +30,7 @@ const mutation = `
 
     createLoan(input: LoanCreateInput!): Loan
     updateLoan(input: LoanUpdateInput!): Loan
-    caclulateLoan(input: LoanCreateInput!): Total
+    calculateLoan(input: LoanCalculateInput!): Total
   }
 `
 
@@ -94,7 +94,7 @@ const models = `
   }
 
   type Total {
-    total: Int!
+    total: Float!
   }
 `
 
@@ -159,6 +159,13 @@ const inputs = `
   }
 
   input LoanCreateInput {
+    sum: Int!
+    date_start: String!
+    date_end: String!
+    client: String!
+  }
+
+  input LoanCalculateInput {
     sum: Int!
     date_start: String!
     date_end: String!
