@@ -28,6 +28,9 @@ const Query = {
     ctx.ability.throwUnlessCan('read', Client)
 
     const clients = await Client.find()
+
+    await Territory.populate(clients, { path: "territory" })
+
     return clients
   }),
 
@@ -136,11 +139,15 @@ const Mutation = {
     await client.set(args.input)
     await client.save()
 
+    await Territory.populate(client, { path: "territory" })
+
     return client
   }),
 
   deleteClient: authenticated(async (_: any, args: any) => {
     const client = await Client.findByIdAndRemove(args.input.id)
+
+    await Territory.populate(client, { path: "territory" })
 
     return client
   }),

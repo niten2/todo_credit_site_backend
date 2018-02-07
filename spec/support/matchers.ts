@@ -55,7 +55,18 @@ export default {
       email: expect.any(String),
       passport: expect.any(String),
       phone: expect.any(String),
-      territory: expect.any(String),
+
+      territory: expect.objectContaining({
+        id: expect.any(String),
+
+        name: expect.any(String),
+        rate: expect.any(Number),
+
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+      })
+
+
       mark_as_deleted: expect.any(Boolean),
       total_sum_loans: expect.any(Number),
 

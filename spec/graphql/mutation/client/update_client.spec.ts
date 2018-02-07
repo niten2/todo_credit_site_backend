@@ -32,7 +32,7 @@ describe("valid params given", () => {
     })
 
     it('should return valid response', async () => {
-      expect(res.data.updateClient).toEqual(matchers.client_json(client))
+      expect(res.data.updateClient).toEqual(matchers.client_json())
     })
 
     it('should update client', async () => {
@@ -64,7 +64,7 @@ describe("valid params given", () => {
     })
 
     it('should change territory', async () => {
-      expect(res.data.updateClient.territory).toEqual(territory.id)
+      expect(res.data.updateClient.territory.id).toEqual(territory.id)
     })
 
     it('should update client', async () => {
