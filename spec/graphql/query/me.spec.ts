@@ -1,7 +1,7 @@
 const query = `
   query {
     me {
-      ${matchers.user_attr()}
+      ${matchers.user_attr}
     }
   }
 `
@@ -13,7 +13,7 @@ describe("valid params given", () => {
 
     const res = await execGraphql({ query, user })
 
-    expect(res.data.me).toEqual(matchers.user_json())
+    expect(res.data.me).toEqual(matchers.user_json)
     expect(res.data.me.id).toEqual(user.id)
   })
 
@@ -24,7 +24,7 @@ describe("wrong params given", () => {
   it('should return error', async () => {
     const res = await execGraphql({ query, unauth: true })
 
-    expect(res.errors).toContainEqual(matchers.errors_json())
+    expect(res.errors).toContainEqual(matchers.errors_json)
   })
 
 })

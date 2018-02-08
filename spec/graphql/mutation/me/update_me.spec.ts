@@ -3,7 +3,7 @@ import { User } from "config/initialize/mongoose"
 const query = `
   mutation updateMe($input: MeUpdateInput!) {
     updateMe(input: $input) {
-      ${matchers.user_attr()}
+      ${matchers.user_attr}
     }
   }
 `
@@ -60,6 +60,6 @@ describe("unauthorized", () => {
   })
 
   it('should return valid response', async () => {
-    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json())
+    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json)
   })
 })
