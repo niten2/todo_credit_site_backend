@@ -15,5 +15,4 @@ describe("GET /", () => {
   it("should return 200", async () => {
     expect(res.statusCode).toEqual(200)
   })
-
 })

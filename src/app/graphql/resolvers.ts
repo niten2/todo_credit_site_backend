@@ -62,13 +62,8 @@ const Query = {
   }),
 
   loans: authenticated(async (root: any, args: any, ctx: any) => {
-    let loans
-
-    if (args.input && args.input.client) {
-      loans = await Loan.find({ "client": args.input.client })
-    } else {
-      loans = await Loan.find()
-    }
+    const options = args.input && args.input.client ? { "client": args.input.client } : null
+    let loans = await Loan.find(options)
 
     return loans
   }),
