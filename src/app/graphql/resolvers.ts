@@ -56,6 +56,7 @@ const Query = {
     const loan = await Loan.findById(args.id)
 
     await Client.populate(loan, { path: "client" })
+    await Territory.populate(loan.client, { path: "territory" })
 
     return loan
   }),

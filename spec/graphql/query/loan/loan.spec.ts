@@ -29,6 +29,14 @@ describe("valid params given", () => {
     expect(res.data.loan).toEqual(matchers.loan_json())
   })
 
+  it('should have client', async () => {
+    expect(res.data.loan.client.id).toEqual(client.id)
+  })
+
+  it('should have client.territory', async () => {
+    expect(res.data.loan.client.territory.id).toEqual(client.territory.toString())
+  })
+
 })
 
 describe("wrong params given", () => {

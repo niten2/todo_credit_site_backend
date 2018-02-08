@@ -99,30 +99,9 @@ export default {
       email
       passport
       phone
-      territory {
-        id
-
-        name
-        rate
-
-        createdAt
-        updatedAt
-      }
       user
       mark_as_deleted
       total_sum_loans
-
-      loans {
-        id
-
-        date_start
-        date_end
-        client
-        total
-
-        createdAt
-        updatedAt
-      }
 
       createdAt
       updatedAt
@@ -176,6 +155,11 @@ export default {
 
       date_start
       date_end
+      total
+
+      createdAt
+      updatedAt
+
       client {
         id
 
@@ -189,11 +173,14 @@ export default {
 
         createdAt
         updatedAt
-      }
-      total
 
-      createdAt
-      updatedAt
+        territory {
+          id
+          rate
+          name
+        }
+      }
+
     `
   }
 
