@@ -4,13 +4,15 @@ import resolvers from './resolvers'
 const query = `
   type Query {
     users: [User]
-    user(id: ID): User
+    user(id: ID!): User
     me: User
 
     clients(id: ID): [Client]
     client(id: ID): Client
 
     territories: [Territory]
+
+    loan(id: ID!): Loan
   }
 `
 
