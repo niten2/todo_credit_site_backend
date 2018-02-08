@@ -17,7 +17,7 @@ describe(__filename, () => {
       let token = createJwt(user)
       let res = await verifyJwt(token)
 
-      expect(res).toEqual(matchers.payload_json())
+      expect(res).toEqual(matchers.payload_json)
     })
 
     it("should return error", async () => {
