@@ -157,6 +157,7 @@ const inputs = `
     phone: String
     territory: String
     user: String
+    mark_as_deleted: Boolean
   }
 
   input TokenCreateInput {
