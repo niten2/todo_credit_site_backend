@@ -142,7 +142,8 @@ const inputs = `
     full_name: String!
     passport: String!
     phone: String!
-    email: String
+    email: String!
+    territory: String!
   }
 
   input ClientUpdateInput {

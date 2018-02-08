@@ -21,8 +21,10 @@ describe("valid params given", () => {
     const variableValues = {
       input: {
         full_name: client.full_name,
+        email: client.email,
         passport: client.passport,
         phone: client.phone,
+        territory: client.territory,
       }
     }
 
@@ -60,8 +62,10 @@ describe("wrong params given", () => {
     const variableValues = {
       input: {
         full_name: client.full_name,
+        email: client.email,
         passport: client.passport,
         phone: client.phone,
+        territory: client.territory,
       }
     }
 
@@ -96,8 +100,10 @@ describe("unauthorized", () => {
     const variableValues = {
       input: {
         full_name: client.full_name,
+        email: client.email,
         passport: client.passport,
         phone: client.phone,
+        territory: client.territory,
       }
     }
 
