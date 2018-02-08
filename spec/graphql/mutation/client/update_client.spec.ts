@@ -3,7 +3,7 @@ import { Client } from "config/initialize/mongoose"
 const query = `
   mutation updateClient($input: ClientUpdateInput!) {
     updateClient(input: $input) {
-      ${matchers.client_attr()}
+      ${matchers.client_attr}
     }
   }
 `
@@ -32,7 +32,7 @@ describe("valid params given", () => {
     })
 
     it('should return valid response', async () => {
-      expect(res.data.updateClient).toEqual(matchers.client_json())
+      expect(res.data.updateClient).toEqual(matchers.client_json)
     })
 
     it('should update client', async () => {
@@ -101,7 +101,7 @@ describe("wrong params given", () => {
     })
 
     it('should not change territory, should return error response', async () => {
-      expect(res.errors).toContainEqual(matchers.errors_json())
+      expect(res.errors).toContainEqual(matchers.errors_json)
     })
 
     it('should not change territory, should not update client', async () => {
@@ -120,7 +120,7 @@ describe("wrong params given", () => {
 
       const res = await execGraphql({ query, variableValues })
 
-      expect(res.errors).toContainEqual(matchers.errors_json())
+      expect(res.errors).toContainEqual(matchers.errors_json)
     })
   })
 
@@ -147,6 +147,6 @@ describe("unauthorized", () => {
   })
 
   it('should return valid response', async () => {
-    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json())
+    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json)
   })
 })

@@ -50,6 +50,24 @@ const Query = {
     return territories
   }),
 
+  loan: authenticated(async (root: any, args: any, ctx: any) => {
+    ctx.ability.throwUnlessCan('read', Loan)
+
+    const loan = await Loan.findById(args.id)
+
+    await Client.populate(loan, { path: "client" })
+    await Territory.populate(loan.client, { path: "territory" })
+
+    return loan
+  }),
+
+  loans: authenticated(async (root: any, args: any, ctx: any) => {
+    const options = args.input && args.input.client ? { "client": args.input.client } : null
+    let loans = await Loan.find(options)
+
+    return loans
+  }),
+
 }
 
 const Mutation = {

@@ -3,7 +3,7 @@ import { User } from "config/initialize/mongoose"
 const query = `
   mutation updateUser($input: UserUpdateInput!) {
     updateUser(input: $input) {
-      ${matchers.user_attr()}
+      ${matchers.user_attr}
     }
   }
 `
@@ -71,7 +71,7 @@ describe("wrong params given", () => {
     })
 
     it('should return wrong response', async () => {
-      expect(res.errors).toContainEqual(matchers.errors_json())
+      expect(res.errors).toContainEqual(matchers.errors_json)
     })
 
     it('should not update userManager', async () => {
@@ -91,7 +91,7 @@ describe("wrong params given", () => {
 
     const res = await execGraphql({ query, variableValues })
 
-    expect(res.errors).toContainEqual(matchers.errors_json())
+    expect(res.errors).toContainEqual(matchers.errors_json)
   })
 
 })
@@ -117,6 +117,6 @@ describe("unauthorized", () => {
   })
 
   it('should return valid response', async () => {
-    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json())
+    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json)
   })
 })

@@ -1,7 +1,7 @@
 const query = `
   query {
     users {
-      ${matchers.user_attr()}
+      ${matchers.user_attr}
     }
   }
 `
@@ -13,7 +13,7 @@ describe("valid params given", () => {
     await factory.create('user')
     const res = await execGraphql({ query, user })
 
-    expect(res.data.users).toContainEqual(matchers.user_json())
+    expect(res.data.users).toContainEqual(matchers.user_json)
   })
 
   it('should not return current users', async () => {
@@ -28,7 +28,7 @@ describe("wrong params given", () => {
   it('should return error', async () => {
     const res = await execGraphql({ query })
 
-    expect(res.errors).toContainEqual(matchers.errors_json())
+    expect(res.errors).toContainEqual(matchers.errors_json)
   })
 })
 
@@ -40,6 +40,6 @@ describe("unauthorized", () => {
   })
 
   it('should return valid response', async () => {
-    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json())
+    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json)
   })
 })

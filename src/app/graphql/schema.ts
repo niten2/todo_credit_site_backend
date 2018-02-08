@@ -12,6 +12,7 @@ const query = `
 
     territories: [Territory]
 
+    loans(input: LoansInput): [Loan]
     loan(id: ID!): Loan
   }
 `
@@ -79,7 +80,7 @@ const models = `
     id: ID!
     date_start: String!
     date_end: String!
-    client: String!
+    client: Client!
     sum: Int!
     total: Float
 
@@ -182,6 +183,10 @@ const inputs = `
     sum: Int
     date_start: String
     date_end: String
+    client: String
+  }
+
+  input LoansInput {
     client: String
   }
 `

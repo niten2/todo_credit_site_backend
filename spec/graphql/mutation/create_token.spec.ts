@@ -6,7 +6,7 @@ const query = `
     createToken(input: $input) {
       token
       user {
-        ${matchers.user_attr()}
+        ${matchers.user_attr}
       }
     }
   }
@@ -35,7 +35,7 @@ describe("valid params given", () => {
   })
 
   it('should return user', async () => {
-    expect(res.data.createToken.user).toEqual(matchers.user_json())
+    expect(res.data.createToken.user).toEqual(matchers.user_json)
   })
 })
 

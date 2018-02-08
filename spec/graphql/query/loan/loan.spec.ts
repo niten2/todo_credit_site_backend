@@ -1,16 +1,16 @@
-import { Client, Loan } from "config/initialize/mongoose"
+import { Loan } from "config/initialize/mongoose"
 
 const query = `
-  query client($id: ID!) {
-    client(id: $id) {
-      ${matchers.client_attr}
+  query loan($id: ID!) {
+    loan(id: $id) {
+      ${matchers.loan_attr}
     }
   }
 `
 
 describe("valid params given", () => {
-  let client
   let loan
+  let client
   let res
 
   beforeEach(async () => {
@@ -19,23 +19,16 @@ describe("valid params given", () => {
     await client.addLoan(loan)
 
     const variableValues = {
-      id: client.id
+      id: loan.id
     }
 
     res = await execGraphql({ query, variableValues })
   })
 
-  it('should have client_json', async () => {
-    expect(res.data.client).toEqual(matchers.client_json)
-  })
-
   it('should have loan_json', async () => {
-    expect(res.data.client.loans).toContainEqual(matchers.loan_json)
+    expect(res.data.loan).toEqual(matchers.loan_json)
   })
 
-  it('should have territory_json', async () => {
-    expect(res.data.client.territory).toEqual(matchers.territory_json)
-  })
 })
 
 describe("wrong params given", () => {
@@ -54,6 +47,7 @@ describe("wrong params given", () => {
 
 describe("unauthorized", () => {
   let res
+  let client
 
   beforeEach(async () => {
     let client = await factory.create('client')
@@ -61,7 +55,7 @@ describe("unauthorized", () => {
     await client.addLoan(loan)
 
     const variableValues = {
-      id: client.id
+      id: loan.id
     }
 
     res = await execGraphql({ query, variableValues, unauth: true })

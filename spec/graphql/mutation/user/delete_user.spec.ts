@@ -3,7 +3,7 @@ import { User } from "config/initialize/mongoose"
 const query = `
   mutation deleteUser($input: IdInput!) {
     deleteUser(input: $input) {
-      ${matchers.user_attr()}
+      ${matchers.user_attr}
     }
   }
 `
@@ -28,7 +28,7 @@ describe("valid params given", () => {
     })
 
     it('should return valid response', async () => {
-      expect(res.data.deleteUser).toEqual(matchers.user_json(user))
+      expect(res.data.deleteUser).toEqual(matchers.user_json)
     })
 
     it('should destroy user', async () => {
@@ -50,7 +50,7 @@ describe("wrong params given", () => {
 
     const res = await execGraphql({ query, variableValues })
 
-    expect(res.errors).toContainEqual(matchers.errors_json())
+    expect(res.errors).toContainEqual(matchers.errors_json)
   })
 })
 
@@ -72,6 +72,6 @@ describe("unauthorized", () => {
   })
 
   it('should return valid response', async () => {
-    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json())
+    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json)
   })
 })

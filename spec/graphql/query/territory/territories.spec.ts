@@ -1,7 +1,7 @@
 const query = `
   query {
     territories {
-      ${matchers.territory_attr()}
+      ${matchers.territory_attr}
     }
   }
 `
@@ -13,7 +13,7 @@ describe("", () => {
 
     const res = await execGraphql({ query })
 
-    expect(res.data.territories).toContainEqual(matchers.territory_json())
+    expect(res.data.territories).toContainEqual(matchers.territory_json)
   })
 
 })
@@ -28,6 +28,6 @@ describe("unauthorized", () => {
   })
 
   it('should return valid response', async () => {
-    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json())
+    expect(res.errors).toContainEqual(matchers.errors_unauthorized_json)
   })
 })
