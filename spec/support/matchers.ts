@@ -176,7 +176,20 @@ export default {
 
       date_start
       date_end
-      client
+      client {
+        id
+
+        full_name
+        email
+        passport
+        phone
+        user
+        mark_as_deleted
+        total_sum_loans
+
+        createdAt
+        updatedAt
+      }
       total
 
       createdAt
@@ -190,7 +203,6 @@ export default {
 
       date_start: expect.any(String),
       date_end: expect.any(String),
-      client: expect.any(String),
       total: expect.any(Number),
       createdAt: expect.any(String),
       updatedAt: expect.any(String),

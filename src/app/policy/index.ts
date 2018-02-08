@@ -11,6 +11,7 @@ export default async (user: any): Promise<any> => {
     can('create', "Client")
     can('update', "Client")
 
+    can('read', "Loan")
     can('create', "Loan")
   }
 
@@ -25,6 +26,7 @@ export default async (user: any): Promise<any> => {
     can('update.territory', "Client")
     can('delete', 'Client')
 
+    can('read', "Loan")
     can('update', "Loan")
   }
 

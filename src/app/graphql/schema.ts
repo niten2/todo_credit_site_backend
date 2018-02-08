@@ -79,7 +79,7 @@ const models = `
     id: ID!
     date_start: String!
     date_end: String!
-    client: String!
+    client: Client!
     sum: Int!
     total: Float
 
