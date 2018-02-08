@@ -9,7 +9,8 @@ const query = `
 describe("", () => {
 
   it('should return territories', async () => {
-    let territory = await factory.create('territory')
+    await factory.create('territory', { rate: 1.25 })
+
     const res = await execGraphql({ query })
 
     expect(res.data.territories).toContainEqual(matchers.territory_json())

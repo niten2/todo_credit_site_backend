@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose"
-import { Client } from "config/initialize/mongoose"
+import Client from "./client"
 import { calculatePersentLoan, days_between } from "app/services/utils"
 
 export interface LoanType extends mongoose.Document {
@@ -7,6 +7,8 @@ export interface LoanType extends mongoose.Document {
   date_start: string
   date_end: string
   client: string
+
+  total: any
 }
 
 const schema = new mongoose.Schema({
@@ -31,8 +33,10 @@ const schema = new mongoose.Schema({
   timestamps: true
 })
 
-schema.virtual('total').get(function (): number {
-  if (!(this.client && this.client.territory && this.client.territory.rate)) {
+schema.virtual('total').get(async function(): Promise<number> {
+  let client: any = await Client.findById(this.client).populate("territory")
+
+  if (!(client && client.territory && client.territory.rate)) {
     throw new Error("need this.client.territory.rate")
   }
 
@@ -40,7 +44,7 @@ schema.virtual('total').get(function (): number {
 
   let values =  {
     sum: this.sum,
-    territory: this.client.territory.rate,
+    territory: client.territory.rate,
     date_start: this.date_start,
     date_end: this.date_end,
   }

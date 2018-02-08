@@ -8,13 +8,13 @@ const create = async (): Promise<void> => {
     await factory.create('user', { login: "admin", password: "12345", role: "admin" })
     await factory.create('user', { login: "manager", password: "12345", role: "manager" })
 
-    await factory.create('territory', { rate: 0.5 })
-    await factory.create('territory', { rate: 1 })
-    await factory.create('territory', { rate: 1.5 })
+    let territory1 = await factory.create('territory', { rate: 0.5 })
+    let territory2 = await factory.create('territory', { rate: 1 })
+    let territory3 = await factory.create('territory', { rate: 1.5 })
 
-    await factory.create('client', {})
-    await factory.create('client', {})
-    await factory.create('client', {})
+    await factory.create('client', { territory: territory1 })
+    await factory.create('client', { territory: territory2 })
+    await factory.create('client', { territory: territory3 })
 
     await closeDb()
 

@@ -1,5 +1,5 @@
 import { graphql } from 'graphql'
-import { createJwt } from "app/services/jwt"
+import { createJwt } from "app/services/jwt_token"
 import { Context } from "app/grapql/config"
 import schema from 'app/graphql/schema'
 

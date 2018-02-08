@@ -20,6 +20,7 @@ export interface ClientType extends mongoose.Document {
 
 const schema = new mongoose.Schema({
   full_name: {
+    required: true,
     type: String,
   },
 
@@ -32,19 +33,23 @@ const schema = new mongoose.Schema({
   },
 
   passport: {
+    required: true,
     type: String,
   },
 
   phone: {
+    required: true,
     type: String,
   },
 
   territory: {
+    required: true,
+    ref: 'Territory',
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Territory'
   },
 
   mark_as_deleted: {
+    default: false,
     type: Boolean,
   },
 

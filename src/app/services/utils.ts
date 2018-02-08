@@ -1,5 +1,5 @@
 import { User } from "app/models"
-import { verifyJwt } from 'app/services/jwt'
+import { verifyJwt } from 'app/services/jwt_token'
 import settings from 'config/settings'
 import Policy from 'app/policy'
 
@@ -9,6 +9,10 @@ export const timeout = (ms: number): object => {
 }
 
 export const validateEmail = (email: string): boolean => {
+  if (email === "" || email === undefined) {
+    return true
+  }
+
   const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
   return emailRegexp.test(email)
@@ -46,6 +50,17 @@ export const addDays = (date: Date, days: number): Date => {
   return date
 }
 
+export const getTokenFromHeader = (req: any): string | null => {
+  if (!req.header('Authorization') || !req.header('authorization')) {
+    return null
+  }
+
+  const parts = req.header('Authorization').split(' ')
+  const token = parts[1]
+
+  return token
+}
+
 export const authenticated = (fn: any) => async (parent: any, args: any, ctx: any, info: any) => {
   let { token } = ctx
 
@@ -58,6 +73,7 @@ export const authenticated = (fn: any) => async (parent: any, args: any, ctx: an
   try {
     payload = await verifyJwt(token)
   } catch (err){
+    console.log("ERORR verifyJwt", err)
     throw new Error("token not valid")
   }
 
@@ -71,15 +87,4 @@ export const authenticated = (fn: any) => async (parent: any, args: any, ctx: an
   ctx.ability = await Policy(user)
 
   return fn(parent, args, ctx, info)
-}
-
-export const getTokenFromHeader = (req: any): string | null => {
-  if (!req.header('Authorization') || !req.header('authorization')) {
-    return null
-  }
-
-  const parts = req.header('Authorization').split(' ')
-  const token = parts[1]
-
-  return token
 }

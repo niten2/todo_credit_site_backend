@@ -4,13 +4,15 @@ import resolvers from './resolvers'
 const query = `
   type Query {
     users: [User]
-    user(id: ID): User
+    user(id: ID!): User
     me: User
 
     clients(id: ID): [Client]
     client(id: ID): Client
 
     territories: [Territory]
+
+    loan(id: ID!): Loan
   }
 `
 
@@ -30,7 +32,7 @@ const mutation = `
 
     createLoan(input: LoanCreateInput!): Loan
     updateLoan(input: LoanUpdateInput!): Loan
-    caclulateLoan(input: LoanCreateInput!): Total
+    calculateLoan(input: LoanCalculateInput!): Total
   }
 `
 
@@ -45,6 +47,7 @@ const models = `
     role: String
     phone: String
     territory: String
+    blocked: Boolean
 
     createdAt: String
     updatedAt: String
@@ -56,7 +59,7 @@ const models = `
     email: String
     passport: String
     phone: String
-    territory: String
+    territory: Territory
     user: String
     mark_as_deleted: Boolean
     total_sum_loans: Int
@@ -78,6 +81,7 @@ const models = `
     date_end: String!
     client: String!
     sum: Int!
+    total: Float
 
     createdAt: String
     updatedAt: String
@@ -86,14 +90,14 @@ const models = `
   type Territory {
     id: ID!
     name: String!
-    rate: Int!
+    rate: Float!
 
     createdAt: String
     updatedAt: String
   }
 
   type Total {
-    total: Int!
+    total: Float!
   }
 `
 
@@ -123,6 +127,7 @@ const inputs = `
     role: String
     phone: String
     territory: String
+    blocked: Boolean
   }
 
   input MeUpdateInput {
@@ -139,7 +144,8 @@ const inputs = `
     full_name: String!
     passport: String!
     phone: String!
-    email: String
+    email: String!
+    territory: String!
   }
 
   input ClientUpdateInput {
@@ -158,6 +164,13 @@ const inputs = `
   }
 
   input LoanCreateInput {
+    sum: Int!
+    date_start: String!
+    date_end: String!
+    client: String!
+  }
+
+  input LoanCalculateInput {
     sum: Int!
     date_start: String!
     date_end: String!

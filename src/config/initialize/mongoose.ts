@@ -30,6 +30,4 @@ export const closeDb = async (): Promise<any> => {
   return await mongoose.connection.close
 }
 
-
 export default mongoose
-

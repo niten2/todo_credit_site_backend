@@ -55,7 +55,17 @@ export default {
       email: expect.any(String),
       passport: expect.any(String),
       phone: expect.any(String),
-      territory: expect.any(String),
+
+      territory: expect.objectContaining({
+        id: expect.any(String),
+
+        name: expect.any(String),
+        rate: expect.any(Number),
+
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+      })
+
       mark_as_deleted: expect.any(Boolean),
       total_sum_loans: expect.any(Number),
 
@@ -89,7 +99,15 @@ export default {
       email
       passport
       phone
-      territory
+      territory {
+        id
+
+        name
+        rate
+
+        createdAt
+        updatedAt
+      }
       user
       mark_as_deleted
       total_sum_loans
@@ -100,6 +118,8 @@ export default {
         date_start
         date_end
         client
+        total
+
         createdAt
         updatedAt
       }
@@ -157,6 +177,7 @@ export default {
       date_start
       date_end
       client
+      total
 
       createdAt
       updatedAt
@@ -170,7 +191,7 @@ export default {
       date_start: expect.any(String),
       date_end: expect.any(String),
       client: expect.any(String),
-
+      total: expect.any(Number),
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
     })
