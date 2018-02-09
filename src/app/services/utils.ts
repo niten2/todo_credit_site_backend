@@ -23,17 +23,20 @@ interface CalculateLoan {
   territory: number
   date_start: Date
   date_end: Date
+  overdue?: number
 }
 
 export const calculatePersentLoan = (options: CalculateLoan): number => {
-  let { sum, territory, date_start, date_end } = options
+  let { sum, territory, date_start, date_end, overdue } = options
+  let res
 
   let count_days = days_between(date_end, date_start)
+  let increase = count_days * (overdue || 1)
 
-  let koeff = (sum / 100) * territory
-  let additional = (sum * territory / 100) * count_days
+  let koeff = (sum * territory) / 100
+  let additional = (sum * increase) / 100
 
-  return koeff + additional
+  return Number((koeff + additional).toFixed(2))
 }
 
 export const days_between = (date1: Date, date2: Date): number => {
