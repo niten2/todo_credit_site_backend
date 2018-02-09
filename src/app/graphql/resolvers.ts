@@ -6,7 +6,14 @@ const Query = {
   users: authenticated(async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('read', User)
 
-    const users = await User.find({ _id: { $ne: ctx.user.id } })
+    let options: any = { _id: { $ne: ctx.user.id } }
+
+    if (args.input && args.input.role) {
+      options.role = args.input.role
+    }
+
+    const users = await User.find(options)
+
     return users
   }),
 

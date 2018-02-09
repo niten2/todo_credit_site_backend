@@ -12,19 +12,23 @@ export interface LoanType extends mongoose.Document {
 }
 
 const schema = new mongoose.Schema({
+  sum: {
+    required: true,
+    type: Number,
+  },
+
   date_start: {
+    required: true,
     type: Date,
   },
 
   date_end: {
+    required: true,
     type: Date,
   },
 
-  sum: {
-    type: Number,
-  },
-
   client: {
+    required: true,
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Client'
   },

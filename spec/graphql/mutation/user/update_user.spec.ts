@@ -81,6 +81,39 @@ describe("wrong params given", () => {
     })
   })
 
+  describe("user admin", () => {
+    const new_full_name = "new_full_name"
+    let res
+    let user
+    let userAdmin
+
+    beforeEach(async () => {
+      user = await factory.create('userAdmin')
+      userAdmin = await factory.create('userAdmin')
+
+      const variableValues = {
+        input: {
+          id: userAdmin.id,
+          full_name: new_full_name,
+        }
+      }
+
+      res = await execGraphql({ query, variableValues, user })
+    })
+
+    it('should return wrong response', async () => {
+      expect(res.errors).toContainEqual(expect.objectContaining({
+        message: 'Cannot execute "update" on "User"',
+      )
+    })
+
+    it('should not update userManager', async () => {
+      userAdmin = await User.findById(userAdmin.id)
+
+      expect(userAdmin.full_name).not.toEqual(new_full_name)
+    })
+  })
+
   it('should return error', async () => {
     const variableValues = {
       input: {

@@ -3,7 +3,7 @@ import resolvers from './resolvers'
 
 const query = `
   type Query {
-    users: [User]
+    users(input: UsersInput): [User]
     user(id: ID!): User
     me: User
 
@@ -189,6 +189,10 @@ const inputs = `
 
   input LoansInput {
     client: String
+  }
+
+  input UsersInput {
+    role: String
   }
 `
 

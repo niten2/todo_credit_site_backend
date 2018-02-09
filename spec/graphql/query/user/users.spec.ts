@@ -7,7 +7,6 @@ const query = `
 `
 
 describe("valid params given", () => {
-
   it('should return other users', async () => {
     let user = await factory.create('userAdmin')
     await factory.create('user')
@@ -22,6 +21,40 @@ describe("valid params given", () => {
 
     expect(res.data.users).toEqual([])
   })
+
+  describe("filter role manager", () => {
+    const query = `
+      query users($input: UsersInput) {
+        users(input: $input) {
+          ${matchers.user_attr}
+        }
+      }
+    `
+
+    it('should only role manager', async () => {
+      let user = await factory.create('userAdmin')
+      let userAdmin = await factory.create('userAdmin')
+      let userManager = await factory.create('userManager')
+
+      const variableValues = {
+        input: {
+          role: "manager",
+        }
+      }
+
+      const res = await execGraphql({ query, variableValues, user })
+
+      expect(res.data.users).toContainEqual(expect.objectContaining({
+        id: userManager.id
+      })
+
+      expect(res.data.users).not.toContainEqual(expect.objectContaining({
+        id: userAdmin.id
+      })
+    })
+
+  })
+
 })
 
 describe("wrong params given", () => {
