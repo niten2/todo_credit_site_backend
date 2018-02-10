@@ -2,6 +2,8 @@ import * as mongoose from "mongoose"
 import Client from "./client"
 import { calculatePersentLoan, days_between } from "app/services/utils"
 
+const OVERDUE_RATE = 15
+
 export interface LoanType extends mongoose.Document {
   sum: number
   date_start: string
@@ -12,19 +14,23 @@ export interface LoanType extends mongoose.Document {
 }
 
 const schema = new mongoose.Schema({
+  sum: {
+    required: true,
+    type: Number,
+  },
+
   date_start: {
+    required: true,
     type: Date,
   },
 
   date_end: {
+    required: true,
     type: Date,
   },
 
-  sum: {
-    type: Number,
-  },
-
   client: {
+    required: true,
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Client'
   },
@@ -42,29 +48,28 @@ schema.virtual('total').get(async function(): Promise<number> {
 
   const current_date = new Date()
 
-  let values =  {
+  let options =  {
     sum: this.sum,
     territory: client.territory.rate,
     date_start: this.date_start,
     date_end: this.date_end,
   }
 
-  let persent = calculatePersentLoan(values)
+  let persent = calculatePersentLoan(options)
 
   if (current_date < this.date_end) {
     return this.sum + persent
   }
 
-  const overdue_rate = 15
-
-  const overdue_values =  {
+  const increase_options =  {
     sum: this.sum,
-    territory: overdue_rate,
+    territory: client.territory.rate,
     date_start: this.date_end,
     date_end: current_date,
+    overdue: OVERDUE_RATE,
   }
 
-  let overdue_persent = calculatePersentLoan(overdue_values)
+  let overdue_persent = calculatePersentLoan(increase_options)
 
   return this.sum + persent + overdue_persent
 })

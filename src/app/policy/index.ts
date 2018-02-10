@@ -18,7 +18,7 @@ export default async (user: any): Promise<any> => {
   if (user.role == "admin") {
     can('read', "User")
     can('create', "User")
-    can('update', 'User')
+    can('update', 'User', { role: "manager" })
     can('delete', 'User')
 
     can('read', "Client")

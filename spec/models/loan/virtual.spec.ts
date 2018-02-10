@@ -12,7 +12,7 @@ describe("#total", () => {
 
     let loan = await factory.create('loan', {
       client: client.id,
-      sum: 10000,
+      sum: 1000,
       date_start: new Date(),
       date_end: addDays(new Date(), 30),
     })
@@ -26,7 +26,7 @@ describe("#total", () => {
       populate: { path: 'territory' }
     })
 
-    expect(await loan.total).toEqual(11550)
+    expect(await loan.total).toEqual(1305)
   })
 
   it('should calculate total overdue', async () => {
@@ -38,7 +38,7 @@ describe("#total", () => {
 
     let loan = await factory.create('loan', {
       client: client.id,
-      sum: 10000,
+      sum: 100,
       date_start: addDays(new Date(), -31),
       date_end: addDays(new Date(), -1),
     })
@@ -52,7 +52,7 @@ describe("#total", () => {
       populate: { path: 'territory' }
     })
 
-    expect(await loan.total).toEqual(14550)
+    expect(await loan.total).toEqual(146)
   })
 
 })

@@ -1,16 +1,16 @@
-import { connectDb, closeDb } from "config/initialize/mongoose"
 import factory from 'db/factory'
+import { connectDb, closeDb } from "config/initialize/mongoose"
 
 const create = async (): Promise<void> => {
   try {
     await connectDb()
 
-    await factory.create('user', { login: "admin", password: "12345", role: "admin" })
-    await factory.create('user', { login: "manager", password: "12345", role: "manager" })
-
     let territory1 = await factory.create('territory', { rate: 0.5 })
     let territory2 = await factory.create('territory', { rate: 1 })
     let territory3 = await factory.create('territory', { rate: 1.5 })
+
+    await factory.create('user', { login: "admin", password: "12345", role: "admin", territory: territory1 })
+    await factory.create('user', { login: "manager", password: "12345", role: "manager", territory: territory2 })
 
     await factory.create('client', { territory: territory1 })
     await factory.create('client', { territory: territory2 })

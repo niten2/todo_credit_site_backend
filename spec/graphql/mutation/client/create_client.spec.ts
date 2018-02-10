@@ -24,7 +24,6 @@ describe("valid params given", () => {
         email: client.email,
         passport: client.passport,
         phone: client.phone,
-        territory: client.territory,
       }
     }
 
@@ -65,7 +64,6 @@ describe("wrong params given", () => {
         email: client.email,
         passport: client.passport,
         phone: client.phone,
-        territory: client.territory,
       }
     }
 
@@ -103,7 +101,6 @@ describe("unauthorized", () => {
         email: client.email,
         passport: client.passport,
         phone: client.phone,
-        territory: client.territory,
       }
     }
 

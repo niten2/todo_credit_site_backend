@@ -8,8 +8,9 @@ factory.define('user', User, {
   login: faker.name.findName,
   password: faker.internet.password,
   phone: faker.phone.phoneNumber,
-  territory: factory.assoc('territory', '_id'),
   role: "manager",
+
+  territory: factory.assoc('territory', '_id'),
 })
 
 factory.define('userAdmin', User, {
@@ -18,8 +19,9 @@ factory.define('userAdmin', User, {
   login: faker.name.findName,
   password: faker.internet.password,
   phone: faker.phone.phoneNumber,
-  territory: factory.assoc('territory', '_id'),
   role: "admin",
+
+  territory: factory.assoc('territory', '_id'),
 })
 
 factory.define('userManager', User, {
@@ -28,8 +30,9 @@ factory.define('userManager', User, {
   login: faker.name.findName,
   password: faker.internet.password,
   phone: faker.phone.phoneNumber,
-  territory: factory.assoc('territory', '_id'),
   role: "manager",
+
+  territory: factory.assoc('territory', '_id'),
 })
 
 factory.define('client', Client, {
@@ -37,8 +40,9 @@ factory.define('client', Client, {
   passport: faker.phone.phoneNumber,
   phone: faker.phone.phoneNumber,
   email: faker.internet.email,
-  user: factory.assoc('user', '_id'),
   mark_as_deleted: false,
+
+  user: factory.assoc('user', '_id'),
   territory: factory.assoc('territory', '_id'),
 })
 
@@ -51,7 +55,8 @@ factory.define('loan', Loan, {
   date_start: faker.date.past,
   date_end: faker.date.future,
   sum: faker.random.number,
-  territory: faker.random.number,
+
+  client: factory.assoc('client', '_id'),
 })
 
 export default factory

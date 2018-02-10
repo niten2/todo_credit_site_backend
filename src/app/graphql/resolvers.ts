@@ -6,7 +6,14 @@ const Query = {
   users: authenticated(async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('read', User)
 
-    const users = await User.find({ _id: { $ne: ctx.user.id } })
+    let options: any = { _id: { $ne: ctx.user.id } }
+
+    if (args.input && args.input.role) {
+      options.role = args.input.role
+    }
+
+    const users = await User.find(options)
+
     return users
   }),
 
@@ -137,10 +144,9 @@ const Mutation = {
   createClient: authenticated(async (root: any, args: any, ctx: any) => {
     ctx.ability.throwUnlessCan('create', Client)
 
-    let client = await Client.create(args.input)
+    args.input.territory = ctx.user.territory
 
-    await client.set({ territory: ctx.user.territory })
-    await client.save()
+    let client = await Client.create(args.input)
 
     return client
   }),
