@@ -1,4 +1,4 @@
-import { Client } from "config/initialize/mongoose"
+import { Client, Loan } from "config/initialize/mongoose"
 
 const query = `
   mutation deleteClient($input: IdInput!) {
@@ -14,7 +14,10 @@ describe("valid params given", () => {
   const password = "password"
 
   beforeEach(async () => {
+    let loan = await factory.create('loan')
     client = await factory.create('client')
+
+    await client.addLoan(loan)
 
     const variableValues = {
       input: {
@@ -34,6 +37,13 @@ describe("valid params given", () => {
 
     expect(client).toEqual(null)
   })
+
+  it('should destroy client.loans', async () => {
+    let loans = await Loan.find({ client: client.id })
+
+    expect(loans).toEqual([])
+  })
+
 })
 
 describe("wrong params given", () => {

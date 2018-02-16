@@ -5,7 +5,7 @@ export interface ClientType extends mongoose.Document {
   full_name: string
   passport: string
   phone: string
-  territory: any | string // NOTE should be TerritoryType || string
+  territory: any | string
 
   email: string
   mark_as_deleted: boolean
@@ -74,9 +74,11 @@ schema.methods.addLoan = async function(loan: any): Promise<any> {
 }
 
 schema.virtual('total_sum_loans').get(function(): number {
-  return this.loans.reduce((acc: number, loan: { sum: number }) => {
+  let sum = this.loans.reduce((acc: number, loan: { sum: number }) => {
     return acc += loan.sum
   }, 0)
+
+  return sum || 0
 })
 
 export default mongoose.model<ClientType>('Client', schema)

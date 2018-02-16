@@ -172,6 +172,7 @@ const Mutation = {
     const client = await Client.findByIdAndRemove(args.input.id)
 
     await Territory.populate(client, { path: "territory" })
+    await Loan.find({ client: args.input.id }).remove()
 
     return client
   }),
