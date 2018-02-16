@@ -14,4 +14,10 @@ describe("#total_sum_loans", () => {
     expect(client.total_sum_loans).toEqual(loan1.sum + loan2.sum)
   })
 
+  it('should return 0', async () => {
+    let client = await factory.create("client")
+
+    expect(client.total_sum_loans).toEqual(0)
+  })
+
 })
