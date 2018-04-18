@@ -7,7 +7,13 @@ import { Express, Response, Request, NextFunction } from "express"
 
 export default (app: Express): void => {
   app.use(bodyParser.json())
-  app.use(cors())
+  app.use(cors({
+    // origin: "*",
+    origin: 'http://localhost:3000',
+    methods: ["PUT", "OPTIONS"],
+    allowedHeaders: ["content-type"],
+    credentials: true,
+  }))
 
   if (!settings.isEnvTest) {
     app.use((req: any, res: Response, next: NextFunction): void => {
