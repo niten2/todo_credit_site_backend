@@ -21,6 +21,7 @@
     "db:drop": "NODE_PATH=dist/ node ./dist/db/drop.js"
   },
   "dependencies": {
+    "acl": "^0.4.11",
     "apollo-fetch": "^0.7.0",
     "apollo-server-express": "^1.3.2",
     "bcrypt": "^1.0.3",
