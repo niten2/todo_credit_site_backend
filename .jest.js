@@ -20,7 +20,9 @@ module.exports = {
     "**/spec/**/*.spec.(ts|js)"
   ],
   "testEnvironment": "node",
+
   "setupTestFrameworkScriptFile": "./spec/support/index.ts",
+
   "notify": false,
   "clearMocks": false,
   "verbose": false,
