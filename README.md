@@ -102,7 +102,7 @@
 
 #### below is a page on the loan issue form consisting of 5 fields:
 
-  - loan amount,
+  - loan amount
   - loan issuance ratio 
   (equal to the territorial coefficient, the manager can not change it when creating a manager's ratio is taken)
   - Date of issue of loan
@@ -118,8 +118,8 @@
 
 #### 10. In case of delay of one day of the loan, and the delay is considered from the moment when the principal maturity of 30 calendar days has expired
 
-  Total will be:
+  Total will be:
 
   Loan amount * coefficient + 1 calendar day of delay (equal to 15% of the total loan amount)
 
-  Example: 10 000 (loan) * 0.5% (amount) + 1507.5 (calendar day of delay) = total
+  Example: 10 000 (loan) * 0.5% (amount) + 1507.5 (calendar day of delay) = total
