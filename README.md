@@ -1,3 +1,6 @@
+# Frontend
+  app here [todo_credit_site_frontend](https://github.com/niten2/todo_credit_site_frontend)
+
 # Setup
 
 #### with docker
@@ -12,7 +15,6 @@
   - cp .env.sample .env
   - up mongo-db
   - npm run start
-  - up frontend app [todo_credit_site_frontend](https://github.com/niten2/todo_credit_site_frontend)
 
 # Tests
 
