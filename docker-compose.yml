@@ -20,6 +20,7 @@ services:
 
   mongo:
     image: mongo:4.0.0-rc0
+    container_name: todo_credit_site_mongo_1
     ports:
       - 27017:27017
     volumes:
