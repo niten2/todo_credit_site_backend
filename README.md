@@ -96,7 +96,7 @@
 #### 9. By clicking the button "Issue a loan" opens a new page with customer data
 
 #### top of page
-  - name of the client,
+  - name of the client
   - loans already issued
   - the maturity date of each loan issued
 
@@ -111,11 +111,15 @@
   - Total loan repayment amount.
 
   Total is calculated according to the following principle:
+
   Loan amount * coefficient + 1 calendar day of loan (equal to 1% of the premium to the total loan amount)
+
   Example: 10 000 (loan) * 0.5% (amount) + 105 (days loan) = total
 
 #### 10. In case of delay of one day of the loan, and the delay is considered from the moment when the principal maturity of 30 calendar days has expired
 
   Total will be:
-  Loan amount * coefficient + 1 calendar day of delay (equal to 15% of the total loan amount).
+
+  Loan amount * coefficient + 1 calendar day of delay (equal to 15% of the total loan amount)
+
   Example: 10 000 (loan) * 0.5% (amount) + 1507.5 (calendar day of delay) = total
