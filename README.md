@@ -1,27 +1,30 @@
 # Setup
----
+
+## with docker
+
+  - cp .env.sample .env
+  - docker-compose up
+  - open http://localhost:8080
 
 ## without docker
+
   - npm install
   - cp .env.sample .env
   - up mongo-db
   - npm run start
   - up frontend app [todo_credit_site_frontend](https://github.com/niten2/todo_credit_site_frontend)
 
-## with docker
-  - cp .env.sample .env
-  - docker-compose up
-
 # Tests
 
 ## without docker
+
   - npm run tests
 
 ## with docker
+
   - docker-compose run app npm run tests
 
 # Requirements
----
 
 1. The application must support authentication by a pair of username and password.
 
@@ -48,11 +51,11 @@
   - mark the client for deletion
   - create a loan
 
-### administrator can't:
+#### administrator can't:
 
   - create new customers
 
-### manager can't:
+#### manager can't:
 
   - edit loan
   - can not change the territorial coefficient of the Client
