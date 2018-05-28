@@ -36,11 +36,9 @@
   - edit only Managers,
   - Change passwords for all Managers,
   - block the account of the Manager (the user can not enter the account),
-
   - edit all Clients
   - to change the territorial coefficient of the Client (3 territories, each has a percent surcharge factor of 0.5%, 1%, 1.5%),
   - can remove Clients
-
   - can edit loans
   - can change the period for issuing a loan
 
