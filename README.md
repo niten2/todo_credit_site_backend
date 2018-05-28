@@ -1,5 +1,6 @@
-# Frontend
-  app here [todo_credit_site_frontend](https://github.com/niten2/todo_credit_site_frontend)
+# Links
+  - [todo_credit_site_frontend](https://github.com/niten2/todo_credit_site_frontend)
+  - [demo](https://niten2.github.io/todo_credit_site_frontend)
 
 # Setup
 
