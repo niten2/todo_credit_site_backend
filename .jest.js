@@ -17,10 +17,10 @@ module.exports = {
     "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
   },
   "testMatch": [
-    "**/spec/**/*.spec.(ts|js)"
+    "**/test/**/*.(spec|test).(ts|js)"
   ],
   "testEnvironment": "node",
-  "setupTestFrameworkScriptFile": "./spec/support/index.ts",
+  "setupTestFrameworkScriptFile": "./test/support/index.ts",
   "notify": false,
   "clearMocks": false,
   "verbose": false,

@@ -22,8 +22,11 @@ const settings: Settings = {
   env: process.env.NODE_ENV,
   name: process.env.APP_NAME,
   host: process.env.APP_HOST,
+
   port: process.env.PORT || "3000",
+
   dbUrl: process.env.DB_URL,
+  dbTestUrl: process.env.DB_TEST_URL,
 
   jwt_secret_key: process.env.JWT_SECRET_KEY,
   salt_password: process.env.SALT_PASSWORD,

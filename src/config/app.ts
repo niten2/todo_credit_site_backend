@@ -1,7 +1,7 @@
 import settings from "config/settings"
 import initRoutes from "config/routes"
 import initMiddlewares from "app/middlewares"
-import { connectDb } from "config/initialize/mongoose"
+import { connectDb } from "config/mongoose"
 import { Express } from "express"
 import logger from "app/services/logger"
 

@@ -1,5 +1,5 @@
 import factory from 'db/factory'
-import { connectDb, closeDb } from "config/initialize/mongoose"
+import { connectDb, closeDb } from "config/mongoose"
 
 const create = async (): Promise<void> => {
   try {
