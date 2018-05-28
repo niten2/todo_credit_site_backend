@@ -14,7 +14,6 @@ module.exports = {
     "node_modules",
     "test",
     "src",
-    // ".",
   ],
 
   "transform": {
@@ -41,4 +40,3 @@ module.exports = {
   "verbose": false,
   "timers": "fake",
 }
-

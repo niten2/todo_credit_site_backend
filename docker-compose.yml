@@ -19,7 +19,7 @@ services:
   #     DB_TEST_URL: mongodb://mongo:27017/credit_site_test
 
   mongo:
-    image: mongo:3.5.13
+    image: mongo:4.0.0-rc0
     ports:
       - 27017:27017
     volumes:
