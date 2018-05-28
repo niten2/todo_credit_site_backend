@@ -1,12 +1,12 @@
 # Setup
 
-## with docker
+#### with docker
 
   - cp .env.sample .env
   - docker-compose up
   - open http://localhost:8080
 
-## without docker
+#### without docker
 
   - npm install
   - cp .env.sample .env
@@ -16,7 +16,7 @@
 
 # Tests
 
-## without docker
+#### without docker
 
   - npm run tests
 
