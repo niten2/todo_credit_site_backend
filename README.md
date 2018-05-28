@@ -120,6 +120,6 @@
 
   Total will be:
 
-  Loan amount * coefficient + 1 calendar day of delay (equal to 15% of the total loan amount)
+  Loan amount * coefficient + 1 calendar day of delay (equal to 15% of the total loan amount)
 
   Example: 10 000 (loan) * 0.5% (amount) + 1507.5 (calendar day of delay) = total
