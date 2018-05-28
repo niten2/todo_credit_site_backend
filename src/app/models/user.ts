@@ -87,7 +87,8 @@ const schema = new mongoose.Schema({
 schema.pre('save', async function(next: any): Promise<any> {
   if (!this.isModified('password')) return next()
 
-  this.password = await bcrypt.hashSync(this.password)
+  let user: any = this
+  user.password = await bcrypt.hashSync(user.password)
 
   return next()
 })

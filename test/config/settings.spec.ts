@@ -1,6 +1,7 @@
 import settings from "config/settings"
 
 it('should return valid values', async () => {
+
   expect(settings).toEqual(expect.objectContaining({
       env: process.env.NODE_ENV,
       name: process.env.APP_NAME,
@@ -18,4 +19,5 @@ it('should return valid values', async () => {
       isEnvProd: process.env.NODE_ENV == "production",
     })
   )
+
 })

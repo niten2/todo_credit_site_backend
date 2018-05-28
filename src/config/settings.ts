@@ -9,7 +9,10 @@ interface Settings {
   readonly name: string
   readonly host: string
   readonly port: string
+
   readonly dbUrl: string
+  readonly dbTestUrl: string
+
   readonly jwt_secret_key: string
   readonly salt_password: string
 

@@ -2,6 +2,9 @@ import "app/models"
 import * as mongoose from "mongoose"
 import settings from "config/settings"
 
+// console.log(11111)
+// console.log(mongoose)
+
 (<any>mongoose).Promise = Promise
 
 if (!settings.isEnvTest) {
@@ -15,7 +18,7 @@ export const Loan = mongoose.model("Loan")
 
 export const connectDb = async (): Promise<any> => {
   console.log(settings.isEnvTest)
-  console.log(settings.dbTestUrl)
+  // console.log(settings.dbTestUrl)
 
 
   if (settings.isEnvTest) {

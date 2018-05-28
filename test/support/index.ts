@@ -20,11 +20,7 @@ global.matchers = matchers
 
 jest.setTimeout(10000)
 
-
-console.log(settings.isEnvTest)
-console.log(settings.dbTestUrl)
-
-// beforeAll(async () => { await connectDb() })
-// beforeAll(async () => { await initApp(app) })
-// afterEach(async () => { await dropDb() })
-// afterAll(async () => { await closeDb() })
+beforeAll(async () => { await connectDb() })
+beforeAll(async () => { await initApp(app) })
+afterEach(async () => { await dropDb() })
+afterAll(async () => { await closeDb() })
