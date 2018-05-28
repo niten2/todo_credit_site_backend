@@ -20,103 +20,109 @@
 ## with docker
   - docker-compose run app npm run tests
 
-# Техническое задание.
+# Requirements
 ---
 
-1. Приложение должно поддерживать аутентификацию по паре логин и пароль.
-2. Иметь разграничение прав доступа (Администратор, Менеджер)
+1. The application must support authentication by a pair of username and password.
 
-- Администратор имеет право:
-  создавать новых пользователей,
-  редактировать только Менеджеров,
-  менять пароли для всех Менеджеров,
-  блокировать учетную запись Менеджера (пользователь не может войти в учетную запись),
+2. To have a differentiation of access rights (Administrator, Manager)
 
-  редактировать всех Клиентов
-  изменять территориальный коэффициент Клиента
-  (3 территории, каждая имеет процентный коэффициент надбавки; 0,5%, 1%, 1,5%),
-  может удалить Клиента
+#### administrator can:
 
-  может редактировать займы
-  может менять срок выдачи займа.
+  - create new users,
+  - edit only Managers,
+  - Change passwords for all Managers,
+  - block the account of the Manager (the user can not enter the account),
 
-- Менеджер может:
-  создавать клиента,
-  изменять данные по клиенту,
-  пометить клиента на удаление.
-  создавать займ
+  - edit all Clients
+  - to change the territorial coefficient of the Client (3 territories, each has a percent surcharge factor of 0.5%, 1%, 1.5%),
+  - can remove Clients
 
-- Администратор не может:
-  создавать новых клиентов
+  - can edit loans
+  - can change the period for issuing a loan
 
-- Менеджер не может:
-  редактировать займ
-  не может менять территориальный коэффициент Клиента
-  получать данные о других пользователях
+#### manager can:
 
-- Пользователь может:
-  редактировать свои аттрибуты
+  - create a client
+  - modify customer data
+  - mark the client for deletion
+  - create a loan
 
-4. Создание клиента:
-  ФИO (обязательное поле)
-  паспортные данные (обязательное поле)
-  телефон (обязательное поле)
-  email (обязательное поле)
-  территория - устанавливается автоматически от клиента
+### administrator can't:
 
-5. Создание менеджера (пользователя программы), (все поля обязательны):
-  ФИО
-  территория
-  телефон
-  логин
-  пароль
-  email
+  - create new customers
 
-7. В случае неудачного входа Менеджера в больше 4 раз, запись блокируется
+### manager can't:
 
-8. У каждого клиента создается своя страница (карточка клиента) в ней содержатся данные:
-  ФИО,
-  территория,
-  телефон,
-  Email,
-  паспортные данные,
-  коэффициент надбавки,
-  сумма выданных денег.
+  - edit loan
+  - can not change the territorial coefficient of the Client
+  - receive information about other users
 
-  А так же имеется 2 кнопки; «Назад» и «Выдать займ».
+#### user can:
 
-9. По нажатию кнопки «Выдать займ»;
-  открывается новая страничка с данными о клиенте,
+  - edit your attributes
 
-  Вверху страницы
-  - ФИО клиента,
-  - уже выданные займы
-  - дата погашения каждого из выданных займа
+4. Client attributes:
 
-  Ниже по странице форма выдачи займа состоящая из 5 полей:
-    - Сумма займа,
-    - Коэффициент выдачи займа
-      (равен территориальному коэффициенту, менеджер не может его менять,
-      при создании берется коэффициент менеджера)
-    - Дата выдача займа,
-    - Дата окончания погашения займа
-      (менеджер ее может поменять, но по умолчанию она рассчитывается сроком на 30 календарных дней),
-    - Итого сумма возврата займа.
+  - name (required field)
+  - passport data (required field)
+  - phone (required field)
+  - email (required)
+  - territory (is installed automatically from the client)
 
-  Итого считается по следующему принципу: Сумма займа * коэффициент + 1 календарный день займа
-  (равный 1% надбавки к общей суммы займа).
+5. Manager, attributes (all fields are required):
 
-  Пример: 10 000      *   0,5%    +      105     = Итого к погашению
+  - full name
+  - territory
+  - phone
+  - login
+  - password
+  - email
 
-          сумма займа    коэффиц.    1 день займа
+7. In case of an unsuccessful login of the manager in more than 4 times, the record is blocked
 
-10. В случае просрочки одного дня займа,
-  а просрочка считается с того момента, когда кончился основной срок погашения 30 календарных дней,
+8. Each customer creates his own page (client card), it contains the following data:
+  - full name
+  - territory
+  - phone
+  - email
+  - passport data
+  - surcharge factor
+  - amount of money given out
 
-  Итого будет:
+  And as there are 2 buttons; "Back" and "Issue a loan."
 
-  Сумма займа * коэффициент + 1 календарный день просрочки (равный 15% от общей суммы займа).
+9. By clicking the button "Issue a loan" opens a new page with customer data
 
-  Пример: 10 000 * 0,5% + 1507,5 = Итого к погашению
+#### top of page
 
-          сумма займа    коэффиц.       1 день займа
+  - Name of the client,
+  - Loans already issued
+  - the maturity date of each loan issued
+
+#### below is a page on the loan issue form consisting of 5 fields:
+
+  - loan amount,
+  - loan issuance ratio 
+  (equal to the territorial coefficient, the manager can not change it when creating a manager's ratio is taken)
+
+  - Date of issue of loan
+
+  - Maturity date of the loan repayment
+  (the manager can change it, but by default it is calculated for a period of 30 calendar days)
+
+  - Total loan repayment amount.
+
+  Total is calculated according to the following principle:
+
+  Loan amount * coefficient + 1 calendar day of loan (equal to 1% of the premium to the total loan amount)
+
+  Example: 10 000 (loan) * 0.5% (amount) + 105 (days loan) = total
+
+10. In case of delay of one day of the loan, and the delay is considered from the moment when the principal maturity of 30 calendar days has expired
+
+  Total will be:
+
+  Loan amount * coefficient + 1 calendar day of delay (equal to 15% of the total loan amount).
+
+  Example: 10 000 (loan) * 0.5% (amount) + 1507.5 (calendar day of delay) = total
