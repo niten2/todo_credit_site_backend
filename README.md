@@ -110,11 +110,11 @@
   (the manager can change it, but by default it is calculated for a period of 30 calendar days)
   - Total loan repayment amount.
 
-  Total is calculated according to the following principle:
+  Total is calculated according to the following principle:
 
   Loan amount * coefficient + 1 calendar day of loan (equal to 1% of the premium to the total loan amount)
 
-  Example: 10 000 (loan) * 0.5% (amount) + 105 (days loan) = total
+  Example: 10 000 (loan) * 0.5% (amount) + 105 (days loan) = total
 
 #### 10. In case of delay of one day of the loan, and the delay is considered from the moment when the principal maturity of 30 calendar days has expired
 
