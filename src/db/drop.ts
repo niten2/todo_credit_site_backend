@@ -1,4 +1,4 @@
-import { connectDb, dropDb } from "config/initialize/mongoose"
+import { connectDb, dropDb } from "config/mongoose"
 
 const main = async () => {
   try {

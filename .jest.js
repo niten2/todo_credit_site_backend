@@ -4,23 +4,37 @@ module.exports = {
       "tsConfigFile": "./tsconfig.json"
     }
   },
+
   "moduleFileExtensions": [
     "ts",
     "js"
   ],
+
   "moduleDirectories": [
     "node_modules",
-    "spec",
-    "src"
+    "test",
+    "src",
   ],
+
   "transform": {
     "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
   },
+
   "testMatch": [
-    "**/spec/**/*.spec.(ts|js)"
+    "**/test/**/*.(spec|test).(ts|js)"
   ],
+
+  "testPathIgnorePatterns": [
+    "<rootDir>/etc/",
+    "<rootDir>/node_modules/",
+  ],
+
+  "modulePathIgnorePatterns": [
+    "<rootDir>/etc/",
+  ],
+
   "testEnvironment": "node",
-  "setupTestFrameworkScriptFile": "./spec/support/index.ts",
+  "setupTestFrameworkScriptFile": "./test/support/index.ts",
   "notify": false,
   "clearMocks": false,
   "verbose": false,

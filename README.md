@@ -1,14 +1,24 @@
 # Setup
 ---
-- npm install
-- cp .env.sample .env
-- up mongo-db
-- npm run start
-- up frontend app [todo_credit_site_frontend](https://github.com/niten2/todo_credit_site_frontend)
+
+## without docker
+  - npm install
+  - cp .env.sample .env
+  - up mongo-db
+  - npm run start
+  - up frontend app [todo_credit_site_frontend](https://github.com/niten2/todo_credit_site_frontend)
+
+## with docker
+  - cp .env.sample .env
+  - docker-compose up
 
 # Tests
----
-- npm run tests
+
+## without docker
+  - npm run tests
+
+## with docker
+  - docker-compose run app npm run tests
 
 # Техническое задание.
 ---

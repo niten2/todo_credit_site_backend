@@ -23,6 +23,6 @@ bower_components
 Thumbs.db
 
 dist/**/*
-
+etc/**
 etc/mongo
 etc/**

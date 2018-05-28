@@ -1,6 +1,6 @@
 import * as faker from "faker"
 import { factory } from 'factory-girl'
-import { User, Territory, Client } from "config/initialize/mongoose"
+import { User, Territory, Client } from "config/mongoose"
 
 factory.define('user', User, {
   full_name: faker.name.findName,

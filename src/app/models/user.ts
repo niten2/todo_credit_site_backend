@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose"
-import * as bcrypt from "bcrypt"
+import * as bcrypt from "bcrypt-nodejs"
 import * as crypto from "crypto"
 import { validateEmail } from "app/services/utils"
 
@@ -86,12 +86,15 @@ const schema = new mongoose.Schema({
 
 schema.pre('save', async function(next: any): Promise<any> {
   if (!this.isModified('password')) return next()
-  this.password = await bcrypt.hash(this.password, 10)
+
+  let user: any = this
+  user.password = await bcrypt.hashSync(user.password)
+
   return next()
 })
 
 schema.methods.comparePassword = async function(candidatePassword: string): Promise<boolean> {
-  return await bcrypt.compare(candidatePassword, this.password)
+  return bcrypt.compareSync(candidatePassword, this.password)
 }
 
 schema.methods.addAttempt = async function(): Promise<any> {
