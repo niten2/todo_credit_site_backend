@@ -26,11 +26,11 @@
 
 # Requirements
 
-1. The application must support authentication by a pair of username and password.
+#### 1. The application must support authentication by a pair of username and password.
 
-2. To have a differentiation of access rights (Administrator, Manager)
+#### 2. To have a differentiation of access rights (Administrator, Manager)
 
-#### administrator can:
+##### administrator can:
 
   - create new users,
   - edit only Managers,
@@ -44,28 +44,28 @@
   - can edit loans
   - can change the period for issuing a loan
 
-#### manager can:
+##### manager can:
 
   - create a client
   - modify customer data
   - mark the client for deletion
   - create a loan
 
-#### administrator can't:
+##### administrator can't:
 
-  - create new customers
+  - create new customers
 
-#### manager can't:
+##### manager can't:
 
   - edit loan
   - can not change the territorial coefficient of the Client
   - receive information about other users
 
-#### user can:
+##### user can:
 
   - edit your attributes
 
-4. Client attributes:
+#### 4. Client attributes:
 
   - name (required field)
   - passport data (required field)
@@ -73,7 +73,7 @@
   - email (required)
   - territory (is installed automatically from the client)
 
-5. Manager, attributes (all fields are required):
+#### 5. Manager, attributes (all fields are required):
 
   - full name
   - territory
@@ -82,9 +82,9 @@
   - password
   - email
 
-7. In case of an unsuccessful login of the manager in more than 4 times, the record is blocked
+#### 7. In case of an unsuccessful login of the manager in more than 4 times, the record is blocked
 
-8. Each customer creates his own page (client card), it contains the following data:
+#### 8. Each customer creates his own page (client card), it contains the following data:
   - full name
   - territory
   - phone
@@ -95,7 +95,7 @@
 
   And as there are 2 buttons; "Back" and "Issue a loan."
 
-9. By clicking the button "Issue a loan" opens a new page with customer data
+#### 9. By clicking the button "Issue a loan" opens a new page with customer data
 
 #### top of page
 
@@ -122,7 +122,7 @@
 
   Example: 10 000 (loan) * 0.5% (amount) + 105 (days loan) = total
 
-10. In case of delay of one day of the loan, and the delay is considered from the moment when the principal maturity of 30 calendar days has expired
+#### 10. In case of delay of one day of the loan, and the delay is considered from the moment when the principal maturity of 30 calendar days has expired
 
   Total will be:
 
