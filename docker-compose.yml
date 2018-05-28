@@ -1,22 +1,22 @@
 version: '3'
 services:
 
-  # app:
-  #   image: todo_credit_site_backend/development
-  #   container_name: todo_credit_site_backend_1
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.development
-  #   ports:
-  #     - 8080:8080
-  #   command: bash -c "npm install; npm run dev"
-  #   volumes:
-  #     - .:/app
-  #   links:
-  #     - mongo
-  #   environment:
-  #     DB_URL: mongodb://mongo:27017/credit_site_dev
-  #     DB_TEST_URL: mongodb://mongo:27017/credit_site_test
+  app:
+    image: todo_credit_site_backend/development
+    container_name: todo_credit_site_backend_1
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    ports:
+      - 8080:8080
+    command: bash -c "npm install; npm run dev"
+    volumes:
+      - .:/app
+    links:
+      - mongo
+    environment:
+      DB_URL: mongodb://mongo:27017/credit_site_dev
+      DB_TEST_URL: mongodb://mongo:27017/credit_site_test
 
   mongo:
     image: mongo:4.0.0-rc0
