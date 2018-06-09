@@ -1,33 +1,4 @@
-# Links
-  - [todo_credit_site_frontend](https://github.com/niten2/todo_credit_site_frontend)
-  - [demo](https://niten2.github.io/todo_credit_site_frontend)
-
-# Setup
-
-#### with docker
-
-  - cp .env.sample .env
-  - docker-compose up
-  - open http://localhost:8080
-
-#### without docker
-
-  - npm install
-  - cp .env.sample .env
-  - up mongo-db
-  - npm run start
-
-# Tests
-
-#### without docker
-
-  - npm run tests
-
-#### with docker
-
-  - docker-compose run app npm run tests
-
-# Requirements
+# Description
 
 #### 1. The application must support authentication by a pair of username and password.
 
@@ -126,3 +97,32 @@
   Loan amount * coefficient + 1 calendar day of delay (equal to 15% of the total loan amount)
 
   Example: 10 000 (loan) * 0.5% (amount) + 1507.5 (calendar day of delay) = total
+
+# Links
+  - [todo_credit_site_frontend](https://github.com/niten2/todo_credit_site_frontend)
+  - [demo](https://niten2.github.io/todo_credit_site_frontend)
+
+# Setup
+
+#### with docker
+
+  - cp .env.sample .env
+  - docker-compose up
+  - open http://localhost:8080
+
+#### without docker
+
+  - npm install
+  - cp .env.sample .env
+  - up mongo-db
+  - npm run start
+
+# Tests
+
+#### without docker
+
+  - npm run tests
+
+#### with docker
+
+  - docker-compose run app npm run tests
